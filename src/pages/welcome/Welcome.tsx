@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from "@emotion/styled";
 import {Grid2} from "@mui/material";
 import hello_emoji from "../../assets/emoji/hello.tgs";
+import Lottie from "lottie-react";
 
 
 export const Welcome = () => {
@@ -10,13 +11,17 @@ export const Welcome = () => {
                direction={"column"}
                justifyContent={"center"}
                alignItems={"center"}
-               height={"100vh"}>
-            Welcome
+               height={"100vh"}
+        >
+            <Emoji animationData={hello_emoji}
+                    loop={true}
+                    style={{width: 300, height: 300}}
+                    />
         </Grid2>
     );
 };
 
 
-const Emoji = styled.img`
+const Emoji = styled(Lottie)`
 
 `
