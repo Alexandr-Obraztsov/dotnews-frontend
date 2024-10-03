@@ -1,13 +1,38 @@
-import React, {useState} from 'react';
 import {Welcome} from "./pages/welcome/Welcome";
+import React from "react";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {Topics} from "./pages/topics/Topics";
+import {Channels} from "./pages/channels/Channels";
+import {FinishSetup} from "./pages/finishSetup/FinishSetup";
+import {Profile} from "./pages/profile/Profile";
 
-const options = ['The Godfather', 'Pulp Fiction'];
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Welcome/>
+    },
+    {
+        path: "topics",
+        element: <Topics/>
+    },
+    {
+        path: "channels",
+        element: <Channels/>
+    },
+    {
+        path: "finishSetup",
+        element: <FinishSetup/>
+    },
+    {
+        path: "profile",
+        element: <Profile/>
+    }
+]);
 
 function App() {
-    const [value, setValue] = useState("");
 
     return (
-        <Welcome/>
+        <RouterProvider router={router} />
     );
 }
 

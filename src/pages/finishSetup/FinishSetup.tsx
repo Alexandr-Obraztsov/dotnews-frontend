@@ -1,14 +1,14 @@
 import * as React from 'react';
 import styled from "@emotion/styled";
 import {Grid2} from "@mui/material";
-import hello_emoji from "../../assets/emoji/Waving Hand.json";
+import emoji from "../../assets/emoji/Floating Hearts.json";
 import Lottie from "lottie-react";
 import {Header} from "../../components/styled/Header";
 import {Body1} from "../../components/styled/Body1";
 import {StyledButton} from "../../components/styled/StyledButton";
 
 
-export const Welcome = () => {
+export const FinishSetup = () => {
     return (
         <Grid2 container
                direction={"column"}
@@ -23,17 +23,18 @@ export const Welcome = () => {
                    alignItems={"center"}
                    flexGrow={1}
             >
-                <Emoji animationData={hello_emoji}
+
+                <Header marginBlockEnd={"20px"}>
+                    Well done!
+                </Header>
+
+                <Emoji animationData={emoji}
                        loop={true}
                        style={{width: 60, height: 60, backgroundColor: 'transparent'}}
                 />
 
-                <Header marginBlockStart={"40px"}>
-                    Welcome!
-                </Header>
-
-                <Body1 marginBlockStart={"10px"} paddingX={"70px"}>
-                    This is your personal news aggregator. Let's set up the flow of your news.
+                <Body1 marginBlockStart={"30px"} paddingX={"70px"}>
+                    You have started to receive news
                 </Body1>
 
             </Grid2>
@@ -41,9 +42,9 @@ export const Welcome = () => {
             <StyledButton variant={"contained"}
                           color={"primary"}
                           size={"large"}
-                          href={"/topics"}
+                          href={"/profile"}
             >
-                Let's start!
+                Back to Telegram
             </StyledButton>
         </Grid2>
     );

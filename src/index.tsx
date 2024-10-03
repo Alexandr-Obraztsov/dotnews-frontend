@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import {createTheme, CssBaseline} from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
 
-const theme = createTheme({
+export const theme = createTheme({
     palette: {
         mode: 'dark',
     },
@@ -16,8 +16,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <ThemeProvider theme={theme}>
-        <CssBaseline/>
-        <App/>
+        <CssBaseline>
+            <App/>
+        </CssBaseline>
     </ThemeProvider>
 );
 
