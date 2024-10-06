@@ -1,24 +1,26 @@
-import React, {FC, MouseEventHandler, useState} from "react";
-import {Box, Grid2, Icon} from "@mui/material";
+import React, {FC} from "react";
+import {Box, Grid2} from "@mui/material";
 import styled from "@emotion/styled";
-import {theme} from "../../../index";
 import {Body1} from "../../styled/Body1";
 import {Done} from "@mui/icons-material";
 
-export type ItemPropsType = {
+export type ItemType = {
     id: string,
-    imgSrc: string,
-    title: string,
-    description: string
+    name: string,
+    checked?: boolean
 }
 
+export type ItemPropsType = {
+    clickCallback: (id: string) => void
+} & ItemType;
 
-export const Item: FC<ItemPropsType> = ({imgSrc, title, description}) => {
-    const [checked, setChecked] = useState<boolean>(false);
 
+export const Item: FC<ItemPropsType> = ({id, name, checked, clickCallback}) => {
     const handleClick = () => {
-        setChecked(!checked);
+        clickCallback(id)
     }
+
+    const imgSrc = ""
 
     return (
         <StyledItem>
@@ -32,7 +34,7 @@ export const Item: FC<ItemPropsType> = ({imgSrc, title, description}) => {
                         borderRadius={"30%"}
                         width={"60px"}
                         height={"60px"}
-                        bgcolor={"#474747"}
+                        bgcolor={"background.paper"}
                     ></Box>}
 
                 <Grid2
@@ -40,24 +42,37 @@ export const Item: FC<ItemPropsType> = ({imgSrc, title, description}) => {
                     direction={"column"}
                     alignItems={"flex-start"}
                 >
-                    <Body1 fontWeight={"bold"}>{title}</Body1>
-                    <Body1>{description}</Body1>
+                    <Body1 fontWeight={"bold"}>{name}</Body1>
+                    <Body1 color={"text.secondary"}>Описание</Body1>
                 </Grid2>
             </Grid2>
             <Box
                 position={"absolute"}
                 right={"0"}
                 top={"0"}
-                bgcolor={"rgba(5,41,22,0.6)"}
                 width={"100%"}
                 height={"100%"}
-                hidden={!checked}
+                sx={{
+                    transition: "0.3s",
+                    opacity: checked ? 1 : 0,
+
+                    "&::after": {
+                        content: "''",
+                        position: "absolute",
+                        top: "0",
+                        left: "0",
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: window.Telegram.WebApp.themeParams.accent_text_color,
+                        opacity: 0.2,
+                    }
+                }}
             >
                 <StyledDone>
                     <Done/>
                 </StyledDone>
             </Box>
-            <Checkbox type={"checkbox"} onChange={handleClick}/>
+            <HiddenButton onClick={handleClick}/>
         </StyledItem>
     )
 }
@@ -74,7 +89,7 @@ const StyledItem = styled.div`
     position: relative;
 `
 
-const Checkbox = styled.input`
+const HiddenButton = styled.button`
     position: absolute;
     top: 0;
     right: 0;
@@ -89,7 +104,7 @@ const StyledDone = styled.div`
     top: 50%;
     right: 40px;
     transform: translateY(-50%);
-    background-color: #0e3f24;
+    background-color: ${window.Telegram.WebApp.themeParams.section_header_text_color};
     border-radius: 50%;
     width: 30px;
     height: 30px;

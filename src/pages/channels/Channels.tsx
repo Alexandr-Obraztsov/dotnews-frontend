@@ -6,79 +6,28 @@ import {CheckboxList} from "../../components/checkboxList/CheckboxList";
 import {StyledButton} from "../../components/styled/StyledButton";
 import {AccountCircle} from "@mui/icons-material";
 import {ChangeEvent, useState} from "react";
+import {ItemType} from "../../components/checkboxList/item/Item";
 import {v1} from "uuid";
-
-const items = [
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title1",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title2",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title3",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title4",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title5",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title6",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title6",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title7",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title",
-        description: "Description"
-    },
-    {
-        id: v1(),
-        imgSrc: "",
-        title: "Title",
-        description: "Description"
-    },
-]
+import {Shadow} from "../../components/styled/Shadow";
+import {theme} from "../../index";
+import {useNavigate} from "react-router-dom";
 
 
 export const Channels: React.FC = () => {
+    const [items, setItems] = useState<ItemType[]>([])
+
+    const navigate = useNavigate()
+    const tg = window.Telegram.WebApp;
+    tg.BackButton.show()
+    tg.BackButton.onClick(() => {
+        navigate(-1)
+    })
+
+    const handleClick = (id: string) => {
+        setItems(items.map(item => item.id === id ? {...item, checked: !item.checked} : item))
+    }
+
+
     const [value, setValue] = useState('');
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -86,8 +35,10 @@ export const Channels: React.FC = () => {
     }
 
     const filteredItems = items.filter(item =>
-        item.title.toLowerCase().includes(value.toLowerCase())
+        item.name.toLowerCase().includes(value.toLowerCase())
     );
+
+    const checkedItemsCount = items.filter(item => item.checked).length
 
     return (
         <>
@@ -120,7 +71,7 @@ export const Channels: React.FC = () => {
                         margin: "20px 0 20px",
                         paddingX: "20px",
                         "&>div": {
-                            backgroundColor: "#474747"
+                            backgroundColor: window.Telegram.WebApp.themeParams.secondary_bg_color
                         }
                     }}
                     slotProps={{
@@ -134,36 +85,32 @@ export const Channels: React.FC = () => {
                     }}/>
 
                 <Divider flexItem/>
-                <CheckboxList items={filteredItems} paddingBottom={"130px"}/>
+                <CheckboxList items={filteredItems} paddingBottom={checkedItemsCount >= 3 ? "130px" : "10px"} clickCallback={handleClick}/>
             </Grid2>
 
-            <Grid2
-                container
-                direction={"column"}
-                alignItems={"center"}
-                justifyContent={"flex-end"}
-                paddingBlockEnd={"50px"}
-                position={"fixed"}
+            <Shadow
+                height={"200px"}
                 bottom={"0"}
-                width={"100%"}
-                height={"150px"}
+                color={`${theme.palette.background.default} 10%`}
+                style={{opacity: checkedItemsCount >= 3 ? 1 : 0}}
+            />
+            <StyledButton
+                variant={"contained"}
+                size={"large"}
                 sx={{
-                    background: "linear-gradient(to top, black 30%, transparent 100%)",
-                    pointerEvents: "none",
-                    zIndex: 10
+                    transition: "0.5s",
+                    visibility: checkedItemsCount < 3 ? "hidden" : 'visible',
+                    opacity: checkedItemsCount > 2 ? 1 : 0,
+                    position: "absolute",
+                    bottom: "50px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    zIndex: 2
                 }}
-
+                href={"/finishSetup"}
             >
-                <StyledButton
-                    variant={"contained"}
-                    color={"primary"}
-                    size={"large"}
-                    sx={{pointerEvents: "all"}}
-                    href={"/finishSetup"}
-                >
-                    Next
-                </StyledButton>
-            </Grid2>
+                Next
+            </StyledButton>
         </>
     );
 };

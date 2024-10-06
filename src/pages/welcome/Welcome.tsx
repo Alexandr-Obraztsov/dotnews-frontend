@@ -1,15 +1,53 @@
 import * as React from 'react';
-import styled from "@emotion/styled";
 import {Grid2} from "@mui/material";
 import hello_emoji from "../../assets/emoji/Waving Hand.json";
 import Lottie from "lottie-react";
 import {Header} from "../../components/styled/Header";
 import {Body1} from "../../components/styled/Body1";
 import {StyledButton} from "../../components/styled/StyledButton";
+import {useNavigate} from "react-router-dom";
+import {configs} from "../../configs";
+import {useState} from "react";
+import {ErrorPage} from "../error/ErrorPage";
 
 
 export const Welcome = () => {
-    return (
+
+    const navigate = useNavigate()
+    const [error, setError] = useState<Error | null>(null);
+
+    const tg = window.Telegram.WebApp;
+    tg.BackButton.hide()
+
+
+    const onSubmit= () => {
+        fetch(`${configs.url}/api/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                telegramId: tg.initDataUnsafe.user!.id,
+            })
+        })
+            .then(
+                (result) => {
+                    if (result.statusText === "OK")
+                        navigate("/topics")
+                    else
+                        setError(new Error(result.statusText))
+                },
+                (error) => {
+                    setError(error)
+                    navigate("/profile")
+                }
+            )
+    }
+
+    if (error)
+        return <ErrorPage/>
+    else
+        return (
         <Grid2 container
                direction={"column"}
                justifyContent={"space-between"}
@@ -23,46 +61,27 @@ export const Welcome = () => {
                    alignItems={"center"}
                    flexGrow={1}
             >
-                <Emoji animationData={hello_emoji}
+                <Lottie animationData={hello_emoji}
                        loop={true}
-                       style={{width: 60, height: 60, backgroundColor: 'transparent'}}
+                       style={{width: 100, height: 100, backgroundColor: 'transparent'}}
                 />
 
-                <Header marginBlockStart={"40px"}>
+                <Header marginBlockStart={"10px"}>
                     Welcome!
                 </Header>
 
-                <Body1 marginBlockStart={"10px"} paddingX={"70px"}>
+                <Body1 marginBlockStart={"10px"} paddingX={"70px"} color={"text.secondary"}>
                     This is your personal news aggregator. Let's set up the flow of your news.
                 </Body1>
 
             </Grid2>
 
             <StyledButton variant={"contained"}
-                          color={"primary"}
                           size={"large"}
-                          href={"/topics"}
+                          onClick={onSubmit}
             >
                 Let's start!
             </StyledButton>
         </Grid2>
     );
 };
-
-
-const Emoji = styled(Lottie)`
-    position: relative;
-
-    &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90px;
-        height: 90px;
-        border-radius: 35%;
-        background-color: #474747;
-    }
-`

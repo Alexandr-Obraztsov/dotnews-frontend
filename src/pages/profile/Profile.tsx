@@ -1,36 +1,111 @@
 import * as React from 'react';
 import {Avatar, Grid2, Typography} from "@mui/material";
-import {Header} from "../../components/styled/Header";
-import {StyledButton} from "../../components/styled/StyledButton";
+import {SubscibesPanel} from "../../components/subscribesPanel/SubscibesPanel";
+import {useNavigate} from "react-router-dom";
+import {ErrorPage} from "../error/ErrorPage";
+import {Loading} from "../loading/Loading";
+import {useEffect, useState} from "react";
+import {ItemType} from "../../components/checkboxList/item/Item";
+import {configs} from "../../configs";
 
+export const Profile: React.FC = () => {
 
-const userData = {
-    name: "Anton",
-    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmtbqHaCfL1SJbRcFNETk6Sabc4goGiMiXpA&s",
-    date: "01.01.2022",
-    topics: ["some topic", "some topic", "some topic", "some topic", "some topic", "some topic", "some topic"],
-    channels: ["some channel", "some channel", "some channel", "some channel", "some channel", "some channel", "some channel"],
-}
+    const tg = window.Telegram.WebApp;
+    const user = tg.initDataUnsafe.user!;
+    const navigate = useNavigate()
 
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [items, setItems] = useState<(ItemType)[]>([]);
+    const [error, setError] = useState<Error | null>(null);
 
-export const Profile : React.FC = () => {
+    useEffect(() => {
+        fetch(`${configs.url}/api/topics/?id=${user.id}`)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setIsLoaded(true);
+                    setItems(result);
+                },
+                (error) => {
+                    setIsLoaded(true);
+                    const result = []
+                    for (let i = 0; i < 3; i++) {
+                        result.push({id: "", name: "Crypto", checked: false})
+                    }
+                    setItems(result);
+                    // setError(error);
+                }
+            )
+    }, [])
+
+    tg.BackButton.show()
+    tg.BackButton.onClick(() => {
+        navigate("/finishSetup")
+    })
+
+    if (error) return <ErrorPage/>;
+    if (!isLoaded) return <Loading/>;
+
+    tg.MainButton.show()
+    tg.MainButton.setParams({
+        text: "Share my interests"
+    })
+    tg.MainButton.onClick(() => {
+        tg.close()
+    })
+
+    const editHandler = () => {
+        tg.BackButton.hide()
+        navigate("/topicsEditor")
+    }
+
     return (
         <Grid2
+            marginX={"20px"}
             container
             direction={"column"}
-            alignItems={"center"}
-            justifyContent={"center"}
             height={"100vh"}
+            wrap={"nowrap"}
         >
-            <Avatar src={userData.avatar} sx={{width: "130px", height: "130px"}}/>
-            <Typography variant={"h4"} marginBlockStart={"15px"}>Anton</Typography>
-            <Typography variant={"body2"} marginBlockStart={"5px"} color={"text.secondary"}>User since: {userData.date}</Typography>
-            <StyledButton
-                variant={"contained"}
-                color={"primary"}
-                size={"small"}
-                sx={{marginTop: "15px"}}
-            >Share your setup</StyledButton>
+            <Grid2
+                container
+                marginBlockStart={"10px"}
+                direction={"row"}
+                alignItems={"center"}
+                gap={"10px"}
+            >
+                <Avatar
+                    src={user.photo_url}
+                    sx={{width: "50px", height: "50px"}}
+                />
+
+                <Grid2
+                    container
+                    direction={"column"}
+                >
+                    <Typography
+                        variant={"h2"}
+                        fontSize={"20px"}
+                        fontWeight={450}
+                    >
+                        {user.first_name} {user.last_name}
+                    </Typography>
+
+                    <Typography
+                        color={"text.secondary"}
+                    >
+                        #{user.username || "unknown"}
+                    </Typography>
+                </Grid2>
+            </Grid2>
+
+            <SubscibesPanel
+                editHandler={editHandler}
+                sx={{marginTop: "30px"}}
+                title={"Your topics"}
+                items={items}
+            />
+
         </Grid2>
     );
 };
