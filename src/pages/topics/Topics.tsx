@@ -75,7 +75,7 @@ export const Topics: React.FC = () => {
 
     tg.BackButton.show()
     tg.BackButton.onClick(() => {
-        navigate("/welcome")
+        navigate("/")
     })
 
     if (error) return <ErrorPage/>;
