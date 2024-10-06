@@ -11,7 +11,7 @@ export const Autorization = () => {
     const tg = window.Telegram.WebApp;
     const userId = tg.initDataUnsafe.user!.id;
 
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         fetch(`${configs.url}/api/users/${userId}`)
@@ -23,11 +23,11 @@ export const Autorization = () => {
                     else
                         navigate("/profile")
                 },
-                (error) => setError(error)
+                (error) => setError(userId.toString())
             )
     }, []);
 
-    if (error) return <ErrorPage/>
+    if (error) return <>{error}<ErrorPage/></>
 
     return (
         <></>
