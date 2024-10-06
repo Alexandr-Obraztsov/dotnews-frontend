@@ -1,20 +1,16 @@
 import {Welcome} from "./pages/welcome/Welcome";
 import React from "react";
-import {createHashRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Topics} from "./pages/topics/Topics";
 import {FinishSetup} from "./pages/finishSetup/FinishSetup";
 import {Profile} from "./pages/profile/Profile";
 import {TopicsEditor} from "./pages/topicsEditor/TopicsEditor";
-import {Autorization} from "./pages/autorization/Autorization";
 
 
-const router = createHashRouter([
+const router = createBrowserRouter([
+
     {
         path: "/",
-        element: <Autorization/>
-    },
-    {
-        path: "welcome",
         element: <Welcome/>
     },
     {
