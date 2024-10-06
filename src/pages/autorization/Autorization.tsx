@@ -23,7 +23,7 @@ export const Autorization = () => {
                     else
                         navigate("/profile")
                 },
-                (error) => setError(error)
+                (error) => navigate("/welcome")
             )
     }, []);
 
