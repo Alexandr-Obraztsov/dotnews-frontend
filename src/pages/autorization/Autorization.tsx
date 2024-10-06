@@ -4,14 +4,14 @@ import {useEffect, useState} from "react";
 import {configs} from "../../configs";
 import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../error/ErrorPage";
-import {PagePropsType, PathType} from "../../App";
 
-export const Autorization : React.FC<PagePropsType> = ({setPath}) => {
+export const Autorization = () => {
+    const navigate = useNavigate()
 
     const tg = window.Telegram.WebApp;
     const userId = tg.initDataUnsafe.user!.id;
 
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
         fetch(`${configs.url}/api/users/${userId}`)
@@ -19,15 +19,15 @@ export const Autorization : React.FC<PagePropsType> = ({setPath}) => {
             .then(
                 (result) => {
                     if(result.code === 204)
-                        setPath("welcome")
+                        navigate("/welcome")
                     else
-                        setPath("profile")
+                        navigate("/profile")
                 },
-                (error) => setError(userId.toString())
+                (error) => setError(error)
             )
     }, []);
 
-    if (error) return <>{error}<ErrorPage/></>
+    if (error) return <ErrorPage/>
 
     return (
         <></>

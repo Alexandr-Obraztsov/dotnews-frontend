@@ -12,10 +12,9 @@ import {Shadow} from "../../components/styled/Shadow";
 import {theme} from "../../index";
 import {StyledButton} from "../../components/styled/StyledButton";
 import {TopicsList} from "../../components/topicsList/TopicsList";
-import {PagePropsType} from "../../App";
 
 
-export const TopicsEditor : React.FC<PagePropsType> = ({setPath}) => {
+export const TopicsEditor = () => {
     const [isLoaded, setLoaded] = useState<boolean>(false);
 
     const [topics, setTopics] = useState<ItemType[]>([]);
@@ -25,6 +24,9 @@ export const TopicsEditor : React.FC<PagePropsType> = ({setPath}) => {
     const tg = window.Telegram.WebApp;
 
     const userId = tg.initDataUnsafe.user!.id;
+
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         fetch(`${configs.url}/api/topics`)
@@ -85,7 +87,7 @@ export const TopicsEditor : React.FC<PagePropsType> = ({setPath}) => {
 
     tg.BackButton.show()
     tg.BackButton.onClick(() => {
-        setPath("profile")
+        navigate("/profile")
     })
 
 

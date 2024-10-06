@@ -13,10 +13,9 @@ import {Loading} from "../loading/Loading";
 import {ErrorPage} from "../error/ErrorPage";
 import {TopicsList} from "../../components/topicsList/TopicsList";
 import {sendMetrics} from "../../SendMetrics";
-import {PagePropsType} from "../../App";
 
 
-export const Topics: React.FC<PagePropsType> = ({setPath}) => {
+export const Topics: React.FC = () => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [items, setItems] = useState<ItemType[]>([]);
     const [error, setError] = useState<Error | null>(null);
@@ -24,6 +23,7 @@ export const Topics: React.FC<PagePropsType> = ({setPath}) => {
     const tg = window.Telegram.WebApp;
     const userId = tg.initDataUnsafe.user!.id;
 
+    const navigate = useNavigate()
 
     const checkedItemsCount = items.filter(item => item.checked).length;
 
@@ -63,7 +63,7 @@ export const Topics: React.FC<PagePropsType> = ({setPath}) => {
             .then(
                 (result) => {
                     if (result.statusText === "OK")
-                        setPath("finishSetup")
+                        navigate("/finishSetup")
                     else
                         setError(new Error(result.statusText))
                 },
@@ -75,7 +75,7 @@ export const Topics: React.FC<PagePropsType> = ({setPath}) => {
 
     tg.BackButton.show()
     tg.BackButton.onClick(() => {
-        setPath("welcome")
+        navigate("/welcome")
     })
 
     if (error) return <ErrorPage/>;
