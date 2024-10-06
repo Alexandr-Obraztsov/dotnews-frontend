@@ -23,19 +23,19 @@ const getTopicEmoji = (name: string): React.ReactNode => {
     }
 
     switch (name) {
-        case "Information Technologies":
+        case "IT":
             return <Lottie
                 animationData={Boy_emoji}
                 loop={true}
                 style={emojiStyle}
             />
-        case "Crypto":
+        case "Криптовалюта":
             return <Lottie
                 animationData={Loopmoney}
                 loop={true}
                 style={emojiStyle}
             />
-        case "Startups":
+        case "Стартапы":
             return <Lottie
                 animationData={Notebook}
                 loop={true}
