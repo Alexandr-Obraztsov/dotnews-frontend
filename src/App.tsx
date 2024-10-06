@@ -11,11 +11,11 @@ import {Autorization} from "./pages/autorization/Autorization";
 const router = createBrowserRouter([
 
     {
-        path: "/auth",
+        path: "/",
         element: <Autorization/>
     },
     {
-        path: "/",
+        path: "welcome",
         element: <Welcome/>
     },
     {
