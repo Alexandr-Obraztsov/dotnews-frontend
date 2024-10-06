@@ -4,9 +4,9 @@ import {useEffect, useState} from "react";
 import {configs} from "../../configs";
 import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../error/ErrorPage";
+import {PagePropsType, PathType} from "../../App";
 
-export const Autorization = () => {
-    const navigate = useNavigate()
+export const Autorization : React.FC<PagePropsType> = ({setPath}) => {
 
     const tg = window.Telegram.WebApp;
     const userId = tg.initDataUnsafe.user!.id;
@@ -19,9 +19,9 @@ export const Autorization = () => {
             .then(
                 (result) => {
                     if(result.code === 204)
-                        navigate("/welcome")
+                        setPath("welcome")
                     else
-                        navigate("/profile")
+                        setPath("profile")
                 },
                 (error) => setError(userId.toString())
             )

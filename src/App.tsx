@@ -1,5 +1,5 @@
 import {Welcome} from "./pages/welcome/Welcome";
-import React from "react";
+import React, {useState} from "react";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Topics} from "./pages/topics/Topics";
 import {FinishSetup} from "./pages/finishSetup/FinishSetup";
@@ -8,37 +8,30 @@ import {TopicsEditor} from "./pages/topicsEditor/TopicsEditor";
 import {Autorization} from "./pages/autorization/Autorization";
 
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Autorization/>
-    },
-    {
-        path: "welcome",
-        element: <Welcome/>
-    },
-    {
-        path: "topics",
-        element: <Topics/>
-    },
-    {
-        path: "finishSetup",
-        element: <FinishSetup/>
-    },
-    {
-        path: "profile",
-        element: <Profile/>
-    },
-    {
-        path: "topicsEditor",
-        element: <TopicsEditor/>
-    }
-]);
+export type PathType = "autorization" | "welcome" | "topics"| "finishSetup" | "profile" | "topicsEditor";
+
+export type PagePropsType = {
+    setPath: (path: PathType) => void
+}
 
 function App() {
-    return (
-        <RouterProvider router={router} />
-    );
+
+    const [path,setPath] = useState<PathType>("autorization")
+
+    switch (path) {
+        case "autorization":
+            return <Autorization setPath={setPath}/>
+        case "welcome":
+            return <Welcome setPath={setPath}/>
+        case "topics":
+            return <Topics setPath={setPath}/>
+        case "finishSetup":
+            return <FinishSetup setPath={setPath}/>
+        case "profile":
+            return <Profile setPath={setPath}/>
+        case "topicsEditor":
+            return <TopicsEditor setPath={setPath}/>
+    }
 }
 
 export default App;

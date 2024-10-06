@@ -10,11 +10,11 @@ import {configs} from "../../configs";
 import {useEffect, useState} from "react";
 import {ErrorPage} from "../error/ErrorPage";
 import {sendMetrics} from "../../SendMetrics";
+import {PagePropsType} from "../../App";
 
 
-export const Welcome = () => {
+export const Welcome : React.FC<PagePropsType> = ({setPath}) => {
 
-    const navigate = useNavigate()
     const [error, setError] = useState<string>("");
 
     const tg = window.Telegram.WebApp;
@@ -35,7 +35,7 @@ export const Welcome = () => {
 
             })
         })
-        navigate("/topics")
+        setPath("topics")
     }
 
     if (error)

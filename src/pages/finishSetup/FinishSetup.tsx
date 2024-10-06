@@ -6,15 +6,15 @@ import {Header} from "../../components/styled/Header";
 import {Body1} from "../../components/styled/Body1";
 import {StyledButton} from "../../components/styled/StyledButton";
 import {useNavigate} from "react-router-dom";
+import {PagePropsType} from "../../App";
 
 
-export const FinishSetup = () => {
+export const FinishSetup : React.FC<PagePropsType> = ({setPath}) => {
     const tg = window.Telegram.WebApp;
-    const navigate = useNavigate()
 
     tg.BackButton.show()
     tg.BackButton.onClick(() => {
-        navigate("/topics")
+        setPath("topics")
     })
 
     tg.MainButton.hide()

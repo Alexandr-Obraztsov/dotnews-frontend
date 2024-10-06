@@ -7,12 +7,12 @@ import {Loading} from "../loading/Loading";
 import {useEffect, useState} from "react";
 import {ItemType} from "../../components/topicsList/item/Item";
 import {configs} from "../../configs";
+import {PagePropsType} from "../../App";
 
-export const Profile: React.FC = () => {
+export const Profile: React.FC<PagePropsType> = ({setPath})=> {
 
     const tg = window.Telegram.WebApp;
     const user = tg.initDataUnsafe.user!;
-    const navigate = useNavigate()
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [items, setItems] = useState<(ItemType)[]>([]);
@@ -46,7 +46,7 @@ export const Profile: React.FC = () => {
 
     const editHandler = () => {
         tg.MainButton.hide()
-        navigate("/topicsEditor")
+        setPath("topicsEditor")
     }
 
     return (
