@@ -1,3 +1,3 @@
 export const configs = {
-    url: "https://dotnewsbot.ru/back_api"
+    url: "http://dotnewsbot.ru"
 }

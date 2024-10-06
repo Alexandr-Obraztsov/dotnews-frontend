@@ -22,7 +22,6 @@ export const Welcome = () => {
     tg.BackButton.hide()
 
     const onSubmit= () => {
-        sendMetrics("NewUserEnteredBot")
         fetch(`${configs.url}/api/users`, {
             method: 'POST',
             headers: {
@@ -30,11 +29,10 @@ export const Welcome = () => {
             },
             body: JSON.stringify({
                 telegramId: userId,
-                id: "123",
-                createdAt: "123",
-
             })
         })
+        sendMetrics("NewUserEnteredBot")
+
         navigate("/topics")
     }
 

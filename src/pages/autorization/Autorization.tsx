@@ -27,7 +27,7 @@ export const Autorization = () => {
             )
     }, []);
 
-    if (error) return <ErrorPage/>
+    if (error) return <>{error.message}<ErrorPage/></>
 
     return (
         <></>

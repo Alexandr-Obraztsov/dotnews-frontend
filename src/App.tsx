@@ -5,12 +5,17 @@ import {Topics} from "./pages/topics/Topics";
 import {FinishSetup} from "./pages/finishSetup/FinishSetup";
 import {Profile} from "./pages/profile/Profile";
 import {TopicsEditor} from "./pages/topicsEditor/TopicsEditor";
+import {Autorization} from "./pages/autorization/Autorization";
 
 
 const router = createBrowserRouter([
 
     {
         path: "/",
+        element: <Autorization/>
+    },
+    {
+        path: "/welcome",
         element: <Welcome/>
     },
     {
