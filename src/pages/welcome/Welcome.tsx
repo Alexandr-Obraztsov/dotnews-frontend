@@ -31,6 +31,7 @@ export const Welcome = () => {
                 telegramId: userId,
             })
         })
+
         sendMetrics("NewUserEnteredBot")
 
         navigate("/topics")
