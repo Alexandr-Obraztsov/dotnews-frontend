@@ -1,22 +1,27 @@
 import * as React from 'react';
-import {Backdrop, CircularProgress, Divider, Grid2} from "@mui/material";
 import {useEffect, useState} from "react";
+import {ItemType} from "../../components/checkboxList/item/Item";
 import {useNavigate} from "react-router-dom";
 import {configs} from "../../configs";
-import {ItemPropsType, ItemType} from "../../components/checkboxList/item/Item";
+import {ErrorPage} from "../error/ErrorPage";
+import {Loading} from "../loading/Loading";
+import {Divider, Grid2} from "@mui/material";
 import {Header} from "../../components/styled/Header";
 import {Body1} from "../../components/styled/Body1";
 import {CheckboxList} from "../../components/checkboxList/CheckboxList";
 import {Shadow} from "../../components/styled/Shadow";
-import {StyledButton} from "../../components/styled/StyledButton";
 import {theme} from "../../index";
-import {Loading} from "../loading/Loading";
-import {ErrorPage} from "../error/ErrorPage";
+import {StyledButton} from "../../components/styled/StyledButton";
 
 
-export const Topics: React.FC = () => {
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
-    const [items, setItems] = useState<(ItemType)[]>([]);
+
+export const TopicsEditor = () => {
+    const [allTopicsLoaded, setAllTopicsLoaded] = useState<boolean>(false);
+    const [checkedTopicsLoaded, setCheckedTopicsLoaded] = useState<boolean>(false);
+
+    const [allTopics, setAllTopics] = useState<ItemType[]>([]);
+    const [checkedTopics, setCheckedTopics] = useState<ItemType[]>([]);
+
     const [error, setError] = useState<Error | null>(null);
 
     const tg = window.Telegram.WebApp;
@@ -24,18 +29,16 @@ export const Topics: React.FC = () => {
 
     const navigate = useNavigate()
 
-    const checkedItemsCount = items.filter(item => item.checked).length;
 
     useEffect(() => {
         fetch(`${configs.url}/api/topics`)
             .then(res => res.json())
             .then(
                 (result) => {
-                    setIsLoaded(true);
-                    setItems(result.map((item: ItemType) => ({...item, checked: false})));
+                    setAllTopicsLoaded(!allTopicsLoaded);
+                    setAllTopics(result.map((item: ItemType) => ({...item, checked: false})));
                 },
                 (error) => {
-                    setIsLoaded(true);
                     setError(error);
                 }
             )
@@ -43,11 +46,11 @@ export const Topics: React.FC = () => {
 
 
     const handleClick = (id: string) => {
-        setItems(items.map(item => item.id === id ? {...item, checked: !item.checked} : item))
+        setCheckedTopics(allTopics.map(item => item.id === id ? {...item, checked: !item.checked} : item))
     }
 
     const onSubmit = () => {
-        const checkedTopics = items.filter(item => item.checked).map(item => item.id);
+        const checkedTopics = allTopics.filter(item => item.checked).map(item => item.id);
         fetch(`${configs.url}/api/subscribtions/subscribe`, {
             method: 'POST',
             headers: {
@@ -76,9 +79,11 @@ export const Topics: React.FC = () => {
         navigate("/")
     })
 
+    const checkedTopicsCount = allTopics.filter(item => item.checked).length;
+
     if (error) return <ErrorPage/>;
 
-    if (!isLoaded) return <Loading/>;
+    if (!allTopicsLoaded || !checkedTopicsLoaded) return <Loading/>;
 
     return (
         <>
@@ -103,7 +108,7 @@ export const Topics: React.FC = () => {
 
                 <Divider flexItem/>
 
-                <CheckboxList items={items} paddingBottom={checkedItemsCount ? "130px" : "20px"}
+                <CheckboxList items={allTopics} paddingBottom={checkedTopicsCount ? "130px" : "20px"}
                               clickCallback={handleClick}/>
 
             </Grid2>
@@ -112,15 +117,15 @@ export const Topics: React.FC = () => {
                 height={"200px"}
                 bottom={"0"}
                 color={`${theme.palette.background.default} 10%`}
-                style={{opacity: checkedItemsCount ? 1 : 0}}
+                style={{opacity: checkedTopicsCount ? 1 : 0}}
             />
             <StyledButton
                 variant={"contained"}
                 size={"large"}
                 sx={{
                     transition: "0.5s",
-                    visibility: !checkedItemsCount ? "hidden" : 'visible',
-                    opacity: checkedItemsCount ? 1 : 0,
+                    visibility: !checkedTopicsCount ? "hidden" : 'visible',
+                    opacity: checkedTopicsCount ? 1 : 0,
                     position: "absolute",
                     bottom: "50px",
                     left: "50%",

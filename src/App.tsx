@@ -5,6 +5,8 @@ import {Topics} from "./pages/topics/Topics";
 import {Channels} from "./pages/channels/Channels";
 import {FinishSetup} from "./pages/finishSetup/FinishSetup";
 import {Profile} from "./pages/profile/Profile";
+import {TopicsEditor} from "./pages/topicsEditor/TopicsEditor";
+
 
 const router = createBrowserRouter([
     {
@@ -26,11 +28,14 @@ const router = createBrowserRouter([
     {
         path: "profile",
         element: <Profile/>
+    },
+    {
+        path: "topicsEditor",
+        element: <TopicsEditor/>
     }
 ]);
 
 function App() {
-
     return (
         <RouterProvider router={router} />
     );
