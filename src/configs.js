@@ -1,3 +1,3 @@
 export const configs = {
-    url: "http://dotnewsbot.ru"
+    url: "http://62.169.28.6:8080"
 }
