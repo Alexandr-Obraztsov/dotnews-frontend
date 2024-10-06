@@ -3,20 +3,21 @@ import {Backdrop, CircularProgress, Divider, Grid2} from "@mui/material";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {configs} from "../../configs";
-import {ItemPropsType, ItemType} from "../../components/checkboxList/item/Item";
+import {ItemType} from "../../components/topicsList/item/Item";
 import {Header} from "../../components/styled/Header";
 import {Body1} from "../../components/styled/Body1";
-import {CheckboxList} from "../../components/checkboxList/CheckboxList";
 import {Shadow} from "../../components/styled/Shadow";
 import {StyledButton} from "../../components/styled/StyledButton";
 import {theme} from "../../index";
 import {Loading} from "../loading/Loading";
 import {ErrorPage} from "../error/ErrorPage";
+import {TopicsList} from "../../components/topicsList/TopicsList";
+import {sendMetrics} from "../../SendMetrics";
 
 
 export const Topics: React.FC = () => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
-    const [items, setItems] = useState<(ItemType)[]>([]);
+    const [items, setItems] = useState<ItemType[]>([]);
     const [error, setError] = useState<Error | null>(null);
 
     const tg = window.Telegram.WebApp;
@@ -48,6 +49,7 @@ export const Topics: React.FC = () => {
 
     const onSubmit = () => {
         const checkedTopics = items.filter(item => item.checked).map(item => item.id);
+        sendMetrics("InterestsSetupFinished")
         fetch(`${configs.url}/api/subscribtions/subscribe`, {
             method: 'POST',
             headers: {
@@ -73,7 +75,7 @@ export const Topics: React.FC = () => {
 
     tg.BackButton.show()
     tg.BackButton.onClick(() => {
-        navigate("/")
+        navigate("/welcome")
     })
 
     if (error) return <ErrorPage/>;
@@ -91,20 +93,24 @@ export const Topics: React.FC = () => {
             >
 
                 <Header marginBlockStart={"40px"}>
-                    Topics
+                    Топики
                 </Header>
 
                 <Body1
-                    marginBlock={"10px"}
-                    paddingX={"70px"}
+                    marginBlockStart={"-10px"}
+                    marginBlockEnd={"10px"}
+                    paddingX={"50px"}
                 >
-                    Choose the topics you are interested in
+                    Выберите интересующие вас темы
                 </Body1>
 
                 <Divider flexItem/>
 
-                <CheckboxList items={items} paddingBottom={checkedItemsCount ? "130px" : "20px"}
-                              clickCallback={handleClick}/>
+                <TopicsList sx={{
+                    paddingX: "25px",
+                    marginTop: "25px",
+                    marginBottom: checkedItemsCount ? "130px" : "25px",
+                }} items={items} clickCallback={handleClick}/>
 
             </Grid2>
 
@@ -122,14 +128,14 @@ export const Topics: React.FC = () => {
                     visibility: !checkedItemsCount ? "hidden" : 'visible',
                     opacity: checkedItemsCount ? 1 : 0,
                     position: "absolute",
-                    bottom: "50px",
+                    bottom: "10px",
                     left: "50%",
                     transform: "translateX(-50%)",
                     zIndex: 2
                 }}
                 onClick={onSubmit}
             >
-                Next
+                Дальше
             </StyledButton>
         </>
     );

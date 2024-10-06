@@ -7,41 +7,35 @@ import {Body1} from "../../components/styled/Body1";
 import {StyledButton} from "../../components/styled/StyledButton";
 import {useNavigate} from "react-router-dom";
 import {configs} from "../../configs";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ErrorPage} from "../error/ErrorPage";
+import {sendMetrics} from "../../SendMetrics";
 
 
 export const Welcome = () => {
 
     const navigate = useNavigate()
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState<string>("");
 
     const tg = window.Telegram.WebApp;
+    const userId = tg.initDataUnsafe.user!.id;
     tg.BackButton.hide()
 
-
     const onSubmit= () => {
+        sendMetrics("NewUserEnteredBot")
         fetch(`${configs.url}/api/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                telegramId: tg.initDataUnsafe.user!.id,
+                telegramId: userId,
+                id: "123",
+                createdAt: "123",
+
             })
         })
-            .then(
-                (result) => {
-                    if (result.statusText === "OK")
-                        navigate("/topics")
-                    else
-                        setError(new Error(result.statusText))
-                },
-                (error) => {
-                    setError(error)
-                    navigate("/profile")
-                }
-            )
+        navigate("/topics")
     }
 
     if (error)
@@ -53,7 +47,7 @@ export const Welcome = () => {
                justifyContent={"space-between"}
                alignItems={"center"}
                height={"100vh"}
-               paddingY={"50px"}
+               paddingY={"10px"}
         >
             <Grid2 container
                    direction={"column"}
@@ -67,11 +61,11 @@ export const Welcome = () => {
                 />
 
                 <Header marginBlockStart={"10px"}>
-                    Welcome!
+                    Привет!
                 </Header>
 
                 <Body1 marginBlockStart={"10px"} paddingX={"70px"} color={"text.secondary"}>
-                    This is your personal news aggregator. Let's set up the flow of your news.
+                    Это твой персональный новостной агрегатор. Приступим к настройке!
                 </Body1>
 
             </Grid2>
@@ -80,7 +74,7 @@ export const Welcome = () => {
                           size={"large"}
                           onClick={onSubmit}
             >
-                Let's start!
+                Давай начнем!
             </StyledButton>
         </Grid2>
     );

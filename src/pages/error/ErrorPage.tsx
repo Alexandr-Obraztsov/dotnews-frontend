@@ -4,16 +4,28 @@ import Lottie from "lottie-react";
 import Comp1 from "../../assets/emoji/Comp 1.json";
 import {Header} from "../../components/styled/Header";
 import {Body1} from "../../components/styled/Body1";
-import {StyledButton} from "../../components/styled/StyledButton";
+import {useNavigate} from "react-router-dom";
 
 export const ErrorPage : React.FC = () => {
+
+    const tg = window.Telegram.WebApp;
+
+    const navigate = useNavigate();
+
+
+
+    tg.BackButton.show();
+    tg.BackButton.onClick(() => {
+        navigate(-1);
+    })
+
     return (
         <Grid2 container
                direction={"column"}
                justifyContent={"space-between"}
                alignItems={"center"}
                height={"100vh"}
-               paddingY={"50px"}
+               marginX={"20px"}
         >
             <Grid2 container
                    direction={"column"}
@@ -28,13 +40,14 @@ export const ErrorPage : React.FC = () => {
 
                 <Header
                     marginBlockStart={"10px"}
+                    marginInline={"20px"}
                     textAlign={"center"}
                 >
-                    Something went wrong!
+                    Что-то пошло не так!
                 </Header>
 
-                <Body1 marginBlockStart={"10px"} paddingX={"70px"} color={"text.secondary"}>
-                    Please, try again...
+                <Body1 marginBlockStart={"10px"} paddingX={"40px"} color={"text.secondary"}>
+                    Пожалуйста, попробуйте еще раз...
                 </Body1>
 
             </Grid2>

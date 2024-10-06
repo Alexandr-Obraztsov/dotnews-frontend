@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect, useState} from "react";
-import {ItemType} from "../../components/checkboxList/item/Item";
+import {ItemType} from "../../components/topicsList/item/Item";
 import {useNavigate} from "react-router-dom";
 import {configs} from "../../configs";
 import {ErrorPage} from "../error/ErrorPage";
@@ -8,23 +8,21 @@ import {Loading} from "../loading/Loading";
 import {Divider, Grid2} from "@mui/material";
 import {Header} from "../../components/styled/Header";
 import {Body1} from "../../components/styled/Body1";
-import {CheckboxList} from "../../components/checkboxList/CheckboxList";
 import {Shadow} from "../../components/styled/Shadow";
 import {theme} from "../../index";
 import {StyledButton} from "../../components/styled/StyledButton";
-
+import {TopicsList} from "../../components/topicsList/TopicsList";
 
 
 export const TopicsEditor = () => {
-    const [allTopicsLoaded, setAllTopicsLoaded] = useState<boolean>(false);
-    const [checkedTopicsLoaded, setCheckedTopicsLoaded] = useState<boolean>(false);
+    const [isLoaded, setLoaded] = useState<boolean>(false);
 
-    const [allTopics, setAllTopics] = useState<ItemType[]>([]);
-    const [checkedTopics, setCheckedTopics] = useState<ItemType[]>([]);
+    const [topics, setTopics] = useState<ItemType[]>([]);
 
     const [error, setError] = useState<Error | null>(null);
 
     const tg = window.Telegram.WebApp;
+
     const userId = tg.initDataUnsafe.user!.id;
 
     const navigate = useNavigate()
@@ -34,9 +32,25 @@ export const TopicsEditor = () => {
         fetch(`${configs.url}/api/topics`)
             .then(res => res.json())
             .then(
-                (result) => {
-                    setAllTopicsLoaded(!allTopicsLoaded);
-                    setAllTopics(result.map((item: ItemType) => ({...item, checked: false})));
+                (topics) => {
+                    fetch(`${configs.url}/api/topics?userId=${userId}`)
+                        .then(res => res.json())
+                        .then(
+                            (checkedTopics) => {
+                                setLoaded(true);
+                                setTopics(topics.map((item: ItemType) => {
+                                    for (let i = 0; i < checkedTopics.length; i++)
+                                        if (checkedTopics[i].id === item.id)
+                                            return {...item, checked: true}
+
+                                    return {...item, checked: false}
+                                }));
+                            },
+                            (error) => {
+
+                                setError(error);
+                            }
+                        )
                 },
                 (error) => {
                     setError(error);
@@ -46,44 +60,40 @@ export const TopicsEditor = () => {
 
 
     const handleClick = (id: string) => {
-        setCheckedTopics(allTopics.map(item => item.id === id ? {...item, checked: !item.checked} : item))
-    }
-
-    const onSubmit = () => {
-        const checkedTopics = allTopics.filter(item => item.checked).map(item => item.id);
-        fetch(`${configs.url}/api/subscribtions/subscribe`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                userTelegramId: userId,
-                topicIds: checkedTopics
-            })
-        })
-            .then(
-                (result) => {
-                    if (result.statusText === "OK")
-                        navigate("/finishSetup")
-                    else
-                        setError(new Error(result.statusText))
-                },
-                (error) => {
-                    setError(error.message)
-                }
-            )
+        setTopics(topics.map(item => {
+            if (item.id === id) {
+                const url = `${configs.url}/api/subscribtions/${item.checked ? "unsubscribe" : "subscribe"}`
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userTelegramId: userId,
+                        topicIds: [item.id]
+                    })
+                })
+                    .then(res => {
+                        if (res.status !== 204 && res.status !== 200)
+                            setError(new Error(res.statusText))
+                    }, (error) => {
+                        setError(error)
+                    });
+                return {...item, checked: !item.checked};
+            } else
+                return item;
+        }))
     }
 
     tg.BackButton.show()
     tg.BackButton.onClick(() => {
-        navigate("/")
+        navigate("/profile")
     })
 
-    const checkedTopicsCount = allTopics.filter(item => item.checked).length;
 
     if (error) return <ErrorPage/>;
 
-    if (!allTopicsLoaded || !checkedTopicsLoaded) return <Loading/>;
+    if (!isLoaded) return <Loading/>;
 
     return (
         <>
@@ -92,50 +102,32 @@ export const TopicsEditor = () => {
                    alignItems={"center"}
                    height={"100vh"}
                    wrap={"nowrap"}
-                   sx={{}}
             >
 
                 <Header marginBlockStart={"40px"}>
-                    Topics
+                    Темы
                 </Header>
 
                 <Body1
-                    marginBlock={"10px"}
-                    paddingX={"70px"}
+                    marginBlockStart={"-10px"}
+                    marginBlockEnd={"10px"}
+                    paddingX={"50px"}
                 >
-                    Choose the topics you are interested in
+                    Выберите интересующие Вас темы
                 </Body1>
 
                 <Divider flexItem/>
 
-                <CheckboxList items={allTopics} paddingBottom={checkedTopicsCount ? "130px" : "20px"}
-                              clickCallback={handleClick}/>
+                <TopicsList
+                    items={topics}
+                    clickCallback={handleClick}
+                    sx={{
+                        paddingX: "25px",
+                        marginY: "25px",
+                    }}
+                />
 
             </Grid2>
-
-            <Shadow
-                height={"200px"}
-                bottom={"0"}
-                color={`${theme.palette.background.default} 10%`}
-                style={{opacity: checkedTopicsCount ? 1 : 0}}
-            />
-            <StyledButton
-                variant={"contained"}
-                size={"large"}
-                sx={{
-                    transition: "0.5s",
-                    visibility: !checkedTopicsCount ? "hidden" : 'visible',
-                    opacity: checkedTopicsCount ? 1 : 0,
-                    position: "absolute",
-                    bottom: "50px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    zIndex: 2
-                }}
-                onClick={onSubmit}
-            >
-                Next
-            </StyledButton>
         </>
     );
 };

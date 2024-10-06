@@ -25,7 +25,7 @@ export const FinishSetup = () => {
                justifyContent={"space-between"}
                alignItems={"center"}
                height={"100vh"}
-               paddingY={"50px"}
+               paddingY={"10px"}
         >
             <Grid2 container
                    direction={"column"}
@@ -39,7 +39,7 @@ export const FinishSetup = () => {
                 />
 
                 <Header marginBlockEnd={"0"}>
-                    Well done!
+                    Поздравляем!
                 </Header>
 
                 <Body1
@@ -47,7 +47,7 @@ export const FinishSetup = () => {
                     paddingX={"70px"}
                     color={"text.secondary"}
                 >
-                    You have started to receive news
+                    Теперь вы получаете новости.
                 </Body1>
 
             </Grid2>
@@ -56,7 +56,7 @@ export const FinishSetup = () => {
                           size={"large"}
                           href={"/profile"}
             >
-                Back to Telegram
+                Перейти в Профиль
             </StyledButton>
         </Grid2>
     );

@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../error/ErrorPage";
 import {Loading} from "../loading/Loading";
 import {useEffect, useState} from "react";
-import {ItemType} from "../../components/checkboxList/item/Item";
+import {ItemType} from "../../components/topicsList/item/Item";
 import {configs} from "../../configs";
 
 export const Profile: React.FC = () => {
@@ -19,7 +19,7 @@ export const Profile: React.FC = () => {
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        fetch(`${configs.url}/api/topics/?id=${user.id}`)
+        fetch(`${configs.url}/api/topics?userId=${user.id}`)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -27,35 +27,25 @@ export const Profile: React.FC = () => {
                     setItems(result);
                 },
                 (error) => {
-                    setIsLoaded(true);
-                    const result = []
-                    for (let i = 0; i < 3; i++) {
-                        result.push({id: "", name: "Crypto", checked: false})
-                    }
-                    setItems(result);
-                    // setError(error);
+                    setError(error);
                 }
             )
     }, [])
 
-    tg.BackButton.show()
-    tg.BackButton.onClick(() => {
-        navigate("/finishSetup")
-    })
+    tg.BackButton.hide()
 
     if (error) return <ErrorPage/>;
     if (!isLoaded) return <Loading/>;
 
     tg.MainButton.show()
     tg.MainButton.setParams({
-        text: "Share my interests"
+        text: "Поделиться интересами"
     })
     tg.MainButton.onClick(() => {
-        tg.close()
     })
 
     const editHandler = () => {
-        tg.BackButton.hide()
+        tg.MainButton.hide()
         navigate("/topicsEditor")
     }
 
@@ -94,7 +84,7 @@ export const Profile: React.FC = () => {
                     <Typography
                         color={"text.secondary"}
                     >
-                        #{user.username || "unknown"}
+                        @{user.username || "unknown"}
                     </Typography>
                 </Grid2>
             </Grid2>
@@ -102,7 +92,7 @@ export const Profile: React.FC = () => {
             <SubscibesPanel
                 editHandler={editHandler}
                 sx={{marginTop: "30px"}}
-                title={"Your topics"}
+                title={"Темы"}
                 items={items}
             />
 

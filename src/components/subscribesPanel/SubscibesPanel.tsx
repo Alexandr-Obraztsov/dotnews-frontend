@@ -2,13 +2,8 @@ import * as React from 'react';
 import {Box, Grid2, SxProps, Typography} from "@mui/material";
 
 import 'swiper/css';
-import {ItemType} from "../checkboxList/item/Item";
-import Lottie from "lottie-react";
-
-import Boy_emoji from "../../assets/emoji/Boy.json";
-import Loopmoney from "../../assets/emoji/Loopmoney.json";
-import Notebook from "../../assets/emoji/Notebook.json";
-import {CSSProperties} from "react";
+import {ItemType} from "../topicsList/item/Item";
+import {TopicsList} from "../topicsList/TopicsList";
 
 type SubscibesPanelPropsType = {
     title: string
@@ -17,34 +12,6 @@ type SubscibesPanelPropsType = {
     sx?: SxProps
 };
 
-
-const getTopicEmoji = (name: string): React.ReactNode => {
-    const emojiStyle: CSSProperties = {
-        height: 60,
-        backgroundColor: 'transparent'
-    }
-
-    switch (name) {
-        case "Information Technologies":
-            return <Lottie
-                animationData={Boy_emoji}
-                loop={true}
-                style={emojiStyle}
-            />
-        case "Crypto":
-            return <Lottie
-                animationData={Loopmoney}
-                loop={true}
-                style={emojiStyle}
-            />
-        case "Startups":
-            return <Lottie
-                animationData={Notebook}
-                loop={true}
-                style={emojiStyle}
-            />
-    }
-}
 
 export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items, sx, editHandler}) => {
 
@@ -79,43 +46,13 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
 
                     onClick={editHandler}
                 >
-                    Edit
+                    Редактировать
                 </Typography>
             </Grid2>
             {items && items.length
-                ? <Grid2
-                    container
-                    marginTop={"15px"}
-                    justifyContent={"flex-start"}
-                    spacing={1}
-                    columns={3}
-                >
-                    {items.map(item =>
-                        <Grid2
-                            key={item.id}
-                            size={1}
-                            height={"110px"}
-                            bgcolor={"background.paper"}
-                            padding={"10px"}
-                            borderRadius={"10px"}
-                        >
-                            {getTopicEmoji(item.name)}
-                            <Typography
-                                variant={"body1"}
-                                textAlign={"center"}
-                                fontSize={"12px"}
-                                fontWeight={600}
-                                marginBlockStart={"10px"}
-                                color={"text.secondary"}
-                                overflow={"hidden"}
-                                textOverflow={"ellipsis"}
-                                whiteSpace={"nowrap"}
-                            >
-                                {item.name}
-                            </Typography>
-                        </Grid2>
-                    )}
-                </Grid2>
+                ? <TopicsList items={items} sx={{
+                    marginTop: "15px",
+                }}/>
                 : <Grid2
                     container
                     justifyContent={"center"}
