@@ -21,7 +21,7 @@ export const Welcome = () => {
     const userId = tg.initDataUnsafe.user!.id;
     tg.BackButton.hide()
 
-    const onSubmit= () => {
+    const onSubmit = () => {
         fetch(`${configs.url}/api/users`, {
             method: 'POST',
             headers: {
@@ -41,40 +41,44 @@ export const Welcome = () => {
         return <ErrorPage/>
     else
         return (
-        <Grid2 container
-               direction={"column"}
-               justifyContent={"space-between"}
-               alignItems={"center"}
-               height={"100vh"}
-               paddingY={"10px"}
-        >
-            <Grid2 container
-                   direction={"column"}
-                   justifyContent={"center"}
-                   alignItems={"center"}
-                   flexGrow={1}
-            >
-                <Lottie animationData={hello_emoji}
-                       loop={true}
-                       style={{width: 100, height: 100, backgroundColor: 'transparent'}}
-                />
+            <>
+                <Grid2
+                    container
+                    direction={"column"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    height={"100vh"}
+                >
+                    <Lottie
+                        animationData={hello_emoji}
+                        loop={true}
+                        style={{width: 100, height: 100, backgroundColor: 'transparent'}}
+                    />
 
-                <Header marginBlockStart={"10px"}>
-                    Привет!
-                </Header>
+                    <Header marginBlockStart={"10px"}>
+                        Привет!
+                    </Header>
 
-                <Body1 marginBlockStart={"10px"} paddingX={"70px"} color={"text.secondary"}>
-                    Это твой персональный новостной агрегатор. Приступим к настройке!
-                </Body1>
+                    <Body1 marginBlockStart={"10px"} paddingX={"70px"} color={"text.secondary"}>
+                        Это твой персональный новостной агрегатор. Приступим к настройке!
+                    </Body1>
 
-            </Grid2>
+                </Grid2>
 
-            <StyledButton variant={"contained"}
-                          size={"large"}
-                          onClick={onSubmit}
-            >
-                Давай начнем!
-            </StyledButton>
-        </Grid2>
-    );
+                <StyledButton
+                    variant={"contained"}
+                    size={"large"}
+                    sx={{
+                        position: "absolute",
+                        bottom: "50px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        zIndex: 2
+                    }}
+                    onClick={onSubmit}
+                >
+                    Давай начнем!
+                </StyledButton>
+            </>
+        );
 };

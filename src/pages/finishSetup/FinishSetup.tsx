@@ -19,19 +19,19 @@ export const FinishSetup = () => {
 
     tg.MainButton.hide()
 
+    const onSubmit = () => {
+
+        navigate("/profile")
+    }
+
+
     return (
-        <Grid2 container
-               direction={"column"}
-               justifyContent={"space-between"}
-               alignItems={"center"}
-               height={"100vh"}
-               paddingY={"10px"}
-        >
+        <>
             <Grid2 container
                    direction={"column"}
                    justifyContent={"center"}
                    alignItems={"center"}
-                   flexGrow={1}
+                   height={"100vh"}
             >
                 <Lottie animationData={emoji}
                         loop={true}
@@ -52,12 +52,20 @@ export const FinishSetup = () => {
 
             </Grid2>
 
-            <StyledButton variant={"contained"}
-                          size={"large"}
-                          href={"/profile"}
+            <StyledButton
+                variant={"contained"}
+                size={"large"}
+                sx={{
+                    position: "absolute",
+                    bottom: "50px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    zIndex: 2
+                }}
+                onClick={onSubmit}
             >
-                Перейти в Профиль
+                Давай начнем!
             </StyledButton>
-        </Grid2>
+        </>
     );
 };

@@ -120,6 +120,7 @@ export const Topics: React.FC = () => {
                 color={`${theme.palette.background.default} 10%`}
                 style={{opacity: checkedItemsCount ? 1 : 0}}
             />
+
             <StyledButton
                 variant={"contained"}
                 size={"large"}
@@ -128,7 +129,7 @@ export const Topics: React.FC = () => {
                     visibility: !checkedItemsCount ? "hidden" : 'visible',
                     opacity: checkedItemsCount ? 1 : 0,
                     position: "absolute",
-                    bottom: "10px",
+                    bottom: "50px",
                     left: "50%",
                     transform: "translateX(-50%)",
                     zIndex: 2

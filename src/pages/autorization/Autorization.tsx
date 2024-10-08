@@ -23,13 +23,12 @@ export const Autorization = () => {
                     else
                         navigate("/profile")
                 },
-                (error) => navigate("/welcome")
+                (error) => setError(error)
             )
     }, []);
 
-    if (error) return <>{error.message}<ErrorPage/></>
-
-    return (
-        <></>
-    );
+    if(error)
+        return <ErrorPage/>
+    else
+        return <Loading/>
 };
