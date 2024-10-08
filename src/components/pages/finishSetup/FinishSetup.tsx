@@ -1,15 +1,15 @@
 import * as React from 'react';
 import {Grid2} from "@mui/material";
-import emoji from "../../assets/emoji/Floating Hearts.json";
+import emoji from "../../../assets/emoji/Floating Hearts.json";
 import Lottie from "lottie-react";
-import {Header} from "../../components/styled/Header";
-import {Body1} from "../../components/styled/Body1";
-import {StyledButton} from "../../components/styled/StyledButton";
+import {Header} from "../../styled/Header";
+import {Body1} from "../../styled/Body1";
+import {StyledButton} from "../../styled/StyledButton";
 import {useNavigate} from "react-router-dom";
+import {tg} from "../../../globalTheme";
 
 
 export const FinishSetup = () => {
-    const tg = window.Telegram.WebApp;
     const navigate = useNavigate()
 
     tg.BackButton.show()

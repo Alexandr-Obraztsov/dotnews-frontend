@@ -1,11 +1,12 @@
-import {Welcome} from "./pages/welcome/Welcome";
+import {Welcome} from "./components/pages/welcome/Welcome";
 import React from "react";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {Topics} from "./pages/topics/Topics";
-import {FinishSetup} from "./pages/finishSetup/FinishSetup";
-import {Profile} from "./pages/profile/Profile";
-import {TopicsEditor} from "./pages/topicsEditor/TopicsEditor";
-import {Autorization} from "./pages/autorization/Autorization";
+import {Topics} from "./components/pages/topics/Topics";
+import {FinishSetup} from "./components/pages/finishSetup/FinishSetup";
+import {Profile} from "./components/pages/profile/Profile";
+import {TopicsEditor} from "./components/pages/topicsEditor/TopicsEditor";
+import {Autorization} from "./components/pages/autorization/Autorization";
+import {ErrorPage} from "./components/pages/errorPage/ErrorPage";
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     {
         path: "topicsEditor",
         element: <TopicsEditor/>
+    },
+    {
+        path: "/*",
+        element: <ErrorPage error={new Error("Page not found")}/>
     }
 ]);
 

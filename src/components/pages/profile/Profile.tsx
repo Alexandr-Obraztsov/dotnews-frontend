@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {Avatar, Grid2, Typography} from "@mui/material";
-import {SubscibesPanel} from "../../components/subscribesPanel/SubscibesPanel";
+import {SubscibesPanel} from "../../subscribesPanel/SubscibesPanel";
 import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {Loading} from "../loading/Loading";
 import {useEffect, useState} from "react";
-import {ItemType} from "../../components/topicsList/item/Item";
-import {configs} from "../../configs";
+import {ItemType} from "../../topicsList/item/Item";
+import {getUserTopics} from "../../../backFetches/BackFetches";
+import {tg} from "../../../globalTheme";
 
 export const Profile: React.FC = () => {
 
-    const tg = window.Telegram.WebApp;
     const user = tg.initDataUnsafe.user!;
     const navigate = useNavigate()
 
@@ -19,9 +19,7 @@ export const Profile: React.FC = () => {
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        fetch(`${configs.url}/api/topics?userId=${user.id}`)
-            .then(res => res.json())
-            .then(
+        getUserTopics(user.id).then(
                 (result) => {
                     setIsLoaded(true);
                     setItems(result);

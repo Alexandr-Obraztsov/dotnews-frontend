@@ -1,36 +1,24 @@
 import * as React from 'react';
 import {Grid2} from "@mui/material";
-import hello_emoji from "../../assets/emoji/Waving Hand.json";
+import hello_emoji from "../../../assets/emoji/Waving Hand.json";
 import Lottie from "lottie-react";
-import {Header} from "../../components/styled/Header";
-import {Body1} from "../../components/styled/Body1";
-import {StyledButton} from "../../components/styled/StyledButton";
+import {Header} from "../../styled/Header";
+import {Body1} from "../../styled/Body1";
+import {StyledButton} from "../../styled/StyledButton";
 import {useNavigate} from "react-router-dom";
-import {configs} from "../../configs";
-import {sendMetrics} from "../../SendMetrics";
-
+import {registerUser, sendMetrics} from "../../../backFetches/BackFetches";
+import {tg} from "../../../globalTheme";
 
 export const Welcome = () => {
 
     const navigate = useNavigate()
 
-    const tg = window.Telegram.WebApp;
     const userId = tg.initDataUnsafe.user!.id;
     tg.BackButton.hide()
 
     const onSubmit = () => {
-        fetch(`${configs.url}/api/users`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                telegramId: userId,
-            })
-        })
-
-        sendMetrics("NewUserEnteredBot")
-
+        registerUser(userId)
+        sendMetrics(userId, "NewUserEnteredBot")
         navigate("/topics")
     }
 
@@ -39,10 +27,10 @@ export const Welcome = () => {
         <>
             <Grid2
                 container
+                height={"100vh"}
                 direction={"column"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                height={"100vh"}
             >
                 <Lottie
                     animationData={hello_emoji}
@@ -57,21 +45,9 @@ export const Welcome = () => {
                 <Body1 marginBlockStart={"10px"} paddingX={"70px"} color={"text.secondary"}>
                     Это твой персональный новостной агрегатор. Приступим к настройке!
                 </Body1>
-
             </Grid2>
 
-            <StyledButton
-                variant={"contained"}
-                size={"large"}
-                sx={{
-                    position: "absolute",
-                    bottom: "50px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    zIndex: 2
-                }}
-                onClick={onSubmit}
-            >
+            <StyledButton onClick={onSubmit}>
                 Давай начнем!
             </StyledButton>
         </>

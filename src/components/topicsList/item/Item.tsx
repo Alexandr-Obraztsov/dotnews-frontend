@@ -104,17 +104,3 @@ const HiddenButton = styled.button`
     opacity: 0;
     z-index: 1;
 `
-
-const StyledDone = styled.div`
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    display: flex;
-    color: window.Telegram.WebApp.themeParams.accent_text_color;
-    justify-content: center;
-    align-items: center;
-`
