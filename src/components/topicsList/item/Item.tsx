@@ -7,6 +7,7 @@ import Lottie from "lottie-react";
 import Boy_emoji from "../../../assets/emoji/Boy.json";
 import Loopmoney from "../../../assets/emoji/Loopmoney.json";
 import Notebook from "../../../assets/emoji/Notebook.json";
+import {tg} from "../../../globalTheme";
 
 export type ItemType = {
     id: string,
@@ -69,8 +70,8 @@ export const Item: FC<ItemType> = ({id, name, checked, clickCallback}) => {
                     width: "100%",
                     height: "100%",
                     borderRadius: "10px",
-                    backgroundColor: window.Telegram.WebApp.themeParams.accent_text_color,
-                    opacity: checked ? 0.25 : 0,
+                    backgroundColor: tg.themeParams.accent_text_color,
+                    opacity: checked ? 0.3 : 0,
                     transition: "0.3s",
                     zIndex: 0
                 }

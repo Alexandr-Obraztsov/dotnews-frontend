@@ -1,4 +1,4 @@
-const server_url = "http://62.169.28.6:8080"
+const server_url = "https://dotnewsbot.ru/back_api"
 
 export const registerUser = async (userId: number) => {
     console.log(`Send request for register user ${userId}`);

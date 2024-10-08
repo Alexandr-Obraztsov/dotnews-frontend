@@ -26,6 +26,7 @@ export const tg = window.Telegram.WebApp.initDataUnsafe.user ?
             secondary_bg_color: "#232e3c",
             subtitle_text_color: "#6f8398",
             text_color: "#f3f3f3",
+            accent_text_color:"#5287c0",
         },
         BackButton: {
             show: () => {

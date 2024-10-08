@@ -45,9 +45,10 @@ export const Topics: React.FC = () => {
         const checkedTopics = items.filter(item => item.checked).map(item => item.id);
         sendMetrics(userId, "InterestsSetupFinished")
         subscribeToTopics(userId, checkedTopics).then(
-                (result) => result.statusText === "OK" ? navigate("/finishSetup") : setError(new Error(result.statusText)),
+                (result) => result.statusText !== "OK" && setError(new Error(result.statusText)),
                 (error) => setError(error.message)
             )
+        navigate("/finishSetup")
     }
 
     tg.BackButton.show()

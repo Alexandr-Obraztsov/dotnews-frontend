@@ -4,6 +4,7 @@ import {Box, Grid2, SxProps, Typography} from "@mui/material";
 import 'swiper/css';
 import {ItemType} from "../topicsList/item/Item";
 import {TopicsList} from "../topicsList/TopicsList";
+import {tg} from "../../globalTheme";
 
 type SubscibesPanelPropsType = {
     title: string
@@ -40,7 +41,7 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
                     variant={"body1"}
                     fontSize={"15px"}
                     sx={{
-                        color: window.Telegram.WebApp.themeParams.link_color,
+                        color: tg.themeParams.link_color,
                         cursor: "pointer",
                     }}
 
