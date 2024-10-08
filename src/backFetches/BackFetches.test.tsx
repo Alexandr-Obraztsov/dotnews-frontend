@@ -8,7 +8,7 @@ import {
     unsubscribeFromTopics
 } from "./BackFetches";
 
-const userId = 123456
+const userId = 123
 
 test("check register", async () => {
     const res = await registerUser(userId)

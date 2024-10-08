@@ -13,8 +13,8 @@ export const Autorization = () => {
     const [error, setError] = useState<Error | null>(null);
 
     checkUser(tg.initDataUnsafe.user!.id).then(
-        (result) => result.code === 200 ? navigate("/profile") : navigate("/welcome"),
-        (error) => navigate("/welcome")
+        (result) => result.status === 200 ? navigate("/profile") : navigate("/welcome"),
+        (error) => setError(error)
     )
 
     if (error)
