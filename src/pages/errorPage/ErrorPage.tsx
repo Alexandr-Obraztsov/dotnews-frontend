@@ -6,7 +6,11 @@ import {Header} from "../../components/styled/Header";
 import {Body1} from "../../components/styled/Body1";
 import {useNavigate} from "react-router-dom";
 
-export const ErrorPage : React.FC = () => {
+type ErrorPagePropsType = {
+    error: Error
+}
+
+export const ErrorPage : React.FC<ErrorPagePropsType> = ({error}) => {
 
     const tg = window.Telegram.WebApp;
 
@@ -44,6 +48,8 @@ export const ErrorPage : React.FC = () => {
                     textAlign={"center"}
                 >
                     Что-то пошло не так!
+                    <br/>
+                    {error.message}
                 </Header>
 
                 <Body1 marginBlockStart={"10px"} paddingX={"40px"} color={"text.secondary"}>

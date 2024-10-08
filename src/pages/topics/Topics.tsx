@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Backdrop, CircularProgress, Divider, Grid2} from "@mui/material";
+import {Divider, Grid2} from "@mui/material";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {configs} from "../../configs";
@@ -10,7 +10,7 @@ import {Shadow} from "../../components/styled/Shadow";
 import {StyledButton} from "../../components/styled/StyledButton";
 import {theme} from "../../index";
 import {Loading} from "../loading/Loading";
-import {ErrorPage} from "../error/ErrorPage";
+import {ErrorPage} from "../errorPage/ErrorPage";
 import {TopicsList} from "../../components/topicsList/TopicsList";
 import {sendMetrics} from "../../SendMetrics";
 
@@ -78,7 +78,7 @@ export const Topics: React.FC = () => {
         navigate("/")
     })
 
-    if (error) return <ErrorPage/>;
+    if (error) return <ErrorPage error={error}/>;
 
     if (!isLoaded) return <Loading/>;
 
