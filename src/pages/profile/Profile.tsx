@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Avatar, Grid2, Typography} from "@mui/material";
 import {SubscibesPanel} from "../../components/subscribesPanel/SubscibesPanel";
 import {useNavigate} from "react-router-dom";
-import {ErrorPage} from "../error/ErrorPage";
+import {ErrorPage} from "../errorPage/ErrorPage";
 import {Loading} from "../loading/Loading";
 import {useEffect, useState} from "react";
 import {ItemType} from "../../components/topicsList/item/Item";
@@ -34,7 +34,7 @@ export const Profile: React.FC = () => {
 
     tg.BackButton.hide()
 
-    if (error) return <ErrorPage/>;
+    if (error) return <ErrorPage error={error}/>;
     if (!isLoaded) return <Loading/>;
 
     tg.MainButton.show()

@@ -3,14 +3,11 @@ import {useEffect, useState} from "react";
 import {ItemType} from "../../components/topicsList/item/Item";
 import {useNavigate} from "react-router-dom";
 import {configs} from "../../configs";
-import {ErrorPage} from "../error/ErrorPage";
+import {ErrorPage} from "../errorPage/ErrorPage";
 import {Loading} from "../loading/Loading";
 import {Divider, Grid2} from "@mui/material";
 import {Header} from "../../components/styled/Header";
 import {Body1} from "../../components/styled/Body1";
-import {Shadow} from "../../components/styled/Shadow";
-import {theme} from "../../index";
-import {StyledButton} from "../../components/styled/StyledButton";
 import {TopicsList} from "../../components/topicsList/TopicsList";
 
 
@@ -91,7 +88,7 @@ export const TopicsEditor = () => {
     })
 
 
-    if (error) return <ErrorPage/>;
+    if (error) return <ErrorPage error={error}/>;
 
     if (!isLoaded) return <Loading/>;
 

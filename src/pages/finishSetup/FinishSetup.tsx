@@ -20,7 +20,6 @@ export const FinishSetup = () => {
     tg.MainButton.hide()
 
     const onSubmit = () => {
-
         navigate("/profile")
     }
 
