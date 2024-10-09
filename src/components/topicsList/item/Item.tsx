@@ -14,12 +14,11 @@ export type ItemType = {
     name: string,
     checked?: boolean
     clickCallback?: (id: string) => void
-
 }
 
-const getTopicEmoji = (name: string): React.ReactNode => {
+export const getTopicEmoji = (name: string, height: number = 60): React.ReactNode => {
     const emojiStyle: CSSProperties = {
-        height: 60,
+        height: height,
         backgroundColor: 'transparent'
     }
 

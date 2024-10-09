@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Loading} from "../loading/Loading";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {checkUser} from "../../../backFetches/BackFetches";

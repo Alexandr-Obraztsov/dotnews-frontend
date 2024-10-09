@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box, Grid2, SxProps, Typography} from "@mui/material";
+import {Box, Divider, Grid2, SxProps, Typography} from "@mui/material";
 
 import 'swiper/css';
 import {ItemType} from "../topicsList/item/Item";
@@ -40,6 +40,7 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
                 <Typography
                     variant={"body1"}
                     fontSize={"15px"}
+                    fontWeight={500}
                     sx={{
                         color: tg.themeParams.link_color,
                         cursor: "pointer",
@@ -50,6 +51,12 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
                     Редактировать
                 </Typography>
             </Grid2>
+            <Divider
+                sx={{
+                    marginTop: "10px",
+                    marginX: "-20px"
+                }}
+            ></Divider>
             {items && items.length
                 ? <TopicsList items={items} sx={{
                     marginTop: "15px",
