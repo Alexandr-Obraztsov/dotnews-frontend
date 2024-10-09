@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Box, Divider, Grid2, IconButton, SxProps, Typography} from "@mui/material";
-import {tg} from "../../../globalTheme";
 import CloseIcon from '@mui/icons-material/Close';
 
 export type PopupPropsType = {
