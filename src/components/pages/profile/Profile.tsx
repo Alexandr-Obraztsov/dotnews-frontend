@@ -23,7 +23,6 @@ export const Profile: React.FC = () => {
         items: []
     })
 
-    console.log(items);
 
     useEffect(() => {
         getAllTopics()

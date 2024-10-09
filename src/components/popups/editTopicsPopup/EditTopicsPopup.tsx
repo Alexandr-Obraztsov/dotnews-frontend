@@ -46,12 +46,18 @@ export const EditTopicsPopup: React.FC<EditTopicsPopupPropsType> = ({open, close
             <>
                 <Autocomplete
                     multiple
-                    forcePopupIcon={false}
+                    readOnly={true}
+                    popupIcon={<></>}
                     options={items}
                     getOptionLabel={(option: ItemType) => option.name}
                     value={items.filter((item: ItemType) => item.checked)}
-                    renderTags={(items: ItemType[], getTagProps) =>
-                        items.map((item: ItemType, index: number) => {
+                    renderTags={(sortedItems: ItemType[], getTagProps) =>
+                        sortedItems.map((item: ItemType, index: number) => {
+                            const onClickHandler = () => {
+                                item.checked = !item.checked;
+                                setItems([...items]);
+                            }
+
                             return (
                                 <Chip
                                     color={"primary"}
@@ -59,7 +65,8 @@ export const EditTopicsPopup: React.FC<EditTopicsPopupPropsType> = ({open, close
                                     label={item.name}
                                     {...getTagProps({index})}
                                     key={item.id}
-                                    deleteIcon={<CloseIcon/>}
+                                    onClick={onClickHandler}
+                                    onDelete={onClickHandler}
                                 />
                             );
                         })
