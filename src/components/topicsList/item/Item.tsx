@@ -17,31 +17,29 @@ export type ItemType = {
 }
 
 export const getTopicEmoji = (name: string, height: number = 60): React.ReactNode => {
-    const emojiStyle: CSSProperties = {
-        height: height,
-        backgroundColor: 'transparent'
-    }
-
+    let animationData = {};
     switch (name) {
         case "IT":
-            return <Lottie
-                animationData={Boy_emoji}
-                loop={true}
-                style={emojiStyle}
-            />
+            animationData = Boy_emoji
+            break
         case "Криптовалюта":
-            return <Lottie
-                animationData={Loopmoney}
-                loop={true}
-                style={emojiStyle}
-            />
+            animationData = Loopmoney
+            break
         case "Стартапы":
-            return <Lottie
-                animationData={Notebook}
-                loop={true}
-                style={emojiStyle}
-            />
+            animationData = Notebook
+            break
+        default:
+            animationData = Boy_emoji
+            break
     }
+    return <Lottie
+        animationData={animationData}
+        loop={true}
+        style={{
+            height: height,
+            backgroundColor: 'transparent'
+        }}
+    />
 }
 
 
