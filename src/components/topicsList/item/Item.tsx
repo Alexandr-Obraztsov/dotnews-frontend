@@ -1,8 +1,6 @@
-import React, {CSSProperties, FC} from "react";
-import {Box, Grid2, Typography} from "@mui/material";
+import React, {FC} from "react";
+import {Grid2, Typography} from "@mui/material";
 import styled from "@emotion/styled";
-import {Body1} from "../../styled/Body1";
-import {Done} from "@mui/icons-material";
 import Lottie from "lottie-react";
 import Boy_emoji from "../../../assets/emoji/Boy.json";
 import Loopmoney from "../../../assets/emoji/Loopmoney.json";
