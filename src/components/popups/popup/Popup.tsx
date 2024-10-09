@@ -36,12 +36,14 @@ export const Popup: React.FC<DefaultPopupPropsType> = ({open, closePopup, childr
                     bottom: 0,
                     zIndex: 999,
                     backdropFilter: "blur(2px)",
+                    backgroundColor: "rgba(0, 0, 0, 0.3)",
                 }}
             >
-                <Box
-                    bgcolor={tg.themeParams.secondary_bg_color}
+                <Grid2
+                    container
+                    direction={"column"}
+                    bgcolor={"background.default"}
                     borderRadius={"10px"}
-                    padding={"10px"}
                     position={"relative"}
                     sx={{
                         opacity: open ? 1 : 0,
@@ -52,6 +54,7 @@ export const Popup: React.FC<DefaultPopupPropsType> = ({open, closePopup, childr
                 >
                     <Grid2
                         container
+                        padding={"10px"}
                         justifyContent={"center"}
                         alignItems={"center"}
                     >
@@ -74,13 +77,15 @@ export const Popup: React.FC<DefaultPopupPropsType> = ({open, closePopup, childr
                             <CloseIcon/>
                         </IconButton>
                     </Grid2>
-                    <Divider
-                        sx={{
-                            m: "10px -10px"
-                        }}
-                    />
-                    {children}
-                </Box>
+                    <Divider/>
+                    <Box
+                        flexGrow={1}
+                        bgcolor={"background.paper"}
+                        borderRadius={"0 0 10px 10px"}
+                    >
+                        {children}
+                    </Box>
+                </Grid2>
             </Grid2>
         </>
     );

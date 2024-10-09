@@ -4,7 +4,7 @@ import {Box, Divider, Grid2, SxProps, Typography} from "@mui/material";
 import 'swiper/css';
 import {ItemType} from "../topicsList/item/Item";
 import {TopicsList} from "../topicsList/TopicsList";
-import {tg} from "../../globalTheme";
+import {globalTheme, tg} from "../../globalTheme";
 
 type SubscibesPanelPropsType = {
     title: string
@@ -58,29 +58,37 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
                     marginX: "-20px"
                 }}
             ></Divider>
-            {items && items.length
-                ? <TopicsList items={items} sx={{
-                    marginTop: "15px",
-                }}/>
-                : <Grid2
-                    container
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    height={"100%"}
-                >
-                    <Typography
-                        variant={"body1"}
-                        fontSize={"17px"}
-                        fontWeight={400}
-                        color={"text.secondary"}
-                        sx={{
-                            opacity: 0.3
-                        }}
+            <Box
+                bgcolor={"background.paper"}
+                marginX={"-20px"}
+                paddingX={"20px"}
+                height={"100%"}
+            >
+
+                {items && items.length
+                    ? <TopicsList items={items} sx={{
+                        marginTop: "15px",
+                    }}/>
+                    : <Grid2
+                        container
+                        justifyContent={"center"}
+                        alignItems={"center"}
+                        height={"100%"}
                     >
-                        Здесь ничего нет...
-                    </Typography>
-                </Grid2>
-            }
+                        <Typography
+                            variant={"body1"}
+                            fontSize={"17px"}
+                            fontWeight={400}
+                            color={"text.secondary"}
+                            sx={{
+                                opacity: 0.3
+                            }}
+                        >
+                            Здесь ничего нет...
+                        </Typography>
+                    </Grid2>
+                }
+            </Box>
 
 
         </Box>

@@ -22,7 +22,7 @@ export const tg = window.Telegram.WebApp.initDataUnsafe.user ?
             button_color: "#5287c0",
             button_text_color: "#ffffff",
             link_color: "#699dc5",
-            section_separator_color: "#E6E6E6",
+            section_separator_color: "#111921",
             secondary_bg_color: "#232e3c",
             subtitle_text_color: "#6f8398",
             text_color: "#f3f3f3",
@@ -58,7 +58,7 @@ export const globalTheme = createTheme({
 
             background: {
                 default: tg.themeParams.bg_color,
-                paper: tg.themeParams.secondary_bg_color,
+                paper: tg.themeParams.section_separator_color,
             },
 
             text: {
@@ -90,7 +90,7 @@ export const globalTheme = createTheme({
             MuiDivider: {
                 styleOverrides: {
                     root: {
-                        backgroundColor: tg.themeParams.link_color
+                        backgroundColor: tg.themeParams.section_separator_color
                     }
                 }
             },
