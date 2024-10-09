@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {Popup, PopupPropsType} from "../popup/Popup";
 import {Autocomplete, Chip, Grid2, TextField} from "@mui/material";
-import {getTopicEmoji, ItemType} from "../../topicsList/item/Item";
+import {ItemType} from "../../topicsList/item/Item";
 import {useState} from "react";
 import {subscribeToTopics, unsubscribeFromTopics} from "../../../backFetches/BackFetches";
 import {tg} from "../../../globalTheme";
+import CloseIcon from "@mui/icons-material/Close";
 
 type EditTopicsPopupPropsType = {
     items: ItemType[],
@@ -53,16 +54,12 @@ export const EditTopicsPopup: React.FC<EditTopicsPopupPropsType> = ({open, close
                         items.map((item: ItemType, index: number) => {
                             return (
                                 <Chip
-                                    icon={
-                                        <div style={{transform: "TranslateX(3px)"}}>
-                                            {getTopicEmoji(item.name, 25)}
-                                        </div>
-                                    }
                                     color={"primary"}
                                     variant="filled"
                                     label={item.name}
                                     {...getTagProps({index})}
                                     key={item.id}
+                                    deleteIcon={<CloseIcon/>}
                                 />
                             );
                         })
@@ -74,6 +71,7 @@ export const EditTopicsPopup: React.FC<EditTopicsPopupPropsType> = ({open, close
                             variant="outlined"
                             label="Выбери топики"
                             size={"small"}
+
                         />
                     )}
                     onChange={onChangeHandler}
@@ -93,7 +91,6 @@ export const EditTopicsPopup: React.FC<EditTopicsPopupPropsType> = ({open, close
 
                             return (
                                 <Chip
-                                    icon={<div style={{transform: "TranslateX(3px)"}}>{getTopicEmoji(item.name, 25)}</div>}
                                     color={"primary"}
                                     variant="outlined"
                                     label={item.name}

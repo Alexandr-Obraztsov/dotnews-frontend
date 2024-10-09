@@ -52,6 +52,7 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
                 </Typography>
             </Grid2>
             <Divider
+                color={"text.primary"}
                 sx={{
                     marginTop: "10px",
                     marginX: "-20px"
