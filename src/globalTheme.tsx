@@ -69,6 +69,7 @@ export const globalTheme = createTheme({
             primary: {
                 main: tg.themeParams.button_color!,
 
+                contrastText: tg.themeParams.button_text_color!,
             },
         },
 
@@ -90,7 +91,7 @@ export const globalTheme = createTheme({
             MuiDivider: {
                 styleOverrides: {
                     root: {
-                        backgroundColor: tg.themeParams.secondary_bg_color
+                        borderColor: tg.themeParams.secondary_bg_color,
                     }
                 }
             },

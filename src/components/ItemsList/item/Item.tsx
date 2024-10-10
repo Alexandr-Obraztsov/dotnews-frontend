@@ -48,17 +48,19 @@ export const Item: FC<ItemType> = ({id, name, checked, onClick}) => {
     }
 
     const NameTypography = styled(Typography)({
-        color: checked ? globalTheme.palette.text.primary : globalTheme.palette.primary.main,
         fontSize: "14px",
         fontWeight: 400,
     })
 
+    const chipColor = onClick ? checked ? "success" : "error" : "primary";
+    const textColor = onClick && !checked ?  "error" : "primary.contrastText";
+
     return (
         <Chip
-            color={"primary"}
+            color={chipColor}
             icon={<div>{getItemEmoji(name, 20)}</div>}
             variant={checked ? "filled" : "outlined"}
-            label={<NameTypography>{name}</NameTypography>}
+            label={<NameTypography color={textColor}>{name}</NameTypography>}
             key={id}
             onClick={onClick ? handleClick : undefined}
         />

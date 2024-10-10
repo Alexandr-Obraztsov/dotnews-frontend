@@ -64,10 +64,7 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
                     variant={"body1"}
                     fontSize={"14px"}
                     fontWeight={400}
-                    sx={{
-                        color: tg.themeParams.link_color,
-                        cursor: "pointer",
-                    }}
+                    color={editMode ? "success" : "primary.main"}
 
                     onClick={editModeHandler}
                 >

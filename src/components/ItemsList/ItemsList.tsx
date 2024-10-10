@@ -14,7 +14,7 @@ export const ItemsList : React.FC<TopicsListPropsType> = ({items, onClick, sx}) 
         <Grid2
             container
             sx={sx}
-            justifyContent={"center"}
+            justifyContent={"flex-start"}
             spacing={0.6}
         >
             {items.map(item =>

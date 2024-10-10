@@ -12,7 +12,7 @@ export const Header : React.FC = () => {
             bgcolor={"background.paper"}
             direction={"column"}
             alignItems={"center"}
-            padding={"10px 20px 20px"}
+            padding={"10px 20px"}
         >
             <Avatar
                 src={user.photo_url}
