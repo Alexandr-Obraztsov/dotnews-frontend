@@ -1,4 +1,4 @@
-import {ItemType} from "../../topicsList/item/Item";
+import {ItemType} from "../../ItemsList/item/Item";
 
 
 export type ProfileStateType = {

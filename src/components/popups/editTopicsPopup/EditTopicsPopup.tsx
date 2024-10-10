@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Popup, PopupPropsType} from "../popup/Popup";
 import {Chip, Grid2} from "@mui/material";
-import {getTopicEmoji, ItemType} from "../../topicsList/item/Item";
+import {Item, ItemType} from "../../ItemsList/item/Item";
 import {useState} from "react";
 import {subscribeToTopics, unsubscribeFromTopics} from "../../../backFetches/BackFetches";
 import {tg} from "../../../globalTheme";
@@ -48,14 +48,7 @@ export const EditTopicsPopup: React.FC<EditTopicsPopupPropsType> = ({open, close
                             }
 
                             return (
-                                <Chip
-                                    color={"primary"}
-                                    icon={<div>{getTopicEmoji(item.name, 20)}</div>}
-                                    variant={item.checked ? "filled" : "outlined"}
-                                    label={item.name}
-                                    key={item.id}
-                                    onClick={onClickHandler}
-                                />
+                                <Item {...item} onClick={onClickHandler} />
                             )
                         }
                     )}
