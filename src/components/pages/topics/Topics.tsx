@@ -2,14 +2,14 @@ import * as React from 'react';
 import {Divider, Grid2} from "@mui/material";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {ItemType} from "../../topicsList/item/Item";
+import {ItemType} from "../../ItemsList/item/Item";
 import {Header} from "../../styled/Header";
 import {Body1} from "../../styled/Body1";
 import {Shadow} from "../../styled/Shadow";
 import {StyledButton} from "../../styled/StyledButton";
 import {Loading} from "../loading/Loading";
 import {ErrorPage} from "../errorPage/ErrorPage";
-import {TopicsList} from "../../topicsList/TopicsList";
+import {ItemsList} from "../../ItemsList/ItemsList";
 import {getAllTopics, sendMetrics, subscribeToTopics} from "../../../backFetches/BackFetches";
 import {globalTheme, tg} from "../../../globalTheme";
 
@@ -83,9 +83,9 @@ export const Topics: React.FC = () => {
 
                 <Divider flexItem/>
 
-                <TopicsList
+                <ItemsList
                     items={items}
-                    clickCallback={handleClick}
+                    onClick={handleClick}
                     sx={{
                         paddingX: "25px",
                         marginTop: "25px",

@@ -57,8 +57,8 @@ export const globalTheme = createTheme({
             mode: tg.colorScheme,
 
             background: {
-                default: tg.themeParams.bg_color,
-                paper: tg.themeParams.secondary_bg_color,
+                default: tg.themeParams.secondary_bg_color,
+                paper: tg.themeParams.bg_color,
             },
 
             text: {

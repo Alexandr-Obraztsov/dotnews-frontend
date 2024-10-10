@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {useEffect, useState} from "react";
-import {ItemType} from "../../topicsList/item/Item";
+import {ItemType} from "../../ItemsList/item/Item";
 import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {Loading} from "../loading/Loading";
 import {Divider, Grid2} from "@mui/material";
 import {Header} from "../../styled/Header";
 import {Body1} from "../../styled/Body1";
-import {TopicsList} from "../../topicsList/TopicsList";
+import {ItemsList} from "../../ItemsList/ItemsList";
 import {getAllTopics, getUserTopics, subscribeToTopics, unsubscribeFromTopics} from "../../../backFetches/BackFetches";
 import {tg} from "../../../globalTheme";
 
@@ -91,9 +91,9 @@ export const TopicsEditor = () => {
 
                 <Divider flexItem/>
 
-                <TopicsList
+                <ItemsList
                     items={topics}
-                    clickCallback={handleClick}
+                    onClick={handleClick}
                     sx={{
                         paddingX: "25px",
                         marginY: "25px",
