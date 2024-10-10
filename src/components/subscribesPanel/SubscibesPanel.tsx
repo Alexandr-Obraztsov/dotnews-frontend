@@ -55,7 +55,7 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
                     Редактировать
                 </Typography>
             </Grid2>
-            <Divider></Divider>
+            {items.length > 0 && <Divider/>}
             <Box
                 marginTop={"10px"}
                 paddingX={"20px"}
