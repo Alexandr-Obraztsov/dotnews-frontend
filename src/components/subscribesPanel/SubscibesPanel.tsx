@@ -5,16 +5,35 @@ import 'swiper/css';
 import {ItemType} from "../ItemsList/item/Item";
 import {ItemsList} from "../ItemsList/ItemsList";
 import {globalTheme, tg} from "../../globalTheme";
+import {useState} from "react";
 
 type SubscibesPanelPropsType = {
     title: string
     items: ItemType[]
-    editHandler?: () => void
+    saveTopics?: (items: ItemType[]) => void
     sx?: SxProps
 };
 
 
-export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items, sx, editHandler}) => {
+export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items, sx, saveTopics}) => {
+
+    const [editMode, setEditMode] = useState(false);
+    const [itemsState, setItemsState] = useState<ItemType[]>(items);
+
+    const editModeHandler = () => {
+        setEditMode(prev => !prev)
+    }
+
+
+    const clickItemHandler = (id: string) => {
+        setItemsState(itemsState.map(item => {
+            if (item.id === id)
+                return {...item, checked: !item.checked}
+            return item
+        }))
+    }
+
+    const renderedItems = editMode ? itemsState : itemsState.filter(item => item.checked)
 
     return (
         <Box
@@ -50,12 +69,12 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
                         cursor: "pointer",
                     }}
 
-                    onClick={editHandler}
+                    onClick={editModeHandler}
                 >
-                    Редактировать
+                    {editMode ? "Сохранить" : "Редактировать"}
                 </Typography>
             </Grid2>
-            {items.length > 0 && <Divider/>}
+            {renderedItems.length > 0 && <Divider/>}
             <Box
                 marginTop={"10px"}
                 paddingX={"20px"}
@@ -63,8 +82,8 @@ export const SubscibesPanel: React.FC<SubscibesPanelPropsType> = ({title, items,
                 height={"100%"}
             >
 
-                {items && items.length
-                    ? <ItemsList items={items}/>
+                {renderedItems.length
+                    ? <ItemsList items={renderedItems} onClick={editMode ? clickItemHandler : undefined}/>
                     : <Grid2
                         container
                         justifyContent={"center"}

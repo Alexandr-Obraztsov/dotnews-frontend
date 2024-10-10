@@ -1,4 +1,3 @@
-// @flow
 import * as React from 'react';
 import {Avatar, Grid2, Typography} from "@mui/material";
 import {tg} from "../../../../globalTheme";

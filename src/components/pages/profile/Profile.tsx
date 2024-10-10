@@ -53,7 +53,8 @@ export const Profile: React.FC = () => {
     tg.MainButton.onClick(() => {
     })
 
-    const editTopicsHandler = () => {
+    const editTopicsHandler = (items: ItemType[]) => {
+        dispatch(setTopicsAC(items));
     }
 
     const editChannelsHandler = () => {
@@ -70,14 +71,14 @@ export const Profile: React.FC = () => {
                 <Header/>
 
                 <SubscibesPanel
-                    editHandler={editTopicsHandler}
+                    saveTopics={editTopicsHandler}
                     title={"Темы"}
                     sx={{marginTop: "8px"}}
-                    items={topics.filter(topic => topic.checked)}
+                    items={topics}
                 />
 
                 <SubscibesPanel
-                    editHandler={editChannelsHandler}
+                    saveTopics={editChannelsHandler}
                     title={"Каналы"}
                     sx={{marginTop: "8px"}}
                     items={[]}
