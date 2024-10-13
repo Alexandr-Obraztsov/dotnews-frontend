@@ -1,24 +1,22 @@
 import {
     checkUser,
     getAllTopics,
-    getUserTopics,
     registerUser,
-    sendMetrics,
     subscribeToTopics,
     unsubscribeFromTopics
 } from "./BackFetches";
 
-const userId = 123
+const telegramId = 123
+const uuid = "123"
 
 test("check register", async () => {
-    const res = await registerUser(userId)
+    const res = await registerUser(telegramId)
 
-    console.log(res.status === 200)
+    console.log(res)
 })
 
 test("check checkUser", async () => {
-    const res = await checkUser(userId)
-
+    const res = await checkUser(telegramId)
     console.log(res)
 })
 
@@ -28,25 +26,12 @@ test("check getAllTopics", async () => {
     console.log(res)
 })
 
-test("check getUserTopics", async () => {
-    const res = await getUserTopics(userId)
-
-    console.log(res)
-})
-
-test("check sendMetrics", async () => {
-    const userEntered = await sendMetrics(userId, "NewUserEnteredBot")
-    const interestsSetup = await sendMetrics(userId, "InterestsSetupFinished")
-
-    console.log(userEntered)
-    console.log(interestsSetup)
-})
 
 test("check unsubscribeFromTopics", async () => {
 
     const topics = await getAllTopics()
 
-    const res = await unsubscribeFromTopics(userId, [topics[0]])
+    const res = await unsubscribeFromTopics(uuid, [topics[0]])
 
     console.log(res)
 })
@@ -55,7 +40,7 @@ test("check subscribeFromTopics", async () => {
 
     const topics = await getAllTopics()
 
-    const res = await subscribeToTopics(userId, [topics[0]])
+    const res = await subscribeToTopics(uuid, [topics[0]])
 
     console.log(res)
 })

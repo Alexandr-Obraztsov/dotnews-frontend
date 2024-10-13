@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import {CssBaseline} from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
 import {globalTheme} from "./globalTheme";
+import {Provider} from "react-redux";
+import {store} from "./state/store";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -12,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <ThemeProvider theme={globalTheme}>
         <CssBaseline>
-            <App/>
+            <Provider store={store}>
+                <App/>
+            </Provider>
         </CssBaseline>
     </ThemeProvider>
 );

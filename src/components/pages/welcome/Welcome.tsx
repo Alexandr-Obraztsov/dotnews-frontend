@@ -6,7 +6,7 @@ import {Header} from "../../styled/Header";
 import {Body1} from "../../styled/Body1";
 import {StyledButton} from "../../styled/StyledButton";
 import {useNavigate} from "react-router-dom";
-import {registerUser, sendMetrics} from "../../../backFetches/BackFetches";
+import {registerUser} from "../../../backFetches/BackFetches";
 import {tg} from "../../../globalTheme";
 
 export const Welcome = () => {
@@ -18,7 +18,6 @@ export const Welcome = () => {
 
     const onSubmit = () => {
         registerUser(userId)
-        sendMetrics(userId, "NewUserEnteredBot")
         navigate("/topics")
     }
 

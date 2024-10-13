@@ -1,41 +1,29 @@
 import * as React from 'react';
 import {Divider, Grid2} from "@mui/material";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ItemType} from "../../ItemsList/item/Item";
 import {Header} from "../../styled/Header";
 import {Body1} from "../../styled/Body1";
 import {Shadow} from "../../styled/Shadow";
 import {StyledButton} from "../../styled/StyledButton";
-import {Loading} from "../loading/Loading";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {ItemsList} from "../../ItemsList/ItemsList";
-import {getAllTopics, sendMetrics, subscribeToTopics} from "../../../backFetches/BackFetches";
+import {subscribeToTopics} from "../../../backFetches/BackFetches";
 import {globalTheme, tg} from "../../../globalTheme";
+import {useAppDispatch, useAppSelector} from "../../../state/hooks";
+import {setUserTopicsAC} from "../../../state/userReducer";
 
 
 export const Topics: React.FC = () => {
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
-    const [items, setItems] = useState<ItemType[]>([]);
+    const {uuid, topics} = useAppSelector(res => res.user);
+    const dispatch = useAppDispatch()
+    const [items, setItems] = useState<ItemType[]>(topics);
     const [error, setError] = useState<Error | null>(null);
-
-    const userId = tg.initDataUnsafe.user!.id;
-
     const navigate = useNavigate()
 
+
     const checkedItemsCount = items.filter(item => item.checked).length;
-
-    useEffect(() => {
-        getAllTopics()
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setItems(result.map((item: ItemType) => ({...item, checked: false})));
-                },
-                (error) => setError(error)
-            )
-    }, [])
-
 
     const handleClick = (id: string) => {
         setItems(items.map(item => item.id === id ? {...item, checked: !item.checked} : item))
@@ -43,11 +31,12 @@ export const Topics: React.FC = () => {
 
     const onSubmit = () => {
         const checkedTopics = items.filter(item => item.checked).map(item => item.id);
-        sendMetrics(userId, "InterestsSetupFinished")
-        subscribeToTopics(userId, checkedTopics).then(
+        dispatch(setUserTopicsAC(items))
+        subscribeToTopics(uuid, checkedTopics).then(
                 (result) => result.statusText !== "OK" && setError(new Error(result.statusText)),
                 (error) => setError(error.message)
             )
+
         navigate("/finishSetup")
     }
 
@@ -57,8 +46,6 @@ export const Topics: React.FC = () => {
     })
 
     if (error) return <ErrorPage error={error}/>;
-
-    if (!isLoaded) return <Loading/>;
 
     return (
         <>

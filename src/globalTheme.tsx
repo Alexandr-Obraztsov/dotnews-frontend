@@ -1,8 +1,6 @@
 import {createTheme} from "@mui/material";
 
-const randomInt = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
+
 
 export const tg = window.Telegram.WebApp.initDataUnsafe.user ?
     window.Telegram.WebApp :

@@ -3,39 +3,43 @@ import {Avatar, Grid2, Typography} from "@mui/material";
 import {tg} from "../../../../globalTheme";
 
 
-export const Header : React.FC = () => {
+export const Header: React.FC = () => {
     const user = tg.initDataUnsafe.user!;
 
     return (
         <Grid2
             container
             bgcolor={"background.paper"}
-            direction={"column"}
+            direction={"row"}
             alignItems={"center"}
             padding={"10px 20px"}
         >
             <Avatar
                 src={user.photo_url}
-                sx={{width: "90px", height: "90px"}}
+                sx={{width: "60px", height: "60px"}}
             />
 
-            <Typography
-                marginBlockStart={"10px"}
-                variant={"h2"}
-                fontSize={"18px"}
-                fontWeight={400}
-                letterSpacing={"0.3px"}
+            <Grid2
+                marginLeft={"10px"}
             >
-                {user.first_name} {user.last_name}
-            </Typography>
+                <Typography
+                    marginBlockStart={"10px"}
+                    variant={"h2"}
+                    fontSize={"18px"}
+                    fontWeight={400}
+                    letterSpacing={"0.3px"}
+                >
+                    {user.first_name} {user.last_name}
+                </Typography>
 
-            <Typography
-                color={"text.secondary"}
-                fontSize={"13px"}
-                fontWeight={380}
-            >
-                @{user.username || "unknown"}
-            </Typography>
+                <Typography
+                    color={"text.secondary"}
+                    fontSize={"13px"}
+                    fontWeight={380}
+                >
+                    @{user.username || "unknown"}
+                </Typography>
+            </Grid2>
         </Grid2>
     );
 };

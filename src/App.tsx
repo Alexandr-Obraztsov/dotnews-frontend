@@ -4,7 +4,6 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Topics} from "./components/pages/topics/Topics";
 import {FinishSetup} from "./components/pages/finishSetup/FinishSetup";
 import {Profile} from "./components/pages/profile/Profile";
-import {TopicsEditor} from "./components/pages/topicsEditor/TopicsEditor";
 import {Autorization} from "./components/pages/autorization/Autorization";
 import {ErrorPage} from "./components/pages/errorPage/ErrorPage";
 
@@ -13,7 +12,8 @@ const router = createBrowserRouter([
 
     {
         path: "/",
-        element: <Autorization/>
+        element: <Autorization/>,
+        errorElement: <ErrorPage error={new Error("Page not found")}/>
     },
     {
         path: "welcome",
@@ -30,10 +30,6 @@ const router = createBrowserRouter([
     {
         path: "profile",
         element: <Profile/>
-    },
-    {
-        path: "topicsEditor",
-        element: <TopicsEditor/>
     },
     {
         path: "/*",

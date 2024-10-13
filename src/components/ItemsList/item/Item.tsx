@@ -5,7 +5,6 @@ import Lottie from "lottie-react";
 import Boy_emoji from "../../../assets/emoji/Boy.json";
 import Loopmoney from "../../../assets/emoji/Loopmoney.json";
 import Notebook from "../../../assets/emoji/Notebook.json";
-import {globalTheme} from "../../../globalTheme";
 
 export type ItemType = {
     id: string,
