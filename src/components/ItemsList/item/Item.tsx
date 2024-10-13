@@ -52,7 +52,7 @@ export const Item: FC<ItemType> = ({id, name, checked, onClick}) => {
     })
 
     const chipColor = onClick ? checked ? "success" : "default" : "primary";
-    const textColor = onClick && !checked ?  "default" : "primary.contrastText";
+    const textColor = onClick && !checked ?  "default" : "";
 
     return (
         <Chip
