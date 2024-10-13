@@ -64,15 +64,15 @@ export const globalTheme = createTheme({
                 secondary: tg.themeParams.subtitle_text_color,
             },
 
+
             primary: {
                 main: tg.themeParams.button_color!,
-
-                contrastText: tg.themeParams.button_text_color!,
+                contrastText: tg.themeParams.accent_text_color!,
             },
         },
 
         typography: {
-            fontFamily: 'Rubik, Roboto, sans-serif',
+            fontFamily: 'Roboto, sans-serif',
         },
 
         components: {
@@ -81,6 +81,14 @@ export const globalTheme = createTheme({
                 styleOverrides: {
                     root: {
                         backgroundColor: tg.themeParams.button_color,
+                        color: tg.themeParams.button_text_color
+                    }
+                }
+            },
+
+            MuiChip: {
+                styleOverrides: {
+                    root: {
                         color: tg.themeParams.button_text_color
                     }
                 }
