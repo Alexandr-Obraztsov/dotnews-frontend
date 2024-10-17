@@ -7,6 +7,7 @@ import {Header} from "./header/Header";
 import {useAppDispatch, useAppSelector} from "../../../state/hooks";
 import {setUserTopicsAC} from "../../../state/userReducer";
 import {registerUser} from "../../../backFetches/BackFetches";
+import {TopicsList} from "./topicsList/TopicsList";
 
 export type SubscribesType = {
     topics: ItemType[],
@@ -24,12 +25,6 @@ export const Profile: React.FC = () => {
 
     tg.BackButton.hide()
 
-    tg.MainButton.show()
-    tg.MainButton.setParams({
-        text: "Поделиться интересами"
-    })
-    tg.MainButton.onClick(() => {
-    })
 
     const editTopicsHandler = (items: ItemType[]) => {
         dispatch(setUserTopicsAC(items));
@@ -49,11 +44,9 @@ export const Profile: React.FC = () => {
             >
                 <Header/>
 
-                <SubscibesPanel
-                    saveTopics={editTopicsHandler}
-                    title={"Темы"}
-                    sx={{marginTop: "8px"}}
-                    items={topics}
+                <TopicsList
+                    sx={{marginTop: "12px"}}
+                    topics={topics}
                 />
 
             </Grid2>

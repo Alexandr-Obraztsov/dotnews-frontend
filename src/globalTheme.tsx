@@ -97,7 +97,7 @@ export const globalTheme = createTheme({
             MuiDivider: {
                 styleOverrides: {
                     root: {
-                        borderColor: tg.themeParams.secondary_bg_color,
+                        borderColor: tg.themeParams.section_separator_color,
                     }
                 }
             },

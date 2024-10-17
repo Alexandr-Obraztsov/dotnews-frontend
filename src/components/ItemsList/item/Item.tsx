@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {Chip, Typography} from "@mui/material";
+import {Box, Grid2, Skeleton, Typography} from "@mui/material";
 import styled from "@emotion/styled";
 import Lottie from "lottie-react";
 import Boy_emoji from "../../../assets/emoji/Boy.json";
@@ -13,7 +13,7 @@ export type ItemType = {
     onClick?: (id: string) => void
 }
 
-export const getItemEmoji = (name: string, height: number = 60): React.ReactNode => {
+export const getItemEmoji = (name: string, size: number = 60): React.ReactNode => {
     let animationData = {};
     switch (name) {
         case "IT":
@@ -29,14 +29,26 @@ export const getItemEmoji = (name: string, height: number = 60): React.ReactNode
             animationData = Boy_emoji
             break
     }
-    return <Lottie
-        animationData={animationData}
-        loop={true}
-        style={{
-            height: height,
-            backgroundColor: 'transparent'
-        }}
-    />
+    return <Grid2
+    container
+    justifyContent={"center"}
+    alignItems={"center"}
+    height={size}
+    width={size}
+    borderRadius={"50%"}
+    sx={{backgroundColor: "white"}}
+    padding={"5px"}
+    >
+        <Lottie
+            animationData={animationData}
+            loop={true}
+            style={{
+                backgroundColor: 'transparent',
+                height:"100%",
+                width: "100%",
+            }}
+        />
+    </Grid2>
 }
 
 
@@ -46,22 +58,25 @@ export const Item: FC<ItemType> = ({id, name, checked, onClick}) => {
         onClick?.(id)
     }
 
-    const NameTypography = styled(Typography)({
-        fontSize: "14px",
-        fontWeight: 400,
-    })
-
-    const chipColor = onClick ? checked ? "success" : "default" : "primary";
-    const textColor = onClick && !checked ?  "default" : "";
+    const textColor = onClick && !checked ? "default" : "";
 
     return (
-        <Chip
-            color={chipColor}
-            icon={<div>{getItemEmoji(name, 20)}</div>}
-            variant={checked ? "filled" : "outlined"}
-            label={<NameTypography color={textColor}>{name}</NameTypography>}
+        <Grid2
+            container
             key={id}
             onClick={onClick ? handleClick : undefined}
-        />
+            sx={{
+                cursor: "pointer",
+                paddingY: "10px",
+            }}
+        >
+            <Skeleton variant={"circular"} width={40} height={40}/>
+            <Typography
+                marginLeft={"10px"}
+                color={textColor}
+                fontSize={"16px"}
+                fontWeight={500}
+            >{name}</Typography>
+        </Grid2>
     )
 }

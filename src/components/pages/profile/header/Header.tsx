@@ -1,11 +1,12 @@
 import * as React from 'react';
-import {Avatar, Box, Grid2, Typography} from "@mui/material";
+import {Box, Grid2, Typography} from "@mui/material";
 import {globalTheme, tg} from "../../../../globalTheme";
 import ShareIcon from '@mui/icons-material/Share';
 import TuneIcon from '@mui/icons-material/Tune';
 import ChatIcon from '@mui/icons-material/Chat';
 import TopicIcon from '@mui/icons-material/Topic';
 import styled from '@emotion/styled';
+import background from "../../../../assets/images/background.jpg"
 
 export const Header: React.FC = () => {
     const user = tg.initDataUnsafe.user!;
@@ -14,7 +15,7 @@ export const Header: React.FC = () => {
 
     return (
         <Box
-            padding={"20px 10px"}
+            padding={"10px"}
             bgcolor={"background.paper"}
 
         >
@@ -23,26 +24,26 @@ export const Header: React.FC = () => {
                 direction={"column"}
                 alignItems={"center"}
             >
-                <Avatar
-                    src={user.photo_url}
-                    sx={{
-                        width: "100px",
-                        height: "100px",
-                        borderRadius: "50%",
+                <img
+                    src={background}
+                    style={{
+                        width: "100%",
+                        height: "140px",
+                        borderRadius: "5px",
+                        objectFit: "cover",
                     }}
                 />
 
                 <Grid2
                     container
                     direction={"column"}
-                    marginLeft={"10px"}
                     alignItems={"center"}
-                    marginTop={"5px"}
+                    marginTop={"15px"}
                 >
                     <Typography
                         variant={"h2"}
-                        fontSize={"18px"}
-                        fontWeight={400}
+                        fontSize={"20px"}
+                        fontWeight={500}
                         letterSpacing={"0.3px"}
                     >
                         {user.first_name} {user.last_name}
