@@ -3,8 +3,7 @@ import {Box, Grid2, Typography} from "@mui/material";
 import {globalTheme, tg} from "../../../../globalTheme";
 import ShareIcon from '@mui/icons-material/Share';
 import TuneIcon from '@mui/icons-material/Tune';
-import ChatIcon from '@mui/icons-material/Chat';
-import TopicIcon from '@mui/icons-material/Topic';
+import BackupTableIcon from '@mui/icons-material/BackupTable';
 import styled from '@emotion/styled';
 import background from "../../../../assets/images/background.jpg"
 
@@ -62,8 +61,9 @@ export const Header: React.FC = () => {
             <Grid2
                 container
                 direction={"row"}
-                justifyContent={"space-around"}
-                marginTop={"25px"}
+                justifyContent={"center"}
+                marginTop={"20px"}
+                spacing={3}
             >
 
                 <StyledButton>
@@ -75,16 +75,9 @@ export const Header: React.FC = () => {
 
                 <StyledButton>
                     <StyledIcon>
-                        <ChatIcon fontSize={"inherit"} sx={{transform: "Translate(0.2px, 1px)"}}/>
+                        <BackupTableIcon fontSize={"inherit"} sx={{transform: "Translate(0.2px, 1px)"}}/>
                     </StyledIcon>
-                    Каналы
-                </StyledButton>
-
-                <StyledButton>
-                    <StyledIcon>
-                        <TopicIcon fontSize={"inherit"} sx={{transform: "Translate(0.3px, 0.2px)"}}/>
-                    </StyledIcon>
-                    Топики
+                    Подписки
                 </StyledButton>
 
                <StyledButton>
@@ -115,7 +108,6 @@ const StyledIcon = styled.div({
 
 const StyledButton = styled.button({
     display: "flex",
-    flexGrow: 1,
     flexDirection: "column",
     alignItems: "center",
     backgroundColor: "transparent",
