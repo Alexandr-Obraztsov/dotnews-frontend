@@ -2,10 +2,11 @@ import * as React from 'react';
 import {Grid2} from "@mui/material";
 import {ItemType} from "../../ItemsList/item/Item";
 import {tg} from "../../../globalTheme";
-import {Header} from "./header/Header";
+import {Header} from "./Header";
 import {useAppDispatch, useAppSelector} from "../../../state/hooks";
 import {setUserTopicsAC} from "../../../state/userReducer";
-import {TopicsList} from "./topicsList/TopicsList";
+import {TopicsList} from "./TopicsList";
+import {SettingsButton} from "./SettingsButton";
 
 export type SubscribesType = {
     topics: ItemType[],
@@ -19,7 +20,10 @@ export const Profile: React.FC = () => {
     const dispatch = useAppDispatch()
 
     tg.BackButton.hide()
-
+    tg.MainButton.setParams({
+        text: "Поделиться интересами",
+    })
+    tg.MainButton.show()
 
     const editTopicsHandler = (items: ItemType[]) => {
         dispatch(setUserTopicsAC(items));
@@ -32,13 +36,15 @@ export const Profile: React.FC = () => {
                 direction={"column"}
                 wrap={"nowrap"}
                 paddingBottom={"12px"}
+                gap={"12px"}
             >
                 <Header/>
 
                 <TopicsList
-                    sx={{marginTop: "12px"}}
                     topics={topics}
                 />
+
+                <SettingsButton/>
 
             </Grid2>
         </>

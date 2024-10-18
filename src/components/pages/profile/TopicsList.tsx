@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Item, ItemType} from "../../../ItemsList/item/Item";
+import {Item, ItemType} from "../../ItemsList/item/Item";
 import {Divider, Stack, SxProps} from "@mui/material";
 import {AnotherTopicsButton} from "./AnotherTopicsButton";
 import {useState} from "react";
@@ -32,7 +32,6 @@ export const TopicsList : React.FC<TopicsListPropsType> = ({topics, sx}) => {
             }}
         >
             {renderedItems}
-
         </Stack>
     );
 };
