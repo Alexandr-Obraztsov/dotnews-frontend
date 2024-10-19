@@ -3,13 +3,15 @@ import {Item, ItemType} from "../../ItemsList/item/Item";
 import {Divider, Stack, SxProps} from "@mui/material";
 import {AnotherTopicsButton} from "./AnotherTopicsButton";
 import {useState} from "react";
+import {AddNewTopicButton} from "./AddNewTopicButton";
 
 type TopicsListPropsType = {
+    addTopicHandler: () => void
     channels: ItemType[],
     sx?: SxProps
 };
 
-export const ChannelsList : React.FC<TopicsListPropsType> = ({channels, sx}) => {
+export const ChannelsList : React.FC<TopicsListPropsType> = ({channels, sx, addTopicHandler}) => {
 
     const [isShowMore, setIsShowMore] = useState(false);
 
@@ -23,6 +25,8 @@ export const ChannelsList : React.FC<TopicsListPropsType> = ({channels, sx}) => 
         renderedItems = renderedItems.slice(0, 2)
         renderedItems.push(<AnotherTopicsButton onClick={handleClick}/>)
     }
+
+    renderedItems.push(<AddNewTopicButton onClick={addTopicHandler} topicsCount={channels.length} topicsMaxCount={35}/>)
 
     return (
         <Stack

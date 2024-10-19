@@ -3,6 +3,7 @@ import {BasicItem} from "../../styled/BasicItem";
 import {Grid2, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import {globalTheme} from "../../../globalTheme";
 
 type AddNewTopicButtonPropsType = {
     onClick: () => void,
@@ -16,14 +17,17 @@ export const AddNewTopicButton : React.FC<AddNewTopicButtonPropsType> = ({onClic
         <BasicItem onClick={onClick}>
             <Grid2
                 container
-                width={40}
-                height={40}
-                bgcolor={"primary.main"}
-                borderRadius={"20%"}
+                width={28}
+                height={28}
+                margin={"8.5px"}
+                color={"primary.main"}
+                borderRadius={"50%"}
                 justifyContent={"center"}
                 alignItems={"center"}
+                border={`2px solid ${globalTheme.palette.primary.main}`}
+                fontSize={"22px"}
             >
-                <AddIcon fontSize={"medium"}/>
+                <AddIcon fontSize={"inherit"} sx={{position: "absolute"}}/>
             </Grid2>
 
             <Grid2
@@ -35,7 +39,8 @@ export const AddNewTopicButton : React.FC<AddNewTopicButtonPropsType> = ({onClic
                 <Typography
                     marginLeft={"13px"}
                     fontSize={"16px"}
-                    fontWeight={500}
+                    fontWeight={400}
+                    color={"primary.main"}
                 >
                     Добавить тему
                 </Typography>
