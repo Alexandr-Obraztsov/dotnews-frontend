@@ -1,13 +1,19 @@
 import * as React from 'react';
 import {BasicItem} from "../../styled/BasicItem";
 import {Grid2, Typography} from "@mui/material";
-import TuneIcon from "@mui/icons-material/Tune";
 import AddIcon from '@mui/icons-material/Add';
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-export const AddNewTopicButton = () => {
+type AddNewTopicButtonPropsType = {
+    onClick: () => void,
+    topicsCount: number,
+    topicsMaxCount: number
+}
+
+
+export const AddNewTopicButton : React.FC<AddNewTopicButtonPropsType> = ({onClick, topicsCount, topicsMaxCount}) => {
     return (
-        <BasicItem>
+        <BasicItem onClick={onClick}>
             <Grid2
                 container
                 width={40}
@@ -44,7 +50,7 @@ export const AddNewTopicButton = () => {
                         fontWeight={500}
                         color={"text.secondary"}
                     >
-                        1/10
+                        {topicsCount}/{topicsMaxCount}
                     </Typography>
 
                     <Grid2

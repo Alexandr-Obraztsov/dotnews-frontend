@@ -10,7 +10,6 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Autorization} from "./components/pages/autorization/Autorization";
 import {ErrorPage} from "./components/pages/errorPage/ErrorPage";
 import {Welcome} from "./components/pages/welcome/Welcome";
-import {Topics} from "./components/pages/topics/Topics";
 import {FinishSetup} from "./components/pages/finishSetup/FinishSetup";
 import {Profile} from "./components/pages/profile/Profile";
 
@@ -27,10 +26,6 @@ const router = createBrowserRouter([
     {
         path: "welcome",
         element: <Welcome/>
-    },
-    {
-        path: "topics",
-        element: <Topics/>
     },
     {
         path: "finishSetup",

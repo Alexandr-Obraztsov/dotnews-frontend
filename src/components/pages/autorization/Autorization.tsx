@@ -6,7 +6,7 @@ import {ErrorPage} from "../errorPage/ErrorPage";
 import {checkUser, getAllTopics, getUserTopics, registerUser} from "../../../backFetches/BackFetches";
 import {tg} from "../../../globalTheme";
 import {useAppDispatch} from "../../../state/hooks";
-import {setUserTopicsAC, setUserUuidAC} from "../../../state/userReducer";
+import {setUserChannelsAC, setUserUuidAC} from "../../../state/userReducer";
 import {ItemType} from "../../ItemsList/item/Item";
 
 
@@ -30,9 +30,7 @@ export const Autorization = () => {
         })
 
         dispatch(setUserUuidAC(userUuid))
-        dispatch(setUserTopicsAC(topics))
-
-        // TODO Добавить загрузку каналов
+        dispatch(setUserChannelsAC(topics))
 
         navigate("/profile")
     }
@@ -44,7 +42,7 @@ export const Autorization = () => {
             return {...topic, checked: false}
         })
         dispatch(setUserUuidAC(res.id));
-        dispatch(setUserTopicsAC(topics))
+        dispatch(setUserChannelsAC(topics))
         navigate("/welcome")
     }
 

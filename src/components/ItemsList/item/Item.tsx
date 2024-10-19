@@ -5,13 +5,16 @@ import {BasicItem} from "../../styled/BasicItem";
 export type ItemType = {
     id: string,
     name: string,
-    tag?: string,
+    tag?: string
+}
+
+type ItemPropsType = ItemType & {
     checked?: boolean
     onClick?: (id: string) => void
 }
 
 
-export const Item: FC<ItemType> = ({id, name, tag, checked, onClick}) => {
+export const Item: FC<ItemPropsType> = ({id, name, tag, checked, onClick}) => {
 
     const handleClick = () => {
         onClick?.(id)

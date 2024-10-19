@@ -18,7 +18,7 @@ export const ItemsList : React.FC<TopicsListPropsType> = ({items, onClick, sx}) 
             spacing={0.6}
         >
             {items.map(item =>
-                <Item id={item.id} name={item.name} key={item.id} checked={item.checked} onClick={onClick}/>
+                <Item id={item.id} name={item.name} key={item.id} onClick={onClick}/>
             )}
         </Grid2>
     );

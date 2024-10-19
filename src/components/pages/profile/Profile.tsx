@@ -4,10 +4,11 @@ import {ItemType} from "../../ItemsList/item/Item";
 import {tg} from "../../../globalTheme";
 import {Header} from "./Header";
 import {useAppDispatch, useAppSelector} from "../../../state/hooks";
-import {setUserTopicsAC} from "../../../state/userReducer";
-import {TopicsList} from "./TopicsList";
+import {addUserChannelAC} from "../../../state/userReducer";
+import {ChannelsList} from "./ChannelsList";
 import {SettingsButton} from "./SettingsButton";
 import {AddNewTopicButton} from "./AddNewTopicButton";
+import {v1} from "uuid";
 
 export type SubscribesType = {
     topics: ItemType[],
@@ -16,7 +17,7 @@ export type SubscribesType = {
 
 export const Profile: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const {uuid, topics, channels} = useAppSelector(res => res.user);
+    const {uuid, channels} = useAppSelector(res => res.user);
 
     const dispatch = useAppDispatch()
 
@@ -26,8 +27,14 @@ export const Profile: React.FC = () => {
     })
     tg.MainButton.show()
 
-    const editTopicsHandler = (items: ItemType[]) => {
-        dispatch(setUserTopicsAC(items));
+    const addTopicHandler = () => {
+        if (channels.length < 35) {
+            dispatch(addUserChannelAC({
+                id: v1(),
+                name: "Новый канал",
+                tag: "",
+            }))
+        }
     }
 
     return (
@@ -41,11 +48,9 @@ export const Profile: React.FC = () => {
             >
                 <Header/>
 
-                <AddNewTopicButton/>
+                <AddNewTopicButton onClick={addTopicHandler} topicsCount={channels.length} topicsMaxCount={35}/>
 
-                <TopicsList
-                    topics={topics}
-                />
+                {channels && channels.length > 0 && <ChannelsList channels={channels}/>}
 
                 <SettingsButton/>
 

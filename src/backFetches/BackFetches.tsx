@@ -24,7 +24,7 @@ export const checkUser = async (userId: number) => {
 }
 
 export const subscribeToTopics = async (userTelegramId: string, topicIds: string[]) => {
-    console.log("Send request for subscribe to topics");
+    console.log("Send request for subscribe to channels");
     return fetch(`${server_url}/api/subscribtions/subscribe`, {
         method: 'POST',
         headers: {
@@ -35,7 +35,7 @@ export const subscribeToTopics = async (userTelegramId: string, topicIds: string
 }
 
 export const unsubscribeFromTopics = async (userTelegramId: string, topicIds: string[]) => {
-    console.log("Send request for unsubscribe from topics");
+    console.log("Send request for unsubscribe from channels");
     return fetch(`${server_url}/api/subscribtions/unsubscribe`, {
         method: 'POST',
         headers: {
@@ -46,7 +46,7 @@ export const unsubscribeFromTopics = async (userTelegramId: string, topicIds: st
 }
 
 export const getUserTopics = async (userId: string) => {
-    console.log("Send request for get user topics");
+    console.log("Send request for get user channels");
     return fetch(`${server_url}/api/topics?userId=${userId}`, {
         method: 'GET',
         headers: {
@@ -56,7 +56,7 @@ export const getUserTopics = async (userId: string) => {
 }
 
 export const getAllTopics = async () => {
-    console.log("Send request for get all topics");
+    console.log("Send request for get all channels");
     return fetch(`${server_url}/api/topics`, {
         method: 'GET',
         headers: {

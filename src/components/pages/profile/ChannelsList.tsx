@@ -5,15 +5,15 @@ import {AnotherTopicsButton} from "./AnotherTopicsButton";
 import {useState} from "react";
 
 type TopicsListPropsType = {
-    topics: ItemType[],
+    channels: ItemType[],
     sx?: SxProps
 };
 
-export const TopicsList : React.FC<TopicsListPropsType> = ({topics, sx}) => {
+export const ChannelsList : React.FC<TopicsListPropsType> = ({channels, sx}) => {
 
     const [isShowMore, setIsShowMore] = useState(false);
 
-    let renderedItems = topics.map(item => <Item key={item.id} id={item.id} name={item.name} checked={item.checked}/>)
+    let renderedItems = channels.map(item => <Item key={item.id} id={item.id} name={item.name}/>)
 
     const handleClick = () => {
         setIsShowMore(!isShowMore)
