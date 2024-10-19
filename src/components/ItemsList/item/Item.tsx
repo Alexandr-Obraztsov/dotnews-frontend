@@ -24,14 +24,14 @@ export const Item: FC<ItemType> = ({id, name, tag, checked, onClick}) => {
             key={id}
             onClick={onClick ? handleClick : undefined}
         >
-            <Skeleton variant={"circular"} width={40} height={40}/>
+            <Skeleton variant={"circular"} width={45} height={45}/>
             <Grid2
                 container
                 direction={"column"}
                 spacing={0.5}
+                marginLeft={"13px"}
             >
                 <Typography
-                    marginLeft={"10px"}
                     color={textColor}
                     fontSize={"16px"}
                     fontWeight={500}
@@ -39,7 +39,6 @@ export const Item: FC<ItemType> = ({id, name, tag, checked, onClick}) => {
                 >{name}</Typography>
 
                 <Typography
-                    marginLeft={"10px"}
                     color={"text.secondary"}
                     fontSize={"13px"}
                     fontWeight={500}

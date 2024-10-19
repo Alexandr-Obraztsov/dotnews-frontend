@@ -15,32 +15,32 @@ export const AnotherTopicsButton : React.FC<{onClick?: () => void}> = ({onClick}
                     display={"flex"}
                     justifyContent={"center"}
                     alignItems={"center"}
-                    width={50}
-                    height={50}
+                    width={45}
+                    height={45}
                 >
                     <Skeleton
                         variant="circular"
-                        width={25}
-                        height={25}
+                        width={30}
+                        height={30}
                         sx={{position: "absolute", top: "0", left: "0"}}
                     />
 
                     <Skeleton
                         variant="circular"
-                        width={25}
-                        height={25}
+                        width={30}
+                        height={30}
                         sx={{position: "absolute", top: "0", right: "0"}}
                     />
                     <Skeleton
                         variant="circular"
-                        width={25}
-                        height={25}
+                        width={30}
+                        height={30}
                         sx={{position: "absolute", bottom: "0", left: "50%", transform: "translateX(-50%)"}}
                     />
                 </Box>
 
                 <Typography
-                    marginLeft={"10px"}
+                    marginLeft={"13px"}
                     fontSize={"16px"}
                     fontWeight={500}
                 >

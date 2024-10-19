@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import {globalTheme} from "../../globalTheme";
 import {ButtonHTMLAttributes, FC} from "react";
+import {SxProps} from "@mui/material";
 
-type BasicItemPropsType = ButtonHTMLAttributes<HTMLDivElement>
+type BasicItemPropsType = ButtonHTMLAttributes<HTMLDivElement> & {sx? : SxProps}
 
 export const BasicItem: FC<BasicItemPropsType> = (props) => {
 
@@ -14,7 +15,7 @@ export const BasicItem: FC<BasicItemPropsType> = (props) => {
     );
 }
 
-export const StyledBasicItem = styled.div({
+export const StyledBasicItem = styled.div<BasicItemPropsType>({
     position: "relative",
     display: "flex",
     padding: "10px 15px",

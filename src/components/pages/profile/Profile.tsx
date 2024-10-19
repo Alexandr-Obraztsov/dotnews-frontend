@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from "../../../state/hooks";
 import {setUserTopicsAC} from "../../../state/userReducer";
 import {TopicsList} from "./TopicsList";
 import {SettingsButton} from "./SettingsButton";
+import {AddNewTopicButton} from "./AddNewTopicButton";
 
 export type SubscribesType = {
     topics: ItemType[],
@@ -39,6 +40,8 @@ export const Profile: React.FC = () => {
                 gap={"12px"}
             >
                 <Header/>
+
+                <AddNewTopicButton/>
 
                 <TopicsList
                     topics={topics}
