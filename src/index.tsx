@@ -12,6 +12,10 @@ import {ErrorPage} from "./components/pages/errorPage/ErrorPage";
 import {Welcome} from "./components/pages/welcome/Welcome";
 import {FinishSetup} from "./components/pages/finishSetup/FinishSetup";
 import {Profile} from "./components/pages/profile/Profile";
+import {AddChannel} from "./components/pages/addChannel/AddChannel";
+import {QueryClient, QueryClientProvider} from "react-query";
+
+const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -36,6 +40,10 @@ const router = createBrowserRouter([
         element: <Profile/>
     },
     {
+        path: "addChannel",
+        element: <AddChannel/>
+    },
+    {
         path: "/*",
         element: <ErrorPage error={new Error("Page not found")}/>
     }
@@ -46,7 +54,9 @@ root.render(
     <ThemeProvider theme={globalTheme}>
         <CssBaseline>
             <Provider store={store}>
-                <RouterProvider router={router} />
+                <QueryClientProvider client={queryClient}>
+                    <RouterProvider router={router} />
+                </QueryClientProvider>
             </Provider>
         </CssBaseline>
     </ThemeProvider>

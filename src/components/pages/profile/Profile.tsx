@@ -7,8 +7,7 @@ import {useAppDispatch, useAppSelector} from "../../../state/hooks";
 import {addUserChannelAC} from "../../../state/userReducer";
 import {ChannelsList} from "./ChannelsList";
 import {SettingsButton} from "./SettingsButton";
-import {AddNewTopicButton} from "./AddNewTopicButton";
-import {v1} from "uuid";
+import {useNavigate} from "react-router-dom";
 
 export type SubscribesType = {
     topics: ItemType[],
@@ -17,6 +16,8 @@ export type SubscribesType = {
 
 export const Profile: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const navigate = useNavigate()
+
     const {uuid, channels} = useAppSelector(res => res.user);
 
     const dispatch = useAppDispatch()
@@ -29,11 +30,7 @@ export const Profile: React.FC = () => {
 
     const addTopicHandler = () => {
         if (channels.length < 35) {
-            dispatch(addUserChannelAC({
-                id: v1(),
-                name: "Новый канал",
-                tag: "",
-            }))
+            navigate("/addChannel")
         }
     }
 
@@ -48,9 +45,7 @@ export const Profile: React.FC = () => {
             >
                 <Header/>
 
-                <AddNewTopicButton onClick={addTopicHandler} topicsCount={channels.length} topicsMaxCount={35}/>
-
-                {channels && channels.length > 0 && <ChannelsList channels={channels}/>}
+                <ChannelsList channels={channels} addTopicHandler={addTopicHandler}/>
 
                 <SettingsButton/>
 
