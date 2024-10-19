@@ -5,29 +5,24 @@ import {tg} from "../../../globalTheme";
 import {useNavigate} from "react-router-dom";
 
 export const AddChannel: React.FC = () => {
-
     const [link, setLink] = useState<string>("")
-
     const navigate = useNavigate()
-
     const handleLinkChange = (event: ChangeEvent<HTMLInputElement>) => {
         const line = event.currentTarget.value.trim().slice(13).replace("https://t.me/", "").replace("@", "")
 
         setLink(line)
     }
 
+    tg.BackButton.onClick(() => navigate("/profile"))
+    tg.BackButton.show()
+
     if (link) {
-        tg.MainButton.setParams({
-            text: "Добавить канал",
-        })
-        tg.MainButton.onClick(() => {
-            navigate("/profile")
-        })
+        tg.MainButton.setParams({text: "Добавить канал"})
+        tg.MainButton.onClick(() => navigate("/profile"))
         tg.MainButton.show()
     } else {
         tg.MainButton.hide()
     }
-
 
     return (
         <Grid2
