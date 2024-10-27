@@ -6,23 +6,36 @@ import {Header} from "../../styled/Header";
 import {Body1} from "../../styled/Body1";
 import {StyledButton} from "../../styled/StyledButton";
 import {useNavigate} from "react-router-dom";
-import {registerUser} from "../../../backFetches/BackFetches";
 import {tg} from "../../../globalTheme";
+import {setUserAPI} from "../../../api/api";
+import {setUserUuidAC} from "../../../store/userReducer";
+import {useAppDispatch} from "../../../store/hooks";
+import {ErrorPage} from "../errorPage/ErrorPage";
+import {useState} from "react";
 
 export const Welcome = () => {
 
+    const [error, setError] = useState<Error | null>(null);
+
     const navigate = useNavigate()
 
-    const userId = tg.initDataUnsafe.user!.id;
+    const dispatch = useAppDispatch()
+
     tg.BackButton.hide()
 
-    const onSubmit = () => {
-        registerUser(userId)
-        navigate("/topics")
+    const onSubmit = async () => {
+        try {
+            const res = await setUserAPI(tg.initDataUnsafe.user!.id)
+            dispatch(setUserUuidAC(res.id));
+            navigate("/profile")
+        }
+        catch (e: Error | any) {
+            setError(e)
+        }
     }
 
-
-    return (
+    if (error) return <ErrorPage error={error}/>
+    else return (
         <>
             <Grid2
                 container

@@ -3,54 +3,37 @@ import {Loading} from "../loading/Loading";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../errorPage/ErrorPage";
-import {checkUser, getAllTopics, getUserTopics, registerUser} from "../../../backFetches/BackFetches";
+import {
+    getUserAPI,
+    getUserSubscribtionsAPI,
+} from "../../../api/api";
 import {tg} from "../../../globalTheme";
-import {useAppDispatch} from "../../../state/hooks";
-import {setUserChannelsAC, setUserUuidAC} from "../../../state/userReducer";
-import {ItemType} from "../../ItemsList/item/Item";
+import {useAppDispatch} from "../../../store/hooks";
+import {setUserChannelsAC, setUserUuidAC} from "../../../store/userReducer";
 
 
 export const Autorization = () => {
     const navigate = useNavigate()
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [error, setError] = useState<Error | null>(null);
 
     const dispatch = useAppDispatch()
 
     const loadUser = async (userUuid: string) => {
-        const allTopics = await getAllTopics()
-        const userTopics = await getUserTopics(userUuid)
-        const topics = allTopics.map((topic: ItemType) => {
-            for (let i = 0; i < userTopics.length; i++)
-                if (userTopics[i].id === topic.id)
-                    return {...topic, checked: true}
-
-            return {...topic, checked: false}
-        })
-
-        dispatch(setUserUuidAC(userUuid))
-        dispatch(setUserChannelsAC(topics))
-
-        navigate("/profile")
-    }
-
-    const createUser = async () => {
-        const res = await registerUser(tg.initDataUnsafe.user!.id)
-        const allTopics = await getAllTopics()
-        const topics = allTopics.map((topic: ItemType) => {
-            return {...topic, checked: false}
-        })
-        dispatch(setUserUuidAC(res.id));
-        dispatch(setUserChannelsAC(topics))
-        navigate("/welcome")
+        try {
+            const subscribtions = await getUserSubscribtionsAPI(userUuid)
+            dispatch(setUserUuidAC(userUuid))
+            dispatch(setUserChannelsAC(subscribtions))
+            navigate("/profile")
+        } catch (e: Error | any) {
+            setError(e)
+        }
     }
 
     useEffect(() => {
-
-        checkUser(tg.initDataUnsafe.user!.id).then(
+        getUserAPI(tg.initDataUnsafe.user!.id).then(
             (result) => loadUser(result.id),
-            (error) => createUser()
+            () => navigate("/welcome")
         )
     }, []);
 
