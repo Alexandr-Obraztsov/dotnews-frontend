@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box, Button, Grid2, TextField, Typography} from "@mui/material";
+import {Box, Button, Grid2, InputAdornment, TextField, Typography} from "@mui/material";
 import {ChangeEvent, useState} from "react";
 import {tg} from "../../../globalTheme";
 import {useNavigate} from "react-router-dom";
@@ -45,7 +45,7 @@ export const AddChannel: React.FC = () => {
     )
 
     const handleLinkChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const line = event.currentTarget.value.trim().slice(13).replace("https://t.me/", "").replace("@", "")
+        const line = event.currentTarget.value.trim().replace("https://t.me/", "").replace("@", "")
         setLink(line)
     }
 
@@ -88,7 +88,7 @@ export const AddChannel: React.FC = () => {
                 marginTop={"30px"}
             >
                 <TextField
-                    value={"https://t.me/" + link}
+                    value={link}
                     variant={"filled"}
                     size={"small"}
                     fullWidth={true}
@@ -96,9 +96,17 @@ export const AddChannel: React.FC = () => {
                     onKeyUp={onKeyUpHandler}
                     error={isError}
                     helperText={isError ? "Канал не найден" : " "}
+                    slotProps={{
+                        input: {
+                        startAdornment: (
+                            <>https://t.me/</>
+                        ),
+                        }
+                    }}
                     sx={{
                         "& input": {
-                            padding: "8px"
+                            padding: "8px",
+                            paddingLeft: "0"
                         }
                     }}
                 />
