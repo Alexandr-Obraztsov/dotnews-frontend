@@ -1,26 +1,22 @@
 import * as React from 'react';
 import {Grid2} from "@mui/material";
-import {ItemType} from "../../ItemsList/item/Item";
+import {ChannelType} from "../../channel/Channel";
 import {tg} from "../../../globalTheme";
 import {Header} from "./Header";
-import {useAppDispatch, useAppSelector} from "../../../state/hooks";
-import {addUserChannelAC} from "../../../state/userReducer";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ChannelsList} from "./ChannelsList";
 import {SettingsButton} from "./SettingsButton";
 import {useNavigate} from "react-router-dom";
 
 export type SubscribesType = {
-    topics: ItemType[],
-    channels: ItemType[]
+    channels: ChannelType[]
 }
 
 export const Profile: React.FC = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const navigate = useNavigate()
 
-    const {uuid, channels} = useAppSelector(res => res.user);
+    const {channels} = useAppSelector(res => res.user);
 
-    const dispatch = useAppDispatch()
 
     tg.BackButton.hide()
     tg.MainButton.setParams({
