@@ -9,6 +9,7 @@ import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ROUTES} from "../../../appRouter";
 import {updateUserDigestReceptionTimeAPI} from "../../../api/api";
 import {setUserDigestReceptionTimeAC} from "../../../store/userReducer";
+import {useEffect} from "react";
 
 
 export const Settings : React.FC = () => {
@@ -29,17 +30,18 @@ export const Settings : React.FC = () => {
 
     const onDateChangeHandler = (data: Dayjs | null) => data && setDigestReceptionTime(data)
 
-    tg.BackButton.show()
-    tg.BackButton.onClick(() => {
-        navigate(ROUTES.profile)
-    })
+    useEffect(() => {
+        tg.BackButton.show()
+        tg.BackButton.onClick(() => {
+            navigate(ROUTES.profile)
+        })
 
-    tg.MainButton.hide()
-    tg.MainButton.setParams({
-        text: "Готово"
-    })
-    tg.MainButton.onClick(onMainButtonClickHandler)
-    tg.MainButton.show()
+        tg.MainButton.setParams({
+            text: "Готово"
+        })
+        tg.MainButton.onClick(onMainButtonClickHandler)
+        tg.MainButton.show()
+    }, []);
 
     return (
         <Grid2
