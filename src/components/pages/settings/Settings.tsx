@@ -3,7 +3,7 @@ import * as React from 'react';
 import {Box, Grid2, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {tg} from "../../../globalTheme";
-import {MobileTimePicker} from "@mui/x-date-pickers";
+import {TimePicker} from "@mui/x-date-pickers";
 import dayjs, {Dayjs} from "dayjs";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ROUTES} from "../../../appRouter";
@@ -34,11 +34,12 @@ export const Settings : React.FC = () => {
         navigate(ROUTES.profile)
     })
 
-    tg.MainButton.show()
+    tg.MainButton.hide()
     tg.MainButton.setParams({
         text: "Готово"
     })
     tg.MainButton.onClick(onMainButtonClickHandler)
+    tg.MainButton.show()
 
     return (
         <Grid2
@@ -61,7 +62,7 @@ export const Settings : React.FC = () => {
                 marginTop={"30px"}
                 width={"100%"}
             >
-                <MobileTimePicker
+                <TimePicker
                     value={digestReceptionTime}
                     onChange={onDateChangeHandler}
                     ampm={false}
