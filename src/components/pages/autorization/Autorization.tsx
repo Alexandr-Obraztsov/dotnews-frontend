@@ -5,11 +5,12 @@ import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {
     getUserAPI,
-    getUserSubscribtionsAPI,
+    getUserSubscribtionsAPI, UserType,
 } from "../../../api/api";
 import {tg} from "../../../globalTheme";
 import {useAppDispatch} from "../../../store/hooks";
-import {setUserChannelsAC, setUserUuidAC} from "../../../store/userReducer";
+import {setUserAC, setUserChannelsAC} from "../../../store/userReducer";
+import {ChannelType} from "../../channel/Channel";
 
 
 export const Autorization = () => {
@@ -19,10 +20,10 @@ export const Autorization = () => {
 
     const dispatch = useAppDispatch()
 
-    const loadUser = async (userUuid: string) => {
+    const loadUser = async (user: UserType) => {
         try {
-            const subscribtions = await getUserSubscribtionsAPI(userUuid)
-            dispatch(setUserUuidAC(userUuid))
+            const subscribtions : ChannelType[] = await getUserSubscribtionsAPI(user.id)
+            dispatch(setUserAC(user))
             dispatch(setUserChannelsAC(subscribtions))
             navigate("/profile")
         } catch (e: Error | any) {
@@ -32,7 +33,7 @@ export const Autorization = () => {
 
     useEffect(() => {
         getUserAPI(tg.initDataUnsafe.user!.id).then(
-            (result) => loadUser(result.id),
+            (result) => loadUser(result),
             () => navigate("/welcome")
         )
     }, []);

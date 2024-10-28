@@ -4,9 +4,13 @@ import {Grid2, Typography} from "@mui/material";
 import TuneIcon from '@mui/icons-material/Tune';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export const SettingsButton = () => {
+type SettingsButtonPropsType = {
+    onClick?: () => void
+}
+
+export const SettingsButton : React.FC<SettingsButtonPropsType> = ({onClick}) => {
     return (
-        <BasicItem>
+        <BasicItem onClick={onClick}>
             <Grid2
                 container
                 width={40}

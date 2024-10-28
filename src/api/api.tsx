@@ -46,7 +46,7 @@ export const getAllUsersAPI = async () => {
     }).then(res => res.json())
 }
 
-export const setUserAPI = async (telegramId: number) => {
+export const setUserAPI = async (telegramId: number, digestReceptionTime: string) => {
     console.log(`Send request for register user ${telegramId}`);
     return fetch(`${server_url}/users`, {
         method: 'POST',
@@ -55,9 +55,30 @@ export const setUserAPI = async (telegramId: number) => {
         },
         body: JSON.stringify({
             telegramId,
-            digestReceptionTime: "09:00:00"
+            digestReceptionTime
         })
     }).then(res => res.json())
+}
+
+export const updateUserDigestReceptionTimeAPI = async (telegramId: number, digestReceptionTime: string) => {
+    return fetch(`${server_url}/users/${telegramId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            digestReceptionTime
+        })
+    })
+}
+
+
+export type UserType = {
+    id: string,
+    telegramId: number,
+    digestReceptionTime: string,
+    createdAt: string,
+    nextDigestReceptionDate: string
 }
 
 export const getUserAPI = async (telegramId: number) => {

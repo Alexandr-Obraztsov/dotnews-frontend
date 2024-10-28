@@ -13,7 +13,7 @@ test("check getAllUsers", async () => {
 })
 
 test("check register", async () => {
-    const res = await setUserAPI(telegramId)
+    const res = await setUserAPI(telegramId, "09:00:00")
 
     console.log(res)
 })

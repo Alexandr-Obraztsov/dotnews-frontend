@@ -3,10 +3,11 @@ import {Grid2} from "@mui/material";
 import {ChannelType} from "../../channel/Channel";
 import {tg} from "../../../globalTheme";
 import {Header} from "./Header";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks";
+import {useAppSelector} from "../../../store/hooks";
 import {ChannelsList} from "./ChannelsList";
 import {SettingsButton} from "./SettingsButton";
 import {useNavigate} from "react-router-dom";
+import {ROUTES} from "../../../appRouter";
 
 export type SubscribesType = {
     channels: ChannelType[]
@@ -30,6 +31,10 @@ export const Profile: React.FC = () => {
         }
     }
 
+    const onSettingClickHandler = () => {
+        navigate(ROUTES.settings)
+    }
+
     return (
         <>
             <Grid2
@@ -43,7 +48,7 @@ export const Profile: React.FC = () => {
 
                 <ChannelsList channels={channels} addTopicHandler={addTopicHandler}/>
 
-                <SettingsButton/>
+                <SettingsButton onClick={onSettingClickHandler}/>
 
             </Grid2>
         </>

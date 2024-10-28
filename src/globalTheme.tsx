@@ -108,6 +108,24 @@ export const globalTheme = createTheme({
                         color: tg.themeParams.link_color
                     }
                 }
+            },
+
+            MuiDialogContent: {
+              styleOverrides: {
+                root: {
+                    backgroundColor: tg.themeParams.secondary_bg_color,
+                  ".MuiTimePickerToolbar-hourMinuteLabel button": {
+                      backgroundColor: tg.themeParams.bg_color,
+                      padding: "5px"
+                  },
+                  ".MuiPickersArrowSwitcher-root": {
+                      display: "none"
+                  },
+                  ".MuiTypography-root": {
+                      content: "'Выберите время'"
+                  }
+                }
+              }
             }
         }
     })

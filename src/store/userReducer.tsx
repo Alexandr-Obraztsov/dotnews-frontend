@@ -1,30 +1,44 @@
 import {ChannelType} from "../components/channel/Channel";
+import {UserType} from "../api/api";
+import {tg} from "../globalTheme";
 
 export type UserStateType = {
-    uuid: string,
+    user: UserType
     channels: ChannelType[],
 }
 
-const initialState : UserStateType = {
-    uuid: "",
+const initialState: UserStateType = {
+    user: {
+        id: "",
+        telegramId: tg.initDataUnsafe.user!.id,
+        createdAt: "",
+        digestReceptionTime: "",
+        nextDigestReceptionDate: "",
+    },
     channels: [],
 }
 
 export const userReducer = (state: UserStateType = initialState, action: UserActionType): UserStateType => {
     switch (action.type) {
-        case "SET-USER-UUID":
-            return {...state, uuid: action.payload.uuid}
+        case "SET-USER":
+            return {...state, user: action.payload.user}
+        case "SET-USER-DIGEST-RECEPTION-TIME":
+            return {...state, user: {...state.user, digestReceptionTime: action.payload.digestReceptionTime}}
         case "SET-USER-CHANNELS":
             return {...state, channels: action.payload.channels}
-        case "ADD-USER-CHANNEl":
+        case "ADD-USER-CHANNEL":
             return {...state, channels: [...state.channels, action.payload.channel]}
         default:
             return state
     }
 }
 
-export const setUserUuidAC = (uuid: string) => {
-    return {type: "SET-USER-UUID", payload: {uuid}} as const
+export const setUserAC = (user: UserType) => {
+    return {type: "SET-USER", payload: {user}} as const
+}
+
+export const setUserDigestReceptionTimeAC = (digestReceptionTime: string) => {
+    return {type: "SET-USER-DIGEST-RECEPTION-TIME", payload: {digestReceptionTime}} as const
 }
 
 export const setUserChannelsAC = (channels: ChannelType[]) => {
@@ -32,15 +46,20 @@ export const setUserChannelsAC = (channels: ChannelType[]) => {
 }
 
 export const addUserChannelAC = (channel: ChannelType) => {
-    return {type: "ADD-USER-CHANNEl", payload: {channel}} as const
+    return {type: "ADD-USER-CHANNEL", payload: {channel}} as const
 }
 
-type SetUserUuidActionType = ReturnType<typeof setUserUuidAC>
+
+type SetUserActionType = ReturnType<typeof setUserAC>
+
+type SetUserDigestReceptionTimeActionType = ReturnType<typeof setUserDigestReceptionTimeAC>
 
 type SetUserChannelsActionType = ReturnType<typeof setUserChannelsAC>
 
 type AddUserChannelActionType = ReturnType<typeof addUserChannelAC>
 
-type UserActionType = SetUserUuidActionType
+
+type UserActionType = SetUserActionType
+    | SetUserDigestReceptionTimeActionType
     | SetUserChannelsActionType
     | AddUserChannelActionType

@@ -8,10 +8,10 @@ import {StyledButton} from "../../styled/StyledButton";
 import {useNavigate} from "react-router-dom";
 import {tg} from "../../../globalTheme";
 import {setUserAPI} from "../../../api/api";
-import {setUserUuidAC} from "../../../store/userReducer";
-import {useAppDispatch} from "../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {useState} from "react";
+import {setUserAC} from "../../../store/userReducer";
 
 export const Welcome = () => {
 
@@ -19,14 +19,15 @@ export const Welcome = () => {
 
     const navigate = useNavigate()
 
+    const user = useAppSelector(state => state.user.user)
     const dispatch = useAppDispatch()
 
     tg.BackButton.hide()
 
     const onSubmit = async () => {
         try {
-            const res = await setUserAPI(tg.initDataUnsafe.user!.id)
-            dispatch(setUserUuidAC(res.id));
+            const res = await setUserAPI(user.telegramId, user.digestReceptionTime)
+            dispatch(setUserAC(res));
             navigate("/profile")
         }
         catch (e: Error | any) {

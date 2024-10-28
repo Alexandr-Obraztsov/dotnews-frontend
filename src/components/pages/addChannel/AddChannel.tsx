@@ -31,7 +31,7 @@ export const AddChannel: React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const userId = useAppSelector(state => state.user.uuid)
+    const user = useAppSelector(state => state.user.user)
     const channels = useAppSelector(state => state.user.channels)
 
     const { data, isLoading, refetch, isError } = useQuery(
@@ -55,7 +55,7 @@ export const AddChannel: React.FC = () => {
 
     const addChannelHandler = () => {
         if (!channels.some((item: ChannelType) => item.id === data.id)) {
-            subscribeToChannelAPI(userId, data.id)
+            subscribeToChannelAPI(user.id, data.id)
             dispatch(addUserChannelAC(data))
         }
         navigate("/profile")
