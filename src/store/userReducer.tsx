@@ -1,5 +1,4 @@
 import {ChannelType} from "../components/channel/Channel";
-import {UserType} from "../api/api";
 import {tg} from "../globalTheme";
 
 export type UserStateType = {
@@ -7,12 +6,20 @@ export type UserStateType = {
     channels: ChannelType[],
 }
 
+export type UserType = {
+    id: string,
+    telegramId: number,
+    digestReceptionTime: string,
+    createdAt: string,
+    nextDigestReceptionDate: string
+}
+
 const initialState: UserStateType = {
     user: {
         id: "",
         telegramId: tg.initDataUnsafe.user!.id,
         createdAt: "",
-        digestReceptionTime: "",
+        digestReceptionTime: "09:00:00",
         nextDigestReceptionDate: "",
     },
     channels: [],

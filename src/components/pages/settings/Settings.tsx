@@ -36,11 +36,11 @@ export const Settings : React.FC = () => {
             navigate(ROUTES.profile)
         })
 
+        tg.MainButton.hide()
         tg.MainButton.setParams({
             text: "Готово"
         })
         tg.MainButton.onClick(onMainButtonClickHandler)
-        tg.MainButton.show()
     }, []);
 
     return (

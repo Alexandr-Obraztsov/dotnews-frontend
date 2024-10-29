@@ -73,14 +73,6 @@ export const updateUserDigestReceptionTimeAPI = async (telegramId: number, diges
 }
 
 
-export type UserType = {
-    id: string,
-    telegramId: number,
-    digestReceptionTime: string,
-    createdAt: string,
-    nextDigestReceptionDate: string
-}
-
 export const getUserAPI = async (telegramId: number) => {
     console.log(`Send request for check user ${telegramId}`);
     return fetch(`${server_url}/users/${telegramId}`, {

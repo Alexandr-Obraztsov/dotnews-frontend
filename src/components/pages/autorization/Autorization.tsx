@@ -5,11 +5,11 @@ import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {
     getUserAPI,
-    getUserSubscribtionsAPI, UserType,
+    getUserSubscribtionsAPI,
 } from "../../../api/api";
 import {tg} from "../../../globalTheme";
 import {useAppDispatch} from "../../../store/hooks";
-import {setUserAC, setUserChannelsAC} from "../../../store/userReducer";
+import {setUserAC, setUserChannelsAC, UserType} from "../../../store/userReducer";
 import {ChannelType} from "../../channel/Channel";
 
 

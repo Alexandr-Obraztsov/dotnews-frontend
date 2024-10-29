@@ -12,6 +12,7 @@ import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {useState} from "react";
 import {setUserAC} from "../../../store/userReducer";
+import {ROUTES} from "../../../appRouter";
 
 export const Welcome = () => {
 
@@ -28,7 +29,7 @@ export const Welcome = () => {
         try {
             const res = await setUserAPI(user.telegramId, user.digestReceptionTime)
             dispatch(setUserAC(res));
-            navigate("/profile")
+            navigate(ROUTES.profile)
         }
         catch (e: Error | any) {
             setError(e)
