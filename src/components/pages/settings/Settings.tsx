@@ -18,15 +18,13 @@ export const Settings : React.FC = () => {
     const user = useAppSelector(state => state.user.user)
     const dispatch = useAppDispatch()
 
-    let timePickerTime =dayjs(user.digestReceptionTime, "HH:mm:ss")
+    let timePickerTime = dayjs(user.digestReceptionTime, "HH:mm:ss")
 
 
-    const onMainButtonClickHandler = async () => {
+    const onMainButtonClickHandler = () => {
         const time = timePickerTime.format("HH:mm:ss")
-        console.log(time);
         dispatch(setUserDigestReceptionTimeAC(time))
-        const res = await updateUserDigestReceptionTimeAPI(user.telegramId, time)
-        console.log(res);
+        updateUserDigestReceptionTimeAPI(user.telegramId, time)
         navigate(ROUTES.profile)
     }
 
@@ -59,9 +57,6 @@ export const Settings : React.FC = () => {
             padding={"40px 20px"}
             height={"100vh"}
         >
-            <Button onClick={onMainButtonClickHandler}>
-                test
-            </Button>
             <Typography
                 fontSize={"23px"}
                 fontWeight={450}
