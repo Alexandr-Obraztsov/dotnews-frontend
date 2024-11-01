@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {Channel, ChannelType} from "../../channel/Channel";
+import {Channel, ChannelType} from "../../common/channel/Channel";
 import {Divider, Stack, SxProps} from "@mui/material";
-import {AnotherTopicsButton} from "./AnotherTopicsButton";
+import {AnotherChannelsButton} from "./AnotherChannelsButton";
 import {useState} from "react";
-import {AddNewTopicButton} from "./AddNewTopicButton";
+import {AddNewChannelButton} from "./AddNewChannelButton";
 
 type ChannelsListPropsType = {
     addTopicHandler: () => void
@@ -23,10 +23,10 @@ export const ChannelsList : React.FC<ChannelsListPropsType> = ({channels, sx, ad
 
     if(renderedItems.length > 3 && !isShowMore) {
         renderedItems = renderedItems.slice(0, 2)
-        renderedItems.push(<AnotherTopicsButton key={"another"} onClick={handleClick}/>)
+        renderedItems.push(<AnotherChannelsButton key={"another"} onClick={handleClick}/>)
     }
 
-    renderedItems.push(<AddNewTopicButton key={"add"} onClick={addTopicHandler} topicsCount={channels.length} topicsMaxCount={35}/>)
+    renderedItems.push(<AddNewChannelButton key={"add"} onClick={addTopicHandler} topicsCount={channels.length} topicsMaxCount={35}/>)
 
     return (
         <Stack

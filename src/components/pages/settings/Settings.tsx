@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {Box, Grid2, Typography} from "@mui/material";
+import {Box, Button, Grid2, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {tg} from "../../../globalTheme";
 import {TimePicker} from "@mui/x-date-pickers";
@@ -15,20 +15,27 @@ import {useEffect} from "react";
 export const Settings : React.FC = () => {
 
     const navigate = useNavigate()
-
     const user = useAppSelector(state => state.user.user)
     const dispatch = useAppDispatch()
 
-    const [digestReceptionTime, setDigestReceptionTime] = React.useState<Dayjs>(dayjs(user.digestReceptionTime, "HH:mm:ss"));
+    let timePickerTime =dayjs(user.digestReceptionTime, "HH:mm:ss")
 
-    const onMainButtonClickHandler = () => {
-        const time = digestReceptionTime.format("HH:mm:ss");
+
+    const onMainButtonClickHandler = async () => {
+        const time = timePickerTime.format("HH:mm:ss")
+        console.log(time);
         dispatch(setUserDigestReceptionTimeAC(time))
-        updateUserDigestReceptionTimeAPI(user.telegramId, time)
+        const res = await updateUserDigestReceptionTimeAPI(user.telegramId, time)
+        console.log(res);
         navigate(ROUTES.profile)
     }
 
-    const onDateChangeHandler = (data: Dayjs | null) => data && setDigestReceptionTime(data)
+    const onTimePickerChange = (newValue: Dayjs | null) => {
+        if (newValue) {
+            timePickerTime = newValue
+            console.log(timePickerTime.format("HH:mm:ss"));
+        }
+    }
 
     useEffect(() => {
         tg.BackButton.show()
@@ -41,6 +48,7 @@ export const Settings : React.FC = () => {
             text: "Готово"
         })
         tg.MainButton.onClick(onMainButtonClickHandler)
+        tg.MainButton.show()
     }, []);
 
     return (
@@ -51,6 +59,9 @@ export const Settings : React.FC = () => {
             padding={"40px 20px"}
             height={"100vh"}
         >
+            <Button onClick={onMainButtonClickHandler}>
+                test
+            </Button>
             <Typography
                 fontSize={"23px"}
                 fontWeight={450}
@@ -65,10 +76,11 @@ export const Settings : React.FC = () => {
                 width={"100%"}
             >
                 <TimePicker
-                    value={digestReceptionTime}
-                    onChange={onDateChangeHandler}
+                    onChange={onTimePickerChange}
+                    desktopModeMediaQuery={"@media (min-width: 600px)"}
                     ampm={false}
                     ampmInClock={false}
+                    value={timePickerTime}
                     label="Время рассылки"
                     minutesStep={5}
                     localeText={{

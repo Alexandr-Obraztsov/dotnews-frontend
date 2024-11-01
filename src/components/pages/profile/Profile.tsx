@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Grid2} from "@mui/material";
-import {ChannelType} from "../../channel/Channel";
+import {ChannelType} from "../../common/channel/Channel";
 import {tg} from "../../../globalTheme";
 import {Header} from "./Header";
 import {useAppSelector} from "../../../store/hooks";

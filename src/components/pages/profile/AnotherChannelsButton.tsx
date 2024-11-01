@@ -3,7 +3,7 @@ import {BasicItem} from "../../styled/BasicItem";
 import {Box, Grid2, Skeleton, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export const AnotherTopicsButton : React.FC<{onClick?: () => void}> = ({onClick}) => {
+export const AnotherChannelsButton : React.FC<{onClick?: () => void}> = ({onClick}) => {
     return (
         <BasicItem onClick={onClick}>
             <Grid2

@@ -10,7 +10,7 @@ import {
 import {tg} from "../../../globalTheme";
 import {useAppDispatch} from "../../../store/hooks";
 import {setUserAC, setUserChannelsAC, UserType} from "../../../store/userReducer";
-import {ChannelType} from "../../channel/Channel";
+import {ChannelType} from "../../common/channel/Channel";
 
 
 export const Autorization = () => {

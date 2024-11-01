@@ -12,7 +12,7 @@ type AddNewTopicButtonPropsType = {
 }
 
 
-export const AddNewTopicButton : React.FC<AddNewTopicButtonPropsType> = ({onClick, topicsCount, topicsMaxCount}) => {
+export const AddNewChannelButton : React.FC<AddNewTopicButtonPropsType> = ({onClick, topicsCount, topicsMaxCount}) => {
     return (
         <BasicItem onClick={onClick}>
             <Grid2
@@ -42,7 +42,7 @@ export const AddNewTopicButton : React.FC<AddNewTopicButtonPropsType> = ({onClic
                     fontWeight={400}
                     color={"primary.main"}
                 >
-                    Добавить тему
+                    Добавить канал
                 </Typography>
 
                 <Grid2

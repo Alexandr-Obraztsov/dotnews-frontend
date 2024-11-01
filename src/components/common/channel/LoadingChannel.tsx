@@ -1,6 +1,6 @@
 import React from "react";
 import {Grid2, Skeleton} from "@mui/material";
-import {BasicItem} from "../styled/BasicItem";
+import {BasicItem} from "../../styled/BasicItem";
 
 
 

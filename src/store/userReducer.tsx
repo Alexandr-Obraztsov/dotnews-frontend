@@ -1,4 +1,4 @@
-import {ChannelType} from "../components/channel/Channel";
+import {ChannelType} from "../components/common/channel/Channel";
 import {tg} from "../globalTheme";
 
 export type UserStateType = {

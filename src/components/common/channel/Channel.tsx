@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import {Avatar, Grid2, Typography} from "@mui/material";
-import {BasicItem} from "../styled/BasicItem";
+import {BasicItem} from "../../styled/BasicItem";
 
 export type ChannelType = {
     id: string,
