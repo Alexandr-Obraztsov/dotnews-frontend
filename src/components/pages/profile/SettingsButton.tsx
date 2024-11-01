@@ -34,7 +34,7 @@ export const SettingsButton : React.FC<SettingsButtonPropsType> = ({onClick}) =>
                     fontSize={"16px"}
                     fontWeight={500}
                 >
-                    Управление дайджестами
+                    Настройки
                 </Typography>
 
                 <Grid2

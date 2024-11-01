@@ -43,13 +43,6 @@ export const Channel: FC<ItemPropsType> = ({id, telegramName, imageUrl, onClick}
                     fontWeight={500}
                     lineHeight={"16px"}
                 >{telegramName}</Typography>
-
-                <Typography
-                    color={"text.secondary"}
-                    fontSize={"13px"}
-                    fontWeight={500}
-                    lineHeight={"12px"}
-                >@nothing</Typography>
             </Grid2>
         </BasicItem>
     )

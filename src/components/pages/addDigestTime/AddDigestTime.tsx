@@ -1,19 +1,19 @@
-
 import * as React from 'react';
-import {Box, Button, Grid2, Typography} from "@mui/material";
+import {Box, Grid2, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
+import dayjs, {Dayjs} from "dayjs";
+import {setUserDigestReceptionTimeAC} from "../../../store/userReducer";
+import {updateUserDigestReceptionTimeAPI} from "../../../api/api";
+import {ROUTES} from "../../../appRouter";
+import {useEffect} from "react";
 import {tg} from "../../../globalTheme";
 import {TimePicker} from "@mui/x-date-pickers";
-import dayjs, {Dayjs} from "dayjs";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks";
-import {ROUTES} from "../../../appRouter";
-import {updateUserDigestReceptionTimeAPI} from "../../../api/api";
-import {setUserDigestReceptionTimeAC} from "../../../store/userReducer";
-import {useEffect} from "react";
+import {StyledButton} from "../../styled/StyledButton";
 import {SuperTimePicker} from "../../common/superTimePicker/SuperTimePicker";
 
 
-export const Settings : React.FC = () => {
+export const AddDigestTime : React.FC = () => {
 
     const navigate = useNavigate()
     const user = useAppSelector(state => state.user.user)
@@ -22,11 +22,11 @@ export const Settings : React.FC = () => {
     let timePickerTime = dayjs(user.digestReceptionTime, "HH:mm:ss")
 
 
-    const onMainButtonClickHandler = () => {
+    const onClickNext = () => {
         const time = timePickerTime.format("HH:mm:ss")
         dispatch(setUserDigestReceptionTimeAC(time))
         updateUserDigestReceptionTimeAPI(user.telegramId, time)
-        navigate(ROUTES.profile)
+        navigate(ROUTES.finishSetup)
     }
 
     const onTimePickerChange = (newValue: Dayjs | null) => {
@@ -35,20 +35,6 @@ export const Settings : React.FC = () => {
             console.log(timePickerTime.format("HH:mm:ss"));
         }
     }
-
-    useEffect(() => {
-        tg.BackButton.show()
-        tg.BackButton.onClick(() => {
-            navigate(ROUTES.profile)
-        })
-
-        tg.MainButton.hide()
-        tg.MainButton.setParams({
-            text: "Cохранить"
-        })
-        tg.MainButton.onClick(onMainButtonClickHandler)
-        tg.MainButton.show()
-    }, []);
 
     return (
         <Grid2
@@ -64,7 +50,7 @@ export const Settings : React.FC = () => {
                 marginX={"50px"}
                 textAlign={"center"}
             >
-                Настройки
+                Установите время рассылки
             </Typography>
 
             <Box
@@ -73,6 +59,9 @@ export const Settings : React.FC = () => {
             >
                 <SuperTimePicker onChange={onTimePickerChange} value={timePickerTime}/>
             </Box>
+            <StyledButton onClick={onClickNext}>
+                Далее
+            </StyledButton>
         </Grid2>
     );
 };

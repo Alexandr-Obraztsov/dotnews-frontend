@@ -29,7 +29,7 @@ export const Welcome = () => {
         try {
             const res = await setUserAPI(user.telegramId, user.digestReceptionTime)
             dispatch(setUserAC(res));
-            navigate(ROUTES.profile)
+            navigate(ROUTES.addDigestTime)
         }
         catch (e: Error | any) {
             setError(e)

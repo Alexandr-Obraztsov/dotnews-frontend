@@ -6,7 +6,7 @@ export const tg = window.Telegram.WebApp.initDataUnsafe.user ?
     {
         initDataUnsafe: {
             user: {
-                id: 123123,
+                id: 1234,
                 first_name: "Test",
                 last_name: "Test",
                 username: "test",

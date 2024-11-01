@@ -7,6 +7,7 @@ import {FinishSetup} from "./components/pages/finishSetup/FinishSetup";
 import {Profile} from "./components/pages/profile/Profile";
 import {AddChannel} from "./components/pages/addChannel/AddChannel";
 import {Settings} from "./components/pages/settings/Settings";
+import {AddDigestTime} from "./components/pages/addDigestTime/AddDigestTime";
 
 export const ROUTES = {
     autorization: "/",
@@ -15,6 +16,7 @@ export const ROUTES = {
     profile: "/profile",
     addChannel: "/addChannel",
     settings: "/settings",
+    addDigestTime: "/addDigestTime",
     error: "/*"
 }
 
@@ -43,6 +45,10 @@ export const appRouter = createBrowserRouter([
     {
         path: ROUTES.settings,
         element: <Settings/>
+    },
+    {
+        path: ROUTES.addDigestTime,
+        element: <AddDigestTime/>
     },
     {
         path: ROUTES.error,

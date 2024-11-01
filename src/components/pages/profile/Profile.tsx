@@ -8,6 +8,7 @@ import {ChannelsList} from "./ChannelsList";
 import {SettingsButton} from "./SettingsButton";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../../appRouter";
+import {useEffect} from "react";
 
 export type SubscribesType = {
     channels: ChannelType[]
@@ -18,13 +19,6 @@ export const Profile: React.FC = () => {
 
     const {channels} = useAppSelector(res => res.user);
 
-
-    tg.BackButton.hide()
-    tg.MainButton.setParams({
-        text: "Поделиться интересами",
-    })
-    tg.MainButton.show()
-
     const addTopicHandler = () => {
         if (channels.length < 35) {
             navigate("/addChannel")
@@ -34,6 +28,11 @@ export const Profile: React.FC = () => {
     const onSettingClickHandler = () => {
         navigate(ROUTES.settings)
     }
+
+    useEffect(() => {
+        tg.BackButton.hide()
+        tg.MainButton.hide()
+    }, []);
 
     return (
         <>
