@@ -19,6 +19,7 @@ export const Header: React.FC = () => {
             >
                 <img
                     src={background}
+                    alt={"background"}
                     style={{
                         width: "100%",
                         height: "140px",

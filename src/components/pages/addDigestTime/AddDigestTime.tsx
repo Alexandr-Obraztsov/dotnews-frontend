@@ -6,9 +6,6 @@ import dayjs, {Dayjs} from "dayjs";
 import {setUserDigestReceptionTimeAC} from "../../../store/userReducer";
 import {updateUserDigestReceptionTimeAPI} from "../../../api/api";
 import {ROUTES} from "../../../appRouter";
-import {useEffect} from "react";
-import {tg} from "../../../globalTheme";
-import {TimePicker} from "@mui/x-date-pickers";
 import {StyledButton} from "../../styled/StyledButton";
 import {SuperTimePicker} from "../../common/superTimePicker/SuperTimePicker";
 

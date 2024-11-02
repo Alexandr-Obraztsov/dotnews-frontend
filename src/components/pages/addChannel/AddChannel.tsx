@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box, Button, Grid2, InputAdornment, TextField, Typography} from "@mui/material";
+import {Box, Button, Grid2, TextField, Typography} from "@mui/material";
 import {ChangeEvent, useState} from "react";
 import {tg} from "../../../globalTheme";
 import {useNavigate} from "react-router-dom";

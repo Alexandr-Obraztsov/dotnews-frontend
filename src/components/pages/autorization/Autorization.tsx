@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Loading} from "../loading/Loading";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {
@@ -20,7 +20,7 @@ export const Autorization = () => {
 
     const dispatch = useAppDispatch()
 
-    const loadUser = async (user: UserType) => {
+    const loadUser = useCallback(async (user: UserType) => {
         try {
             const subscribtions : ChannelType[] = await getUserSubscribtionsAPI(user.id)
             dispatch(setUserAC(user))
@@ -29,14 +29,14 @@ export const Autorization = () => {
         } catch (e: Error | any) {
             setError(e)
         }
-    }
+    }, [dispatch, navigate]);
 
     useEffect(() => {
         getUserAPI(tg.initDataUnsafe.user!.id).then(
             (result) => loadUser(result),
             () => navigate("/welcome")
         )
-    }, []);
+    }, [loadUser, navigate]);
 
     if (error)
         return <ErrorPage error={error}/>

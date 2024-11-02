@@ -1,15 +1,14 @@
 
 import * as React from 'react';
-import {Box, Button, Grid2, Typography} from "@mui/material";
+import {Box, Grid2, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {tg} from "../../../globalTheme";
-import {TimePicker} from "@mui/x-date-pickers";
 import dayjs, {Dayjs} from "dayjs";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ROUTES} from "../../../appRouter";
 import {updateUserDigestReceptionTimeAPI} from "../../../api/api";
 import {setUserDigestReceptionTimeAC} from "../../../store/userReducer";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {SuperTimePicker} from "../../common/superTimePicker/SuperTimePicker";
 
 
@@ -22,12 +21,12 @@ export const Settings : React.FC = () => {
     let timePickerTime = dayjs(user.digestReceptionTime, "HH:mm:ss")
 
 
-    const onMainButtonClickHandler = () => {
+    const onMainButtonClickHandler = useCallback(() => {
         const time = timePickerTime.format("HH:mm:ss")
         dispatch(setUserDigestReceptionTimeAC(time))
         updateUserDigestReceptionTimeAPI(user.telegramId, time)
         navigate(ROUTES.profile)
-    }
+    }, [user, timePickerTime, navigate, dispatch])
 
     const onTimePickerChange = (newValue: Dayjs | null) => {
         if (newValue) {
@@ -48,7 +47,7 @@ export const Settings : React.FC = () => {
         })
         tg.MainButton.onClick(onMainButtonClickHandler)
         tg.MainButton.show()
-    }, []);
+    }, [navigate, onMainButtonClickHandler]);
 
     return (
         <Grid2
