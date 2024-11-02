@@ -21,9 +21,9 @@ export const ChannelsList : React.FC<ChannelsListPropsType> = memo(({channels, s
         setIsShowMore(!isShowMore)
     }
 
-    if(renderedItems.length > 3 && !isShowMore) {
+    if(renderedItems.length > 4 && !isShowMore) {
         renderedItems = renderedItems.slice(0, 2)
-        renderedItems.push(<AnotherChannelsButton key={"another"} onClick={handleClick}/>)
+        renderedItems.push(<AnotherChannelsButton key={"another"} onClick={handleClick} items={channels.slice(2, 5)}/>)
     }
 
     renderedItems.push(<AddNewChannelButton key={"add"} onClick={addTopicHandler} topicsCount={channels.length} topicsMaxCount={35}/>)
