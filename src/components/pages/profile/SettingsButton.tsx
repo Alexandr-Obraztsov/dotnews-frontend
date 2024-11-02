@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {BasicItem} from "../../styled/BasicItem";
+import {BasicChannel} from "../../styled/BasicChannel";
 import {Grid2, Typography} from "@mui/material";
 import TuneIcon from '@mui/icons-material/Tune';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -10,7 +10,7 @@ type SettingsButtonPropsType = {
 
 export const SettingsButton : React.FC<SettingsButtonPropsType> = ({onClick}) => {
     return (
-        <BasicItem onClick={onClick}>
+        <BasicChannel onClick={onClick}>
             <Grid2
                 container
                 width={40}
@@ -46,6 +46,6 @@ export const SettingsButton : React.FC<SettingsButtonPropsType> = ({onClick}) =>
                     <ArrowForwardIosIcon fontSize={"inherit"} color={"inherit"}/>
                 </Grid2>
             </Grid2>
-        </BasicItem>
+        </BasicChannel>
     );
 };

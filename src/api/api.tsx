@@ -107,7 +107,7 @@ export const subscribeToChannelAPI = async (userId: string, channelId: string) =
 }
 
 export const unsubscribeFromChannelAPI = async (userId: string, channelId: string) => {
-    console.log("Send request for subscribe to channels");
+    console.log("Send request for unsubscribe to channels");
     return fetch(`${server_url}/subscribtions`, {
         method: 'DELETE',
         headers: {

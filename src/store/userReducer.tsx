@@ -35,6 +35,8 @@ export const userReducer = (state: UserStateType = initialState, action: UserAct
             return {...state, channels: action.payload.channels}
         case "ADD-USER-CHANNEL":
             return {...state, channels: [...state.channels, action.payload.channel]}
+        case "DELETE-USER-CHANNEL":
+            return {...state, channels: state.channels.filter(item => item.id !== action.payload.id)}
         default:
             return state
     }
@@ -56,6 +58,9 @@ export const addUserChannelAC = (channel: ChannelType) => {
     return {type: "ADD-USER-CHANNEL", payload: {channel}} as const
 }
 
+export const deleteUserChannelAC = (id: string) => {
+    return {type: "DELETE-USER-CHANNEL", payload: {id}} as const
+}
 
 type SetUserActionType = ReturnType<typeof setUserAC>
 
@@ -65,8 +70,10 @@ type SetUserChannelsActionType = ReturnType<typeof setUserChannelsAC>
 
 type AddUserChannelActionType = ReturnType<typeof addUserChannelAC>
 
+type DeleteUserChannelActionType = ReturnType<typeof deleteUserChannelAC>
 
 type UserActionType = SetUserActionType
     | SetUserDigestReceptionTimeActionType
     | SetUserChannelsActionType
     | AddUserChannelActionType
+    | DeleteUserChannelActionType

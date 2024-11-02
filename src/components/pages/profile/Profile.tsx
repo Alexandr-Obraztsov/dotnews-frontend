@@ -10,10 +10,6 @@ import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../../appRouter";
 import {useEffect} from "react";
 
-export type SubscribesType = {
-    channels: ChannelType[]
-}
-
 export const Profile: React.FC = () => {
     const navigate = useNavigate()
 

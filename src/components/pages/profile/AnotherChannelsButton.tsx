@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {BasicItem} from "../../styled/BasicItem";
+import {BasicChannel} from "../../styled/BasicChannel";
 import {Box, Grid2, Skeleton, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const AnotherChannelsButton : React.FC<{onClick?: () => void}> = ({onClick}) => {
     return (
-        <BasicItem onClick={onClick}>
+        <BasicChannel onClick={onClick}>
             <Grid2
                 container
                 alignItems={"center"}
@@ -49,6 +49,6 @@ export const AnotherChannelsButton : React.FC<{onClick?: () => void}> = ({onClic
 
                 <ExpandMoreIcon fontSize={"small"}/>
             </Grid2>
-        </BasicItem>
+        </BasicChannel>
     );
 };

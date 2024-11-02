@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {BasicItem} from "../../styled/BasicItem";
+import {BasicChannel} from "../../styled/BasicChannel";
 import {Grid2, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -14,7 +14,7 @@ type AddNewTopicButtonPropsType = {
 
 export const AddNewChannelButton : React.FC<AddNewTopicButtonPropsType> = ({onClick, topicsCount, topicsMaxCount}) => {
     return (
-        <BasicItem onClick={onClick}>
+        <BasicChannel onClick={onClick}>
             <Grid2
                 container
                 width={28}
@@ -68,6 +68,6 @@ export const AddNewChannelButton : React.FC<AddNewTopicButtonPropsType> = ({onCl
                     </Grid2>
                 </Grid2>
             </Grid2>
-        </BasicItem>
+        </BasicChannel>
     );
 };

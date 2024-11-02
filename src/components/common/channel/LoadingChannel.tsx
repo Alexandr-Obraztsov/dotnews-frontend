@@ -1,13 +1,13 @@
 import React from "react";
 import {Grid2, Skeleton} from "@mui/material";
-import {BasicItem} from "../../styled/BasicItem";
+import {BasicChannel} from "../../styled/BasicChannel";
 
 
 
 export const LoadingChannel: React.FC = () => {
 
     return (
-        <BasicItem
+        <BasicChannel
         >
             <Skeleton
                 variant="circular"
@@ -32,6 +32,6 @@ export const LoadingChannel: React.FC = () => {
                     height={12}
                 />
             </Grid2>
-        </BasicItem>
+        </BasicChannel>
     )
 }
