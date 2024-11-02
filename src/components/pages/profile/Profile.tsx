@@ -16,7 +16,7 @@ export const Profile: React.FC = () => {
 
     const addTopicHandler = useCallback(() => {
         if (channels.length < 35) {
-            navigate("/addChannel")
+            navigate(ROUTES.addChannel)
         }
     }, [navigate, channels]);
 
@@ -40,10 +40,9 @@ export const Profile: React.FC = () => {
             >
                 <Header/>
 
-                <ChannelsList channels={channels} addTopicHandler={addTopicHandler}/>
-
                 <SettingsButton onClick={onSettingClickHandler}/>
 
+                <ChannelsList channels={channels} addTopicHandler={addTopicHandler}/>
             </Grid2>
         </>
     );

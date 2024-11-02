@@ -52,14 +52,14 @@ export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl}) 
     const handleTouchMove = (event: TouchEvent) => {
         const deltaX = event.changedTouches[0].clientX - startX;
         offset = transformX + deltaX;
-        setTransformX(offset);
+        setTransformX(offset < 0 ? offset : 0);
 
     }
 
     const handleMouseMove = (event: MouseEvent) => {
         const deltaX = event.clientX - startX;
         offset = transformX + deltaX;
-        setTransformX(offset);
+        setTransformX(offset < 0 ? offset : 0);
     }
 
     const handleTouchEnd = () => {
@@ -120,6 +120,9 @@ export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl}) 
                         fontSize={"16px"}
                         fontWeight={500}
                         lineHeight={"16px"}
+                        sx={{
+                            userSelect: "none",
+                        }}
                     >
                         {title}
                     </Typography>
@@ -128,7 +131,10 @@ export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl}) 
                         color={"text.secondary"}
                         fontSize={"14px"}
                         fontWeight={400}
-                        lineHeight={"16px"}
+                        lineHeight={"14px"}
+                        sx={{
+                            userSelect: "none",
+                        }}
                     >
                         @{telegramName}
                     </Typography>

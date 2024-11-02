@@ -22,9 +22,9 @@ export const Header: React.FC = memo(() => {
                     src={background}
                     alt={"background"}
                     style={{
-                        width: "100%",
-                        height: "140px",
-                        borderRadius: "5px",
+                        width: "100px",
+                        height: "100px",
+                        borderRadius: "50%",
                         objectFit: "cover",
                     }}
                 />
@@ -33,7 +33,7 @@ export const Header: React.FC = memo(() => {
                     container
                     direction={"column"}
                     alignItems={"center"}
-                    marginTop={"15px"}
+                    marginTop={"10px"}
                 >
                     <Typography
                         variant={"h2"}
