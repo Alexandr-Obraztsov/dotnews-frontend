@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {BasicChannel} from "../../styled/BasicChannel";
-import {Box, Grid2, Skeleton, Typography} from "@mui/material";
+import {Box, Grid2, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {ChannelType} from "../../common/channel/Channel";
 
