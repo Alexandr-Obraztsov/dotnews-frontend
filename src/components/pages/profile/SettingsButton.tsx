@@ -3,12 +3,13 @@ import {BasicChannel} from "../../styled/BasicChannel";
 import {Grid2, Typography} from "@mui/material";
 import TuneIcon from '@mui/icons-material/Tune';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import {memo} from "react";
 
 type SettingsButtonPropsType = {
     onClick?: () => void
 }
 
-export const SettingsButton : React.FC<SettingsButtonPropsType> = ({onClick}) => {
+export const SettingsButton : React.FC<SettingsButtonPropsType> = memo(({onClick}) => {
     return (
         <BasicChannel onClick={onClick}>
             <Grid2
@@ -48,4 +49,4 @@ export const SettingsButton : React.FC<SettingsButtonPropsType> = ({onClick}) =>
             </Grid2>
         </BasicChannel>
     );
-};
+})
