@@ -2,8 +2,9 @@ import * as React from 'react';
 import {Box, Grid2, Typography} from "@mui/material";
 import {tg} from "../../../globalTheme";
 import background from "../../../assets/images/background.jpg"
+import {memo} from "react";
 
-export const Header: React.FC = () => {
+export const Header: React.FC = memo(() => {
     const user = tg.initDataUnsafe.user!;
 
     return (
@@ -55,4 +56,4 @@ export const Header: React.FC = () => {
             </Grid2>
         </Box>
     );
-};
+})

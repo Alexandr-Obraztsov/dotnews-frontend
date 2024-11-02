@@ -7,22 +7,22 @@ import {ChannelsList} from "./ChannelsList";
 import {SettingsButton} from "./SettingsButton";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../../appRouter";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 
 export const Profile: React.FC = () => {
     const navigate = useNavigate()
 
     const {channels} = useAppSelector(res => res.user);
 
-    const addTopicHandler = () => {
+    const addTopicHandler = useCallback(() => {
         if (channels.length < 35) {
             navigate("/addChannel")
         }
-    }
+    }, [navigate, channels]);
 
-    const onSettingClickHandler = () => {
+    const onSettingClickHandler = useCallback(() => {
         navigate(ROUTES.settings)
-    }
+    }, [navigate]);
 
     useEffect(() => {
         tg.BackButton.hide()

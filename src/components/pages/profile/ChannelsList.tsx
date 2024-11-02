@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Channel, ChannelType} from "../../common/channel/Channel";
 import {Divider, Stack, SxProps} from "@mui/material";
 import {AnotherChannelsButton} from "./AnotherChannelsButton";
-import {useState} from "react";
+import {memo, useState} from "react";
 import {AddNewChannelButton} from "./AddNewChannelButton";
 
 type ChannelsListPropsType = {
@@ -11,7 +11,7 @@ type ChannelsListPropsType = {
     sx?: SxProps
 };
 
-export const ChannelsList : React.FC<ChannelsListPropsType> = ({channels, sx, addTopicHandler}) => {
+export const ChannelsList : React.FC<ChannelsListPropsType> = memo(({channels, sx, addTopicHandler}) => {
 
     const [isShowMore, setIsShowMore] = useState(false);
 
@@ -38,4 +38,4 @@ export const ChannelsList : React.FC<ChannelsListPropsType> = ({channels, sx, ad
             {renderedItems}
         </Stack>
     );
-};
+})
