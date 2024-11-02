@@ -52,6 +52,6 @@ export const appRouter = createBrowserRouter([
     },
     {
         path: ROUTES.error,
-        element: <ErrorPage error={new Error("Page not found")}/>
+        element: <ErrorPage error={Error("Страница не найдена")}/>
     }
 ]);

@@ -9,6 +9,7 @@ import {unsubscribeFromChannelAPI} from "../../../api/api";
 export type ChannelType = {
     id: string,
     telegramName: string,
+    title: string,
     telegramId: number | null,
     createdAt: string,
     lastMessageId: string,
@@ -17,7 +18,7 @@ export type ChannelType = {
 
 type ItemPropsType = ChannelType
 
-export const Channel: FC<ItemPropsType> = ({id, telegramName, imageUrl}) => {
+export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl}) => {
 
     const [transformX, setTransformX] = useState<number>(0);
     const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -119,7 +120,18 @@ export const Channel: FC<ItemPropsType> = ({id, telegramName, imageUrl}) => {
                         fontSize={"16px"}
                         fontWeight={500}
                         lineHeight={"16px"}
-                    >{telegramName}</Typography>
+                    >
+                        {title}
+                    </Typography>
+
+                    <Typography
+                        color={"text.secondary"}
+                        fontSize={"14px"}
+                        fontWeight={400}
+                        lineHeight={"16px"}
+                    >
+                        @{telegramName}
+                    </Typography>
                 </Grid2>
             </BasicChannel>
         </Box>
