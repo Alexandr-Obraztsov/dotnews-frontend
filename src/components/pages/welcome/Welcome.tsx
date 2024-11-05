@@ -27,7 +27,7 @@ export const Welcome = () => {
 
     const onSubmit = async () => {
         try {
-            const res = await setUserAPI(user.telegramId, user.digestReceptionTime)
+            const res = await setUserAPI(user.telegramId)
             dispatch(setUserAC(res));
             navigate(ROUTES.addDigestTime)
         }
@@ -57,7 +57,7 @@ export const Welcome = () => {
                 </Header>
 
                 <Body1 marginBlockStart={"10px"} paddingX={"70px"} color={"text.secondary"}>
-                    Это твой персональный новостной агрегатор. Приступим к настройке!
+                    Это твой персональный новостной агрегатор. Приступим!
                 </Body1>
             </Grid2>
 

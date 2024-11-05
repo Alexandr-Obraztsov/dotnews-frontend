@@ -46,7 +46,7 @@ export const getAllUsersAPI = async () => {
     }).then(res => res.json())
 }
 
-export const setUserAPI = async (telegramId: number, digestReceptionTime: string) => {
+export const setUserAPI = async (telegramId: number) => {
     console.log(`Send request for register user ${telegramId}`);
     return fetch(`${server_url}/users`, {
         method: 'POST',
@@ -54,8 +54,7 @@ export const setUserAPI = async (telegramId: number, digestReceptionTime: string
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            telegramId,
-            digestReceptionTime
+            telegramId
         })
     }).then(res => res.json())
 }
@@ -80,11 +79,63 @@ export const getUserAPI = async (telegramId: number) => {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(res => res.json())
+    })
+}
+
+// digests
+export const getDigestsAPI = async (telegramId: number) => {
+    return fetch(`${server_url}/users/${telegramId}/digests`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+export const createDigestAPI = async (telegramId: number, payload: {
+    name: string,
+    timeInterval: string,
+    firstReceptionTime: string
+}) => {
+    return fetch(`${server_url}/users/${telegramId}/digests`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
 }
 
 
 // subscribtions
+export const getDigestChannelsAPI = async (telegramId: number, digestId: string) => {
+    return fetch(`${server_url}/users/${telegramId}/digests/${digestId}/channels`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+}
+
+export const addDigestChannelsAPI = async (payload: {telegramId: number, digestId: string, name: string}) => {
+    return fetch(`${server_url}/users/${payload.telegramId}/digests/${payload.digestId}/channels`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: payload.name})
+    })
+}
+
+export const deleteDigestChannelsAPI = async (payload: {telegramId: number, digestId: string, channelId: string}) => {
+    return fetch(`${server_url}/users/${payload.telegramId}/digests/${payload.digestId}/channels/${payload.channelId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
 export const getUserSubscribtionsAPI = async (userId: string) => {
     console.log(`Send request for subscribe to channels by ${userId}`);
     return fetch(`${server_url}/subscribtions?userId=${userId}`, {
@@ -92,7 +143,7 @@ export const getUserSubscribtionsAPI = async (userId: string) => {
         headers: {
             'Content-Type': 'application/json'
         },
-    }).then(res => res.json())
+    })
 }
 
 export const subscribeToChannelAPI = async (userId: string, channelId: string) => {
@@ -102,7 +153,7 @@ export const subscribeToChannelAPI = async (userId: string, channelId: string) =
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userId, channelId })
+        body: JSON.stringify({userId, channelId})
     })
 }
 
@@ -113,6 +164,6 @@ export const unsubscribeFromChannelAPI = async (userId: string, channelId: strin
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userId, channelId })
+        body: JSON.stringify({userId, channelId})
     })
 }

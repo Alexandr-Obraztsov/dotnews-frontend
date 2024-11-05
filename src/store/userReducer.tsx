@@ -1,17 +1,17 @@
 import {ChannelType} from "../components/common/channel/Channel";
 import {tg} from "../globalTheme";
+import {DigestType} from "../components/common/digest/Digest";
 
 export type UserStateType = {
     user: UserType
-    channels: ChannelType[],
+    digests: DigestType[],
 }
 
 export type UserType = {
     id: string,
     telegramId: number,
-    digestReceptionTime: string,
     createdAt: string,
-    nextDigestReceptionDate: string
+    digestsUpdatedAt: string,
 }
 
 const initialState: UserStateType = {
@@ -19,24 +19,23 @@ const initialState: UserStateType = {
         id: "",
         telegramId: tg.initDataUnsafe.user!.id,
         createdAt: "",
-        digestReceptionTime: "09:00:00",
-        nextDigestReceptionDate: "",
+        digestsUpdatedAt: "",
     },
-    channels: [],
+    digests: [],
 }
 
 export const userReducer = (state: UserStateType = initialState, action: UserActionType): UserStateType => {
     switch (action.type) {
         case "SET-USER":
             return {...state, user: action.payload.user}
-        case "SET-USER-DIGEST-RECEPTION-TIME":
-            return {...state, user: {...state.user, digestReceptionTime: action.payload.digestReceptionTime}}
-        case "SET-USER-CHANNELS":
-            return {...state, channels: action.payload.channels}
-        case "ADD-USER-CHANNEL":
-            return {...state, channels: [...state.channels, action.payload.channel]}
-        case "DELETE-USER-CHANNEL":
-            return {...state, channels: state.channels.filter(item => item.id !== action.payload.id)}
+        case "SET-USER-DIGESTS":
+            return {...state, digests: action.payload.digests}
+        case "ADD-USER-DIGEST":
+            return {...state, digests: [...state.digests, action.payload.digest]}
+        case "UPDATE-USER-DIGEST-NAME":
+            return {...state, digests: state.digests.map(item => item.id === action.payload.digest.id ? {...item, name: action.payload.name} : item)}
+        case "DELETE-USER-DIGEST":
+            return {...state, digests: state.digests.filter(item => item.id !== action.payload.id)}
         default:
             return state
     }
@@ -46,34 +45,34 @@ export const setUserAC = (user: UserType) => {
     return {type: "SET-USER", payload: {user}} as const
 }
 
-export const setUserDigestReceptionTimeAC = (digestReceptionTime: string) => {
-    return {type: "SET-USER-DIGEST-RECEPTION-TIME", payload: {digestReceptionTime}} as const
+export const setUserDigestsAC = (digests: DigestType[]) => {
+    return {type: "SET-USER-DIGESTS", payload: {digests}} as const
 }
 
-export const setUserChannelsAC = (channels: ChannelType[]) => {
-    return {type: "SET-USER-CHANNELS", payload: {channels}} as const
+export const addUserDigestAC = (digest: DigestType) => {
+    return {type: "ADD-USER-DIGEST", payload: {digest}} as const
 }
 
-export const addUserChannelAC = (channel: ChannelType) => {
-    return {type: "ADD-USER-CHANNEL", payload: {channel}} as const
+export const updateUserDigestNameAC = (payload: {digest: DigestType, name: string}) => {
+    return {type: "UPDATE-USER-DIGEST-NAME", payload} as const
 }
 
-export const deleteUserChannelAC = (id: string) => {
-    return {type: "DELETE-USER-CHANNEL", payload: {id}} as const
+export const deleteUserDigestAC = (id: string) => {
+    return {type: "DELETE-USER-DIGEST", payload: {id}} as const
 }
 
 type SetUserActionType = ReturnType<typeof setUserAC>
 
-type SetUserDigestReceptionTimeActionType = ReturnType<typeof setUserDigestReceptionTimeAC>
+type SetUserDigestsActionType = ReturnType<typeof setUserDigestsAC>
 
-type SetUserChannelsActionType = ReturnType<typeof setUserChannelsAC>
+type AddUserDigestActionType = ReturnType<typeof addUserDigestAC>
 
-type AddUserChannelActionType = ReturnType<typeof addUserChannelAC>
+type UpdateUserDigestNameActionType = ReturnType<typeof updateUserDigestNameAC>
 
-type DeleteUserChannelActionType = ReturnType<typeof deleteUserChannelAC>
+type DeleteUserDigestActionType = ReturnType<typeof deleteUserDigestAC>
 
 type UserActionType = SetUserActionType
-    | SetUserDigestReceptionTimeActionType
-    | SetUserChannelsActionType
-    | AddUserChannelActionType
-    | DeleteUserChannelActionType
+    | SetUserDigestsActionType
+    | AddUserDigestActionType
+    | UpdateUserDigestNameActionType
+    | DeleteUserDigestActionType

@@ -1,6 +1,6 @@
 import {
-    addChannelAPI,
-    getAllUsersAPI, getChannelAPI, getUserAPI,
+    addChannelAPI, createDigestAPI,
+    getAllUsersAPI, getChannelAPI, getDigestsAPI, getUserAPI,
     setUserAPI,
 } from "./api";
 
@@ -13,7 +13,7 @@ test("check getAllUsers", async () => {
 })
 
 test("check register", async () => {
-    const res = await setUserAPI(telegramId, "09:00:00")
+    const res = await setUserAPI(telegramId)
 
     console.log(res)
 })
@@ -35,7 +35,20 @@ test("add channel", async () => {
         )
 })
 
-test("check checkUser", async () => {
-    const res = await getUserAPI(telegramId)
-    console.log(res)
+test("check getUser", async () => {
+    await getUserAPI(telegramId)
+        .then(res => res.json())
+        .then(res => console.log(res))
+})
+
+
+test("create digest", async () => {
+    await createDigestAPI(telegramId, {name: "react_tgs", firstReceptionTime: "2024-11-04T20:00:00.000Z", timeInterval: "2.00:00:01"})
+        .then(res => console.log(res))
+})
+
+test("get digests", async () => {
+    await getDigestsAPI(telegramId)
+        .then(res => res.json())
+        .then(data => console.log(data))
 })
