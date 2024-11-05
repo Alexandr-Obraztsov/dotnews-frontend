@@ -105,7 +105,7 @@ export const Digest: React.FC<DigestPropsType> = ({name, receptionTime, onClick,
                                     width: 20,
                                     height: 20,
                                     borderRadius: 10,
-                                    marginLeft: index ?? "-8px"
+                                    marginLeft: "-8px"
                                 }}
                             />
                         ))
