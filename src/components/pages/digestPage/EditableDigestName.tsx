@@ -36,16 +36,21 @@ export const EditableDigestName : React.FC = () => {
                 inputRef={inputRef}
                 defaultValue={digest.name}
                 autoFocus={true}
-                onBlur={onDigestNameChange}
                 onKeyUp={onKeyUpHandler}
+                onBlur={onDigestNameChange}
                 sx={{
-                    "& *": {
+                    "& input": {
+                        width: "100%",
                         height: "min-content",
                         textAlign: "center",
                         border: "none",
                         fontWeight: 450,
                         lineHeight: "normal",
                         fontSize: "20px",
+                        padding: "0 20px"
+                    },
+                    "& fieldset": {
+                        border: "none",
                         padding: 0
                     }
                 }}
