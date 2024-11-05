@@ -1,22 +1,22 @@
-import {createBrowserRouter} from "react-router-dom";
-import React from "react";
+import {createBrowserRouter, useNavigate} from "react-router-dom";
+import React, {useEffect} from "react";
 import {Autorization} from "./components/pages/autorization/Autorization";
 import {ErrorPage} from "./components/pages/errorPage/ErrorPage";
 import {Welcome} from "./components/pages/welcome/Welcome";
 import {FinishSetup} from "./components/pages/finishSetup/FinishSetup";
 import {Profile} from "./components/pages/profile/Profile";
 import {AddChannel} from "./components/pages/addChannel/AddChannel";
-import {Settings} from "./components/pages/settings/Settings";
-import {AddDigestTime} from "./components/pages/addDigestTime/AddDigestTime";
+import {DigestPage} from "./components/pages/digestPage/DigestPage";
 
 export const ROUTES = {
     autorization: "/",
     welcome: "/welcome",
     finishSetup: "/finishSetup",
     profile: "/profile",
-    addChannel: "/addChannel",
+    addChannel: "/addChannel/:digestId",
     settings: "/settings",
     addDigestTime: "/addDigestTime",
+    digestPage: "/digestPage/:digestId",
     error: "/*"
 }
 
@@ -43,12 +43,8 @@ export const appRouter = createBrowserRouter([
         element: <AddChannel/>
     },
     {
-        path: ROUTES.settings,
-        element: <Settings/>
-    },
-    {
-        path: ROUTES.addDigestTime,
-        element: <AddDigestTime/>
+        path: ROUTES.digestPage,
+        element: <DigestPage/>
     },
     {
         path: ROUTES.error,

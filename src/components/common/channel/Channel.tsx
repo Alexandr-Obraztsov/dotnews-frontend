@@ -1,10 +1,8 @@
 import React, {FC, useState} from "react";
 import {Avatar, Box, Grid2, Typography} from "@mui/material";
-import {BasicChannel} from "../../styled/BasicChannel";
+import {BasicItem} from "../../styled/BasicItem";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
-import {deleteUserChannelAC} from "../../../store/userReducer";
-import {unsubscribeFromChannelAPI} from "../../../api/api";
 
 export type ChannelType = {
     id: string,
@@ -14,24 +12,21 @@ export type ChannelType = {
     createdAt: string,
     lastMessageId: string,
     imageUrl: string,
+    onDelete?: () => void
 }
 
 type ItemPropsType = ChannelType
 
-export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl}) => {
+export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl, onDelete}) => {
 
     const [transformX, setTransformX] = useState<number>(0);
     const [isDragging, setIsDragging] = useState<boolean>(false);
+    const stoppedX = 75
     let startX = 0
     let offset = 0
 
     const userId = useAppSelector(state => state.user.user.id)
     const dispatch = useAppDispatch()
-
-    const handlerClickDelete = () => {
-        dispatch(deleteUserChannelAC(id))
-        unsubscribeFromChannelAPI(userId, id)
-    }
 
     const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
         startX = event.changedTouches[0].clientX
@@ -63,14 +58,14 @@ export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl}) 
     }
 
     const handleTouchEnd = () => {
-        setTransformX(offset <= -65 ? -65 : 0)
+        setTransformX(offset <= -stoppedX ? -stoppedX : 0)
         setIsDragging(false)
         window.removeEventListener("touchmove", handleTouchMove);
         window.removeEventListener("touchend", handleTouchEnd);
     }
 
     const handleMouseUp = () => {
-        setTransformX(offset <= -65 ? -65 : 0)
+        setTransformX(offset <= -stoppedX ? -stoppedX : 0)
         setIsDragging(false)
         window.removeEventListener("mousemove", handleMouseMove);
         window.removeEventListener("mouseup", handleMouseUp);
@@ -91,13 +86,13 @@ export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl}) 
                 zIndex={0}
                 display={"flex"}
                 justifyContent={"end"}
-                paddingRight={"20px"}
+                paddingRight={"25px"}
                 alignItems={"center"}
-                onClick={handlerClickDelete}
+                onClick={onDelete}
             >
                 <DeleteIcon/>
             </Box>
-            <BasicChannel
+            <BasicItem
                 key={id}
                 onTouchStart={handleTouchStart}
                 onMouseDown={handleMouseDown}
@@ -139,7 +134,7 @@ export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl}) 
                         @{telegramName}
                     </Typography>
                 </Grid2>
-            </BasicChannel>
+            </BasicItem>
         </Box>
     )
 }

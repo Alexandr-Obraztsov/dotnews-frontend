@@ -2,14 +2,15 @@ import * as React from 'react';
 import {Box, Button, Grid2, TextField, Typography} from "@mui/material";
 import {ChangeEvent, useState} from "react";
 import {tg} from "../../../globalTheme";
-import {useNavigate} from "react-router-dom";
-import {addChannelAPI, getChannelAPI, subscribeToChannelAPI} from "../../../api/api";
+import {useNavigate, useParams} from "react-router-dom";
+import {addChannelAPI, addDigestChannelsAPI, getChannelAPI} from "../../../api/api";
 import {useQuery} from "react-query";
 import {Channel, ChannelType} from "../../common/channel/Channel";
 import {LoadingChannel} from "../../common/channel/LoadingChannel";
 import {useAppSelector} from "../../../store/hooks";
 import {useDispatch} from "react-redux";
-import {addUserChannelAC} from "../../../store/userReducer";
+import {ROUTES} from "../../../appRouter";
+import {addDigestChannelAC} from "../../../store/channelsReducer";
 
 
 const fetchChannel = async (link: string) => {
@@ -31,8 +32,10 @@ export const AddChannel: React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const {digestId = ""} = useParams()
+
     const user = useAppSelector(state => state.user.user)
-    const channels = useAppSelector(state => state.user.channels)
+    const channels = useAppSelector(state => state.channels[digestId])
 
     const { data, isLoading, refetch, isError } = useQuery(
         "channel" + link,
@@ -55,14 +58,14 @@ export const AddChannel: React.FC = () => {
 
     const addChannelHandler = () => {
         if (!channels.some((item: ChannelType) => item.id === data.id)) {
-            subscribeToChannelAPI(user.id, data.id)
-            dispatch(addUserChannelAC(data))
+            addDigestChannelsAPI({telegramId: user.telegramId, digestId, name: data.telegramName})
+            dispatch(addDigestChannelAC({digestId, channel: data}))
         }
-        navigate("/profile")
+        navigate(ROUTES.digestPage.replace(":digestId", digestId))
     }
 
 
-    tg.BackButton.onClick(() => navigate("/profile"))
+    tg.BackButton.onClick(() => navigate(ROUTES.digestPage.replace(":digestId", digestId)))
     tg.BackButton.show()
 
     tg.MainButton.hide()

@@ -1,45 +1,49 @@
 import * as React from 'react';
 import {Loading} from "../loading/Loading";
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {
+    getDigestChannelsAPI,
+    getDigestsAPI,
     getUserAPI,
-    getUserSubscribtionsAPI,
 } from "../../../api/api";
 import {tg} from "../../../globalTheme";
 import {useAppDispatch} from "../../../store/hooks";
-import {setUserAC, setUserChannelsAC, UserType} from "../../../store/userReducer";
-import {ChannelType} from "../../common/channel/Channel";
+import {setUserAC, setUserDigestsAC} from "../../../store/userReducer";
+import {ROUTES} from "../../../appRouter";
+import {setDigestChannelsAC} from "../../../store/channelsReducer";
 
 
 export const Autorization = () => {
     const navigate = useNavigate()
 
-    const [error, setError] = useState<Error | null>(null);
+    const [loadingDescription, setLoadingDescription] = useState<string>("")
 
     const dispatch = useAppDispatch()
 
-    const loadUser = useCallback(async (user: UserType) => {
+    const loadUser = async () => {
         try {
-            const subscribtions : ChannelType[] = await getUserSubscribtionsAPI(user.id)
+            setLoadingDescription("Распознаем Вас...")
+            const user = await getUserAPI(tg.initDataUnsafe.user!.id).then(res => res.json())
             dispatch(setUserAC(user))
-            dispatch(setUserChannelsAC(subscribtions))
-            navigate("/profile")
-        } catch (e: Error | any) {
-            setError(e)
+            setLoadingDescription("Получаем Ваши дайджесты...")
+            const digests = await getDigestsAPI(tg.initDataUnsafe.user!.id).then(res => res.json())
+            dispatch(setUserDigestsAC(digests))
+            for (const digest of digests) {
+                const channels = await getDigestChannelsAPI(tg.initDataUnsafe.user!.id, digest.id).then(res => res.json())
+                dispatch(setDigestChannelsAC({digestId:digest.id, channels}))
+            }
+            navigate(ROUTES.profile)
         }
-    }, [dispatch, navigate]);
+        catch (e: any) {
+            navigate(ROUTES.welcome)
+        }
+    }
 
     useEffect(() => {
-        getUserAPI(tg.initDataUnsafe.user!.id).then(
-            (result) => loadUser(result),
-            () => navigate("/welcome")
-        )
-    }, [loadUser, navigate]);
+        loadUser()
+    }, [navigate]);
 
-    if (error)
-        return <ErrorPage error={error}/>
-    else
-        return <Loading/>
+    return <Loading description={loadingDescription}/>
 };

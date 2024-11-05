@@ -7,7 +7,7 @@ type BasicItemPropsType = BoxProps & {
     isDragging?: boolean
 }
 
-export const BasicChannel: FC<BasicItemPropsType> = ({
+export const BasicItem: FC<BasicItemPropsType> = ({
                                                          isDragging,
                                                          transform,
                                                          children,
@@ -16,13 +16,13 @@ export const BasicChannel: FC<BasicItemPropsType> = ({
     return (
         <Box
             {...props}
+            position={"relative"}
+            display={"flex"}
+            padding={"15px 20px"}
+            alignItems={"center"}
+            bgcolor={globalTheme.palette.background.paper}
+            overflow={"hidden"}
             sx={{
-                position: "relative",
-                display: "flex",
-                padding: "10px 15px",
-                alignItems: "center",
-                backgroundColor: globalTheme.palette.background.paper,
-                overflow: "hidden",
                 transform: transform,
                 transition: isDragging ? "none" : "transform 0.3s ease",
                 cursor: isDragging ? "grab" : "pointer",
