@@ -3,7 +3,7 @@ import {Box, Button, Grid2, TextField, Typography} from "@mui/material";
 import {ChangeEvent, useState} from "react";
 import {tg} from "../../../globalTheme";
 import {useNavigate, useParams} from "react-router-dom";
-import {addChannelAPI, addDigestChannelsAPI, getChannelAPI} from "../../../api/api";
+import {addDigestChannelsAPI} from "../../../api/digestsAPI";
 import {useQuery} from "react-query";
 import {Channel, ChannelType} from "../../common/channel/Channel";
 import {LoadingChannel} from "../../common/channel/LoadingChannel";
@@ -11,20 +11,16 @@ import {useAppSelector} from "../../../store/hooks";
 import {useDispatch} from "react-redux";
 import {ROUTES} from "../../../appRouter";
 import {addDigestChannelAC} from "../../../store/channelsReducer";
+import {addChannelAPI, getChannelAPI} from "../../../api/channelsAPI";
 
 
-const fetchChannel = async (link: string) => {
-    let res = await getChannelAPI(link)
-    if (res.status === 200) {
-        return await res.json()
-    } else {
-        res = await addChannelAPI(link)
-        if (res.status === 201) {
-            return await res.json()
-        } else {
-            throw new Error("Канал не найден")
-        }
-    }
+const fetchChannel = (link: string) => {
+    return getChannelAPI(link)
+        .then(data => data)
+        .catch(er => addChannelAPI(link)
+            .then(data => data)
+            .catch(er => Promise.reject("Канал не найден"))
+        )
 }
 
 export const AddChannel: React.FC = () => {

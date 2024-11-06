@@ -100,8 +100,8 @@ export const Digest: React.FC<DigestPropsType> = ({name, receptionTime, onClick,
                             <img
                                 key={index}
                                 src={channel.imageUrl}
-                                alt="image"
-                                style={{
+                                alt='channel'
+                                style={{ 
                                     width: 20,
                                     height: 20,
                                     borderRadius: 10,

@@ -5,7 +5,7 @@ import {memo} from "react";
 import AddIcon from '@mui/icons-material/Add';
 import {ROUTES} from "../../../appRouter";
 import {useNavigate} from "react-router-dom";
-import {createDigestAPI} from "../../../api/api";
+import {createDigestAPI} from "../../../api/digestsAPI";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {addUserDigestAC} from "../../../store/userReducer";
 
@@ -22,10 +22,9 @@ export const Main: React.FC = memo(() => {
         let digest_num = 1
         while (digests.map(dg => dg.name).includes(`Новый Дайджест ${digest_num}`)) digest_num++
         createDigestAPI(user.id, {name: `Новый Дайджест ${digest_num}`, timeInterval: "1.00:00:00", firstReceptionTime: "2024-11-04T20:00:00.000Z"})
-            .then(res => res.json())
-            .then(res => {
-                dispatch(addUserDigestAC(res))
-                navigate(ROUTES.digestPage.replace(":digestId", res.id))
+            .then(digest => {
+                dispatch(addUserDigestAC(digest))
+                navigate(ROUTES.digestPage.replace(":digestId", digest.id))
             })
     }
 
