@@ -23,7 +23,7 @@ export const DigestList : React.FC = memo(() => {
             {digests.map(digest => {
                 const onClickHandler = () => navigate(ROUTES.digestPage.replace(":digestId", digest.id))
 
-                const digestChannels = channels[digest.id]
+                const digestChannels = channels[digest.id] || []
 
                 return (
                     <Digest key={digest.id} {...digest} channels={digestChannels.length >= 3 ? digestChannels.slice(0, 3) : digestChannels} onClick={onClickHandler}/>
