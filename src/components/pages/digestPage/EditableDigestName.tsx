@@ -5,7 +5,7 @@ import {TextField, Typography} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {updateUserDigestNameAC} from "../../../store/userReducer";
 import {useParams} from "react-router-dom";
-import {updateDigestAPI} from "../../../api/api";
+import {updateDigestAPI} from "../../../api/digestsAPI";
 
 
 

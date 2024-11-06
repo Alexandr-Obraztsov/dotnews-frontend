@@ -2,7 +2,6 @@ import React, {FC, useState} from "react";
 import {Avatar, Box, Grid2, Typography} from "@mui/material";
 import {BasicItem} from "../../styled/BasicItem";
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 
 export type ChannelType = {
     id: string,
@@ -24,9 +23,6 @@ export const Channel: FC<ItemPropsType> = ({id, title, telegramName, imageUrl, o
     const stoppedX = 75
     let startX = 0
     let offset = 0
-
-    const userId = useAppSelector(state => state.user.user.id)
-    const dispatch = useAppDispatch()
 
     const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
         startX = event.changedTouches[0].clientX

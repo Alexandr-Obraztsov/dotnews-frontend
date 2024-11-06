@@ -17,7 +17,7 @@ export const DigestPage: React.FC = () => {
         tg.BackButton.show()
 
         tg.MainButton.hide()
-    }, []);
+    }, [navigate]);
 
     return (
         <Grid2

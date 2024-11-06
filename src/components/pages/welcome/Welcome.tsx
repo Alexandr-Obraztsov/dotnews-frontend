@@ -7,12 +7,12 @@ import {Body1} from "../../styled/Body1";
 import {StyledButton} from "../../styled/StyledButton";
 import {useNavigate} from "react-router-dom";
 import {tg} from "../../../globalTheme";
-import {setUserAPI} from "../../../api/api";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {useState} from "react";
 import {setUserAC} from "../../../store/userReducer";
 import {ROUTES} from "../../../appRouter";
+import {setUserAPI} from "../../../api/usersAPI";
 
 export const Welcome = () => {
 
@@ -25,15 +25,13 @@ export const Welcome = () => {
 
     tg.BackButton.hide()
 
-    const onSubmit = async () => {
-        try {
-            const res = await setUserAPI(user.telegramId)
-            dispatch(setUserAC(res));
-            navigate(ROUTES.addDigestTime)
-        }
-        catch (e: Error | any) {
-            setError(e)
-        }
+    const onSubmit = () => {
+        setUserAPI(user.telegramId)
+            .then(data => {
+                dispatch(setUserAC(data));
+                navigate(ROUTES.profile)
+            })
+            .catch(e => setError(e))
     }
 
     if (error) return <ErrorPage error={error}/>

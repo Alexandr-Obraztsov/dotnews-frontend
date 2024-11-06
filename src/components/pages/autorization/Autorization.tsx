@@ -1,18 +1,17 @@
 import * as React from 'react';
 import {Loading} from "../loading/Loading";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {ErrorPage} from "../errorPage/ErrorPage";
 import {
     getDigestChannelsAPI,
     getDigestsAPI,
-    getUserAPI,
-} from "../../../api/api";
+} from "../../../api/digestsAPI";
 import {tg} from "../../../globalTheme";
 import {useAppDispatch} from "../../../store/hooks";
 import {setUserAC, setUserDigestsAC} from "../../../store/userReducer";
 import {ROUTES} from "../../../appRouter";
 import {setDigestChannelsAC} from "../../../store/channelsReducer";
+import {getUserAPI} from "../../../api/usersAPI";
 
 
 export const Autorization = () => {
@@ -22,28 +21,34 @@ export const Autorization = () => {
 
     const dispatch = useAppDispatch()
 
-    const loadUser = async () => {
+    const loadUser = useCallback(() => {
         try {
+            const tgId = tg.initDataUnsafe.user!.id
             setLoadingDescription("Распознаем Вас...")
-            const user = await getUserAPI(tg.initDataUnsafe.user!.id).then(res => res.json())
-            dispatch(setUserAC(user))
-            setLoadingDescription("Получаем Ваши дайджесты...")
-            const digests = await getDigestsAPI(tg.initDataUnsafe.user!.id).then(res => res.json())
-            dispatch(setUserDigestsAC(digests))
-            for (const digest of digests) {
-                const channels = await getDigestChannelsAPI(tg.initDataUnsafe.user!.id, digest.id).then(res => res.json())
-                dispatch(setDigestChannelsAC({digestId:digest.id, channels}))
-            }
-            navigate(ROUTES.profile)
+            getUserAPI(tgId)
+                .then(data => {
+                    dispatch(setUserAC(data))
+                    setLoadingDescription("Получаем Ваши дайджесты...")
+                    getDigestsAPI(tgId)
+                        .then(digests => {
+                            dispatch(setUserDigestsAC(digests))
+                            digests.forEach(digest => {
+                                getDigestChannelsAPI(tgId, digest.id)
+                                    .then(channels => dispatch(setDigestChannelsAC({digestId:digest.id, channels})))
+                            })
+                            navigate(ROUTES.profile)
+                        })
+                })
+                .catch(e => navigate(ROUTES.welcome))
         }
         catch (e: any) {
             navigate(ROUTES.welcome)
         }
-    }
+    }, [dispatch, navigate])
 
     useEffect(() => {
         loadUser()
-    }, [navigate]);
+    }, [loadUser]);
 
     return <Loading description={loadingDescription}/>
 };

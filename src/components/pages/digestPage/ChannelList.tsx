@@ -5,7 +5,7 @@ import {Channel} from "../../common/channel/Channel";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {useParams} from "react-router-dom";
 import {deleteDigestChannelAC} from "../../../store/channelsReducer";
-import {deleteDigestChannelsAPI} from "../../../api/api";
+import {deleteDigestChannelsAPI} from "../../../api/digestsAPI";
 
 
 export const ChannelList : React.FC = () => {

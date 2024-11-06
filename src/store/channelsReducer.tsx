@@ -1,6 +1,4 @@
 import {ChannelType} from "../components/common/channel/Channel";
-import {tg} from "../globalTheme";
-import {DigestType} from "../components/common/digest/Digest";
 import {addUserDigestAC} from "./userReducer";
 
 export type ChannelsStateType = {

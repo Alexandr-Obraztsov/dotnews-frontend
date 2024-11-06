@@ -1,5 +1,5 @@
-import {createBrowserRouter, useNavigate} from "react-router-dom";
-import React, {useEffect} from "react";
+import {createBrowserRouter} from "react-router-dom";
+import React from "react";
 import {Autorization} from "./components/pages/autorization/Autorization";
 import {ErrorPage} from "./components/pages/errorPage/ErrorPage";
 import {Welcome} from "./components/pages/welcome/Welcome";
