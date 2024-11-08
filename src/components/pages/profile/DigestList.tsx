@@ -5,28 +5,39 @@ import {tg} from "../../../globalTheme";
 import {Digest} from "../../common/digest/Digest";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../../appRouter";
-import {useAppSelector} from "../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
+import {deleteUserDigestAPI} from "../../../api/digestsAPI";
+import {deleteUserDigestAC} from "../../../store/userReducer";
 
-
-export const DigestList : React.FC = memo(() => {
+export const DigestList: React.FC = memo(() => {
     const navigate = useNavigate()
 
     const digests = useAppSelector(state => state.user.digests)
     const channels = useAppSelector(state => state.channels)
 
+    const dispatch = useAppDispatch()
+
     return (
         <Stack
-            paddingX={"20px"}
             divider={<Divider color={tg.themeParams.section_separator_color}/>}
             bgcolor={tg.themeParams.bg_color}
         >
-            {digests.map(digest => {
+            {digests.map((digest) => {
                 const onClickHandler = () => navigate(ROUTES.digestPage.replace(":digestId", digest.id))
 
-                const digestChannels = channels[digest.id] || []
+                const onDeleteHandler = () => {
+                    deleteUserDigestAPI({userTelegramId: tg.initDataUnsafe.user!.id, digestId: digest.id})
+                    dispatch(deleteUserDigestAC(digest.id))
+                }
+
+                const digestChannels = channels[digest.id]
 
                 return (
-                    <Digest key={digest.id} {...digest} channels={digest && (digestChannels.length >= 3 ? digestChannels.slice(0, 3) : digestChannels)} onClick={onClickHandler}/>
+                    <Digest key={digest.id} {...digest}
+                            channels={digestChannels.slice(0, 3)}
+                            onClick={onClickHandler}
+                            onDelete={onDeleteHandler}
+                    />
                 )
             })}
         </Stack>

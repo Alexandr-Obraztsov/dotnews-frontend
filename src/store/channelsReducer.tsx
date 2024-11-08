@@ -1,5 +1,5 @@
+import {addUserDigestAC, AddUserDigestActionType} from "./userReducer";
 import {ChannelType} from "../components/common/channel/Channel";
-import {addUserDigestAC} from "./userReducer";
 
 export type ChannelsStateType = {
     [key: string]: ChannelType[]
@@ -38,13 +38,12 @@ export const deleteDigestChannelAC = (payload: { digestId: string, channel: Chan
 }
 
 
-type SetDigestChannelsActionType = ReturnType<typeof setDigestChannelsAC>
+export type SetDigestChannelsActionType = ReturnType<typeof setDigestChannelsAC>
 
-type AddDigestChannelActionType = ReturnType<typeof addDigestChannelAC>
+export type AddDigestChannelActionType = ReturnType<typeof addDigestChannelAC>
 
-type DeleteDigestChannelActionType = ReturnType<typeof deleteDigestChannelAC>
+export type DeleteDigestChannelActionType = ReturnType<typeof deleteDigestChannelAC>
 
-type AddUserDigestActionType = ReturnType<typeof addUserDigestAC>
 
 type ChannelsActionType = SetDigestChannelsActionType
     | AddDigestChannelActionType

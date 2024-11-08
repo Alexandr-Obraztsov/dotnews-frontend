@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {Divider, Stack} from "@mui/material";
 import {tg} from "../../../globalTheme";
-import {Channel} from "../../common/channel/Channel";
+import {ScrollableItem} from "../../common/scrollableItem/ScrollableItem";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {useParams} from "react-router-dom";
 import {deleteDigestChannelAC} from "../../../store/channelsReducer";
 import {deleteDigestChannelsAPI} from "../../../api/digestsAPI";
+import {Channel} from "../../common/channel/Channel";
 
 
 export const ChannelList : React.FC = () => {

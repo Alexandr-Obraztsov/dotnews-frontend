@@ -60,15 +60,15 @@ export const deleteUserDigestAC = (id: string) => {
     return {type: "DELETE-USER-DIGEST", payload: {id}} as const
 }
 
-type SetUserActionType = ReturnType<typeof setUserAC>
+export type SetUserActionType = ReturnType<typeof setUserAC>
 
-type SetUserDigestsActionType = ReturnType<typeof setUserDigestsAC>
+export type SetUserDigestsActionType = ReturnType<typeof setUserDigestsAC>
 
-type AddUserDigestActionType = ReturnType<typeof addUserDigestAC>
+export type AddUserDigestActionType = ReturnType<typeof addUserDigestAC>
 
-type UpdateUserDigestNameActionType = ReturnType<typeof updateUserDigestNameAC>
+export type UpdateUserDigestNameActionType = ReturnType<typeof updateUserDigestNameAC>
 
-type DeleteUserDigestActionType = ReturnType<typeof deleteUserDigestAC>
+export type DeleteUserDigestActionType = ReturnType<typeof deleteUserDigestAC>
 
 type UserActionType = SetUserActionType
     | SetUserDigestsActionType
