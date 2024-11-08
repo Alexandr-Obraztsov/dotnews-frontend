@@ -39,7 +39,6 @@ export const Main: React.FC = () => {
 
                 <EditableDigestName/>
 
-                <TimePicker/>
 
                 <Grid2
                     container

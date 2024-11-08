@@ -36,9 +36,9 @@
 .wheel__shadow-top,
 .wheel__shadow-bottom {
     background: linear-gradient(
-            to bottom,
-            rgb(35, 46, 60) 0%,
-            rgba(35, 46, 60, 0) 100%
+            to top,
+            transparent 0%,
+            rgba(40, 46, 51, 0.58) 80%
     ) content-box;
 
     left: 0;
@@ -52,8 +52,8 @@
 .wheel__shadow-bottom {
     background: linear-gradient(
             to bottom,
-            rgba(35, 46, 60, 0) 0%,
-            rgba(35, 46, 60, 100) 80%
+            transparent 0%,
+            rgb(40, 46, 51) 80%
     );
     margin-top: 2px;
     border-bottom: none;

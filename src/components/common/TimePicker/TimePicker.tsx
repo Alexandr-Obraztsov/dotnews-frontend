@@ -4,10 +4,14 @@ import "../../common/TimePicker/styles.css"
 
 export const TimePicker = () => {
 
-    const options = ["Ежедневно", "Каждые 2 дня", "Каждые 3 дня", "Еженедельно"]
+    const daysOptions = ["Ежедневно", "Каждые 2 дня", "Каждые 3 дня", "Еженедельно"]
 
     const getDay = (relative: number) => {
-        return options[relative%options.length].toString()
+        return daysOptions[relative%daysOptions.length].toString()
+    }
+
+    const getTime = (relative: number) => {
+        return relative < 10 ? `0${relative}` : `${relative}`
     }
 
     return (
@@ -19,35 +23,37 @@ export const TimePicker = () => {
                 alignItems: "center",
             }}
         >
-            <div style={{width: 200, height: 250}}>
+            <div style={{width: 200, height: 90}}>
                 <Wheel
                     loop
-                    wheelSize={20}
-                    slidesPerView={4}
-                    length={options.length*2}
+                    wheelSize={9}
+                    slidesPerView={3}
+                    length={daysOptions.length*4}
                     width={200}
-                    perspective="left"
+                    perspective="right"
                     setValue={getDay}
                 />
             </div>
-            <div style={{width: 50, height: 180}}>
+            <div style={{width: 50, height: 90}}>
                 <Wheel
                     loop
-                    wheelSize={10}
+                    wheelSize={9}
                     slidesPerView={3}
                     length={24}
                     width={23}
-                    perspective="center"
+                    perspective="right"
+                    setValue={getTime}
                 />
             </div>
-            <div style={{width: 50, height: 180}}>
+            <div style={{width: 50, height: 90}}>
                 <Wheel
                     loop
-                    wheelSize={10}
+                    wheelSize={9}
                     slidesPerView={3}
                     length={60}
                     width={23}
                     perspective="right"
+                    setValue={getTime}
                 />
             </div>
         </div>
