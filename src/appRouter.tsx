@@ -24,7 +24,6 @@ export const appRouter = createBrowserRouter([
     {
         path: ROUTES.autorization,
         element: <Autorization/>,
-        errorElement: <ErrorPage error={new Error("Page not found")}/>
     },
     {
         path: ROUTES.welcome,

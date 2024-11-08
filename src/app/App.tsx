@@ -14,12 +14,6 @@ const queryClient = new QueryClient()
 
 export const App : React.FC = () => {
 
-    useEffect(() => {
-        window.onload = () => {
-            appRouter.navigate(ROUTES.autorization);
-        };
-    }, []);
-
     return (<ThemeProvider theme={globalTheme}>
         <CssBaseline>
             <Provider store={store}>

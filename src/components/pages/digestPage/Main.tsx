@@ -5,6 +5,7 @@ import {tg} from "../../../globalTheme";
 import AddIcon from "@mui/icons-material/Add";
 import {ROUTES} from "../../../appRouter";
 import {EditableDigestName} from "./EditableDigestName";
+import {TimePicker} from "../../common/TimePicker/TimePicker";
 
 export const Main: React.FC = () => {
 
@@ -37,6 +38,8 @@ export const Main: React.FC = () => {
                 ></Box>
 
                 <EditableDigestName/>
+
+                <TimePicker/>
 
                 <Grid2
                     container

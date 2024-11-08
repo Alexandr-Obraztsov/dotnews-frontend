@@ -11,13 +11,10 @@ export const getDigestsAPI = (telegramId: number) : Promise<DigestType[]> => {
 export const createDigestAPI = async (telegramId: number, payload: {
     name: string,
     timeInterval: string,
-    firstReceptionTime: string
+    receptionTime: string,
+    emoji: string
 }) => {
-    return axios.post(`${server_url}/users/${telegramId}/digests`, {
-        name: payload.name,
-        timeInterval: payload.timeInterval,
-        firstReceptionTime: payload.firstReceptionTime
-    }).then(res => res.data)
+    return axios.post(`${server_url}/users/${telegramId}/digests`, payload).then(res => res.data)
 }
 
 export const getDigestChannelsAPI = (telegramId: number, digestId: string) => {
@@ -28,6 +25,10 @@ export const addDigestChannelsAPI = (payload: {telegramId: number, digestId: str
     return axios.post(`${server_url}/users/${payload.telegramId}/digests/${payload.digestId}/channels`, {
         name: payload.name
     }).then(res => res.data)
+}
+
+export const deleteUserDigestAPI = (payload: {userTelegramId: number, digestId: string}) => {
+    return axios.delete(`${server_url}/users/${payload.userTelegramId}/digests/${payload.digestId}`).then(res => res.data)
 }
 
 export const deleteDigestChannelsAPI = (payload: {telegramId: number, digestId: string, channelId: string}) => {

@@ -13,6 +13,7 @@ import {useState} from "react";
 import {setUserAC} from "../../../store/userReducer";
 import {ROUTES} from "../../../appRouter";
 import {setUserAPI} from "../../../api/usersAPI";
+import {TimePicker} from "../../common/TimePicker/TimePicker";
 
 export const Welcome = () => {
 
@@ -20,13 +21,13 @@ export const Welcome = () => {
 
     const navigate = useNavigate()
 
-    const user = useAppSelector(state => state.user.user)
+    const user = tg.initDataUnsafe.user!
     const dispatch = useAppDispatch()
 
     tg.BackButton.hide()
 
     const onSubmit = () => {
-        setUserAPI(user.telegramId)
+        setUserAPI({telegramId: user.id, telegramName: `${user.first_name} ${user.last_name}`, imageUrl: user.photo_url!})
             .then(data => {
                 dispatch(setUserAC(data));
                 navigate(ROUTES.profile)

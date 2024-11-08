@@ -12,8 +12,7 @@ import {updateDigestAPI} from "../../../api/digestsAPI";
 export const EditableDigestName : React.FC = () => {
     const {digestId = ""} = useParams()
 
-    const digest = useAppSelector(state => state.user.digests).find(dg => dg.id === digestId)!
-
+    const digest = useAppSelector(state => state.user.digests).find(dg => dg.id === digestId)!;
     const [isEdit, setIsEdit] = React.useState(false);
     const inputRef = React.useRef<HTMLInputElement>(null);
 

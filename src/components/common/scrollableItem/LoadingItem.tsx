@@ -1,10 +1,10 @@
 import React from "react";
 import {Grid2, Skeleton} from "@mui/material";
-import {BasicItem} from "../../styled/BasicItem";
+import {BasicItem} from "./BasicItem";
 
 
 
-export const LoadingChannel: React.FC = () => {
+export const LoadingItem: React.FC = () => {
 
     return (
         <BasicItem

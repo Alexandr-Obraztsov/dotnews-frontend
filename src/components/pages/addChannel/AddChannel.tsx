@@ -5,13 +5,14 @@ import {tg} from "../../../globalTheme";
 import {useNavigate, useParams} from "react-router-dom";
 import {addDigestChannelsAPI} from "../../../api/digestsAPI";
 import {useQuery} from "react-query";
-import {Channel, ChannelType} from "../../common/channel/Channel";
-import {LoadingChannel} from "../../common/channel/LoadingChannel";
+import {ScrollableItem} from "../../common/scrollableItem/ScrollableItem";
+import {LoadingItem} from "../../common/scrollableItem/LoadingItem";
 import {useAppSelector} from "../../../store/hooks";
 import {useDispatch} from "react-redux";
 import {ROUTES} from "../../../appRouter";
 import {addDigestChannelAC} from "../../../store/channelsReducer";
 import {addChannelAPI, getChannelAPI} from "../../../api/channelsAPI";
+import {Channel, ChannelType} from "../../common/channel/Channel";
 
 
 const fetchChannel = (link: string) => {
@@ -71,7 +72,7 @@ export const AddChannel: React.FC = () => {
             container
             direction={"column"}
             alignItems={"center"}
-            padding={"50px 20px 20px"}
+            padding={"50px 0px 20px"}
             height={"100vh"}
         >
             <Typography
@@ -85,6 +86,7 @@ export const AddChannel: React.FC = () => {
 
             <Box
                 marginTop={"30px"}
+                paddingX={"20px"}
             >
                 <TextField
                     value={link}
@@ -127,7 +129,7 @@ export const AddChannel: React.FC = () => {
                 width={"100%"}
             >
                 {isLoading
-                    ? <LoadingChannel/>
+                    ? <LoadingItem/>
                     : data && <Channel {...data}/>
                 }
             </Box>
@@ -137,6 +139,7 @@ export const AddChannel: React.FC = () => {
                 direction={"column"}
                 width={"100%"}
                 flexGrow={1}
+                paddingX={"20px"}
                 display={link ? "flex" : "none"}
             >
                 <Button

@@ -28,15 +28,19 @@ export const Autorization = () => {
             getUserAPI(tgId)
                 .then(data => {
                     dispatch(setUserAC(data))
+                    console.log(data)
                     setLoadingDescription("Получаем Ваши дайджесты...")
                     getDigestsAPI(tgId)
                         .then(digests => {
                             dispatch(setUserDigestsAC(digests))
-                            digests.forEach(digest => {
-                                getDigestChannelsAPI(tgId, digest.id)
-                                    .then(channels => dispatch(setDigestChannelsAC({digestId:digest.id, channels})))
-                            })
-                            navigate(ROUTES.profile)
+                            const promises = digests.map(digest => getDigestChannelsAPI(tgId, digest.id)
+                                .then(channels => {
+                                    dispatch(setDigestChannelsAC({digestId:digest.id, channels}))
+                                }))
+                            Promise.all(promises)
+                                .then(res => {
+                                    navigate(ROUTES.profile)
+                                })
                         })
                 })
                 .catch(e => navigate(ROUTES.welcome))

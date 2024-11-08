@@ -9,7 +9,6 @@ import {useEffect} from "react";
 
 
 export const DigestPage: React.FC = () => {
-
     const navigate = useNavigate()
 
     useEffect(() => {

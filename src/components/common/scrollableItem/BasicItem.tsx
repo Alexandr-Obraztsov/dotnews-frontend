@@ -1,4 +1,4 @@
-import {globalTheme} from "../../globalTheme";
+import {globalTheme} from "../../../globalTheme";
 import React, {FC} from "react";
 import {Box, BoxProps} from "@mui/material";
 
