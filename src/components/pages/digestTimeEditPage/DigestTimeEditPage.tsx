@@ -1,46 +1,73 @@
 import * as React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {useAppSelector} from "../../../store/hooks";
-import {Box, Grid2, Typography} from "@mui/material";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
+import {Grid2, Typography} from "@mui/material";
 import {Wheel} from "../../common/TimePicker/Wheel";
-import {useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {tg} from "../../../globalTheme";
 import {PATHS} from "../../../app/appRouter";
 import dayjs from "dayjs";
+import {updateUserDigestReceptionTimeAC, updateUserDigestTimeIntervalAC} from "../../../store/userReducer";
+import {updateDigestAPI} from "../../../api/digestsAPI";
 
-export const DigestTimeEditPage : React.FC = () => {
+export const daysOptions = {
+    1: "Ежедневно",
+    2: "Каждые 2 дня",
+    3: "Каждые 3 дня",
+    4: "Каждые 4 дня",
+    5: "Каждые 5 дней",
+    6: "Каждые 6 дней",
+    7: "Eженедельно"
+}
+
+export const DigestTimeEditPage: React.FC = () => {
     const {digestId = ""} = useParams()
     const digest = useAppSelector(state => state.user.digests).find(dg => dg.id === digestId)!;
 
-    const hours = +dayjs(digest.receptionTime, "HH:mm:ss").format("HH")!;
-    const minutes = +dayjs(digest.receptionTime, "HH:mm:ss").format("mm")!;
-
-    const [time, setTime] = React.useState({
-        hours,
-        minutes,
+    const [receptionTime, setReceptionTime] = useState({
+        hours: +dayjs(digest.receptionTime, "HH:mm:ss").format("HH"),
+        minutes: +dayjs(digest.receptionTime, "HH:mm:ss").format("mm"),
     })
+
+    const [timeInterval, setTimeInterval] = useState(+dayjs(digest.timeInterval, "D.HH:mm:ss").format("D"))
 
     const navigate = useNavigate()
 
-    const convertNumberToTime = (relative: number) => {
+    const dispatch = useAppDispatch()
+
+    const convertNumberToTime = useCallback((relative: number) => {
         return relative < 10 ? `0${relative}` : `${relative}`
-    }
+    }, [])
 
-    const handleUpdateHours = (hours: number) => {
-        return convertNumberToTime(hours)
-    }
+    const convertNumberToInterval = useCallback((relative: number) => {
+        return Object.values(daysOptions)[relative]
+    }, [])
 
-    const handleUpdateMinutes = (minutes: number) => {
-        return convertNumberToTime(minutes)
-    }
+    const handleUpdateHours = useCallback((hours: number) => {
+        setReceptionTime(prev => ({...prev, hours}))
+    }, [])
+
+    const handleUpdateMinutes = useCallback((minutes: number) => {
+        setReceptionTime(prev => ({...prev, minutes}))
+    }, [])
+
+    const handleUpdateTimeInterval = useCallback((value: number) => {
+        const interval = Object.keys(daysOptions)[value]
+        setTimeInterval(+interval)
+    }, [])
 
     const handleSave = () => {
+        const interval = `${timeInterval}.00:00:00`
+        const time = `${convertNumberToTime(receptionTime.hours)}:${convertNumberToTime(receptionTime.minutes)}:00`
         navigate(PATHS.digestPage.replace(":digestId", digestId))
+        updateDigestAPI(tg.initDataUnsafe.user!.id, {...digest, receptionTime: time, timeInterval: interval})
+        dispatch(updateUserDigestReceptionTimeAC({digestId, receptionTime: time}))
+        dispatch(updateUserDigestTimeIntervalAC({digestId, timeInterval: interval}))
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         tg.BackButton.onClick(() => navigate(PATHS.digestPage.replace(":digestId", digestId)))
-    }, [navigate])
+    }, [navigate, digestId])
 
     return (
         <Grid2
@@ -50,6 +77,7 @@ export const DigestTimeEditPage : React.FC = () => {
             height={"100vh"}
             bgcolor={"background.paper"}
             paddingX={"20px"}
+            paddingY={"20px"}
         >
             <Typography
                 fontSize={"24px"}
@@ -63,36 +91,65 @@ export const DigestTimeEditPage : React.FC = () => {
                 height={"150px"}
                 marginTop={"20px"}
                 wrap={"nowrap"}
-                gap={"40px"}
                 position={"relative"}
+                alignItems={"center"}
                 width={"100%"}
+                gap={"10px"}
                 justifyContent={"center"}
                 direction={"row"}
             >
                 <Wheel
                     loop
-                    initIdx={hours}
+                    initIdx={timeInterval - 1}
+                    wheelSize={14}
+                    slidesPerView={8}
+                    length={Object.keys(daysOptions).length}
+                    width={180}
+                    setValue={convertNumberToInterval}
+                    onChange={handleUpdateTimeInterval}
+                    slideStyle={{
+                        letterSpacing: "-0.5px",
+                        whiteSpace: "nowrap",
+                    }}
+                />
+                <Typography
+                    zIndex={2}
+                    fontSize={"24px"}
+                    fontWeight={600}
+                >
+                    в
+                </Typography>
+                <Wheel
+                    loop
+                    initIdx={receptionTime.hours}
                     wheelSize={14}
                     slidesPerView={8}
                     length={23}
                     width={40}
-                    setValue={handleUpdateHours}
+                    setValue={convertNumberToTime}
+                    onChange={handleUpdateHours}
                 />
-
+                <Typography
+                    zIndex={2}
+                    fontSize={"24px"}
+                    fontWeight={600}
+                >
+                    :
+                </Typography>
                 <Wheel
                     loop
-                    initIdx={minutes}
+                    initIdx={receptionTime.minutes}
                     wheelSize={14}
                     slidesPerView={8}
-                    length={60}
+                    length={30}
                     width={40}
-                    setValue={handleUpdateMinutes}
+                    setValue={convertNumberToTime}
+                    onChange={handleUpdateMinutes}
                 />
 
                 <Grid2
                     container
                     alignItems={"center"}
-                    justifyContent={"center"}
                     position={"absolute"}
                     bgcolor={"background.default"}
                     width={"100%"}
@@ -104,14 +161,6 @@ export const DigestTimeEditPage : React.FC = () => {
                         transform: "translateY(-50%)"
                     }}
                 >
-                    <Typography
-                        fontSize={"25px"}
-                        lineHeight={"25px"}
-                        fontWeight={700}
-                        paddingBottom={"3px"}
-                    >
-                        :
-                    </Typography>
                 </Grid2>
             </Grid2>
 

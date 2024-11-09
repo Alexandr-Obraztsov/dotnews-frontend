@@ -35,9 +35,11 @@ export const deleteDigestChannelsAPI = (payload: {telegramId: number, digestId: 
     return axios.delete(`${server_url}/users/${payload.telegramId}/digests/${payload.digestId}/channels/${payload.channelId}`).then(res => res.data)
 }
 
-export const updateDigestAPI = (payload: {telegramId: number, digestId: string, name: string, timeInterval: string}) => {
-    return axios.put(`${server_url}/users/${payload.telegramId}/digests/${payload.digestId}`, {
-        name: payload.name,
-        timeInterval: payload.timeInterval
+export const updateDigestAPI = (telegramId: number, digest: DigestType) => {
+    return axios.put(`${server_url}/users/${telegramId}/digests/${digest.id}`, {
+        name: digest.name,
+        timeInterval: digest.timeInterval,
+        receptionTime: digest.receptionTime,
+        emoji: digest.emoji
     })
 }

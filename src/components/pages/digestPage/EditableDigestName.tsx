@@ -39,12 +39,7 @@ export const EditableDigestName: React.FC = () => {
         const newName = name.trim()
         setIsEdit(false);
         dispatch(updateUserDigestNameAC({digest, name: newName}))
-        updateDigestAPI({
-            telegramId: tg.initDataUnsafe.user!.id,
-            digestId,
-            name: newName,
-            timeInterval: digest.timeInterval
-        })
+        updateDigestAPI(tg.initDataUnsafe.user!.id, {...digest, name: newName})
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

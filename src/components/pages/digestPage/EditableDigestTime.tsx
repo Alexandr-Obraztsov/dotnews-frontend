@@ -2,11 +2,11 @@ import * as React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppSelector} from "../../../store/hooks";
 import dayjs from "dayjs";
-import {daysOptions} from "../../common/TimePicker/TimePicker";
 import {tg} from "../../../globalTheme";
-import {Box, Grid2, Typography} from "@mui/material";
+import {Grid2, Typography} from "@mui/material";
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import {PATHS} from "../../../app/appRouter";
+import {daysOptions} from "../digestTimeEditPage/DigestTimeEditPage";
 
 export const EditableDigestTime : React.FC = () => {
     const {digestId = ""} = useParams()
@@ -17,7 +17,7 @@ export const EditableDigestTime : React.FC = () => {
 
     const receptionTime = dayjs(digest.receptionTime, "HH:mm:ss").format("HH:mm")
 
-    const timeInterval = daysOptions[dayjs(digest.timeInterval, "D.HH:mm:ss").format("D").toString() as keyof typeof daysOptions]
+    const timeInterval = daysOptions[+dayjs(digest.timeInterval, "D.HH:mm:ss").format("D") as keyof typeof daysOptions]
 
     const handleClick = () => {
         navigate(PATHS.digestTimeEditPage.replace(":digestId", digestId))

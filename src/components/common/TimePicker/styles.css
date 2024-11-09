@@ -23,12 +23,6 @@
 
 .wheel__shadow-top,
 .wheel__shadow-bottom {
-    background: linear-gradient(
-            to top,
-            rgba(40, 46, 51, 0.0) 0%,
-            rgba(40, 46, 51, 0.5) 20%,
-            rgba(40, 46, 51, 0.9) 100%
-    );
     left: 0;
     height: calc(42% + 4px);
     width: 100%;
@@ -38,12 +32,6 @@
 }
 
 .wheel__shadow-bottom {
-    background: linear-gradient(
-            to bottom,
-            rgba(40, 46, 51, 0.0) 0%,
-            rgba(40, 46, 51, 0.5) 20%,
-            rgba(40, 46, 51, 0.9) 100%
-    );
     margin-top: 4px;
     border-bottom: none;
 }

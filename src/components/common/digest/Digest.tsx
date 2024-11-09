@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {BasicItem} from "../scrollableItem/BasicItem";
 import {Box, Grid2, IconButton, Skeleton, Typography} from "@mui/material";
 import {tg} from "../../../globalTheme";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -10,6 +9,7 @@ import {ScrollableItem} from "../scrollableItem/ScrollableItem";
 export type DigestType = {
     id: string
     name: string
+    emoji: string
     createdAt: string
     channelsUpdatedAt: string
     timeInterval: string

@@ -32,7 +32,27 @@ export const userReducer = (state: UserStateType = initialState, action: UserAct
         case "ADD-USER-DIGEST":
             return {...state, digests: [...state.digests, action.payload.digest]}
         case "UPDATE-USER-DIGEST-NAME":
-            return {...state, digests: state.digests.map(item => item.id === action.payload.digest.id ? {...item, name: action.payload.name} : item)}
+            return {
+                ...state,
+                digests: state.digests.map(item => item.id === action.payload.digest.id ? {
+                    ...item,
+                    name: action.payload.name
+                } : item)
+            }
+        case "UPDATE-USER-DIGEST-RECEPTION-TIME":
+            return {
+                ...state, digests: state.digests.map(item => item.id === action.payload.digestId ? {
+                    ...item,
+                    receptionTime: action.payload.receptionTime
+                } : item)
+            }
+        case "UPDATE-USER-DIGEST-TIME-INTERVAL":
+            return {
+                ...state, digests: state.digests.map(item => item.id === action.payload.digestId ? {
+                    ...item,
+                    timeInterval: action.payload.timeInterval
+                } : item)
+            }
         case "DELETE-USER-DIGEST":
             return {...state, digests: state.digests.filter(item => item.id !== action.payload.id)}
         default:
@@ -52,8 +72,16 @@ export const addUserDigestAC = (digest: DigestType) => {
     return {type: "ADD-USER-DIGEST", payload: {digest}} as const
 }
 
-export const updateUserDigestNameAC = (payload: {digest: DigestType, name: string}) => {
+export const updateUserDigestNameAC = (payload: { digest: DigestType, name: string }) => {
     return {type: "UPDATE-USER-DIGEST-NAME", payload} as const
+}
+
+export const updateUserDigestReceptionTimeAC = (payload: { receptionTime: string, digestId: string }) => {
+    return {type: "UPDATE-USER-DIGEST-RECEPTION-TIME", payload} as const
+}
+
+export const updateUserDigestTimeIntervalAC = (payload: { timeInterval: string, digestId: string }) => {
+    return {type: "UPDATE-USER-DIGEST-TIME-INTERVAL", payload} as const
 }
 
 export const deleteUserDigestAC = (id: string) => {
@@ -70,8 +98,14 @@ export type UpdateUserDigestNameActionType = ReturnType<typeof updateUserDigestN
 
 export type DeleteUserDigestActionType = ReturnType<typeof deleteUserDigestAC>
 
+export type UpdateUserDigestReceptionTimeActionType = ReturnType<typeof updateUserDigestReceptionTimeAC>
+
+export type UpdateUserDigestTimeIntervalActionType = ReturnType<typeof updateUserDigestTimeIntervalAC>
+
 type UserActionType = SetUserActionType
     | SetUserDigestsActionType
     | AddUserDigestActionType
     | UpdateUserDigestNameActionType
     | DeleteUserDigestActionType
+    | UpdateUserDigestReceptionTimeActionType
+    | UpdateUserDigestTimeIntervalActionType

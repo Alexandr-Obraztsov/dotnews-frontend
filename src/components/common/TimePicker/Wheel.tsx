@@ -1,11 +1,14 @@
-import React, { useRef } from "react"
+import React, {memo, useRef} from "react"
 import {
     KeenSliderOptions,
     TrackDetails,
     useKeenSlider,
 } from "keen-slider/react"
+import {hexToRgba} from "../../../utils/hexToRgba";
+import {tg} from "../../../globalTheme";
+import "./styles.css"
 
-export function Wheel(props: {
+export const Wheel = memo((props: {
     initIdx?: number
     label?: string
     length: number
@@ -15,7 +18,10 @@ export function Wheel(props: {
     setValue?: (relative: number, absolute: number) => string
     width: number
     wheelSize?: number
-}) {
+    onChange?: (relative: number) => void
+    slideStyle?: React.CSSProperties
+}) => {
+    const lastValue = useRef(0)
     const perspective = props.perspective || "center"
     const wheelSize = props.wheelSize || 10
     const slides = props.length
@@ -68,6 +74,7 @@ export function Wheel(props: {
     }, [slider])
 
     function slideValues() {
+        let selectId = 0, selectRadius = Infinity
         if (!sliderState) return []
         const offset = props.loop ? 1 / 2 - 1 / slidesPerView / 2 : 0
 
@@ -80,6 +87,10 @@ export function Wheel(props: {
                 Math.abs(distance) > wheelSize / 2
                     ? 180
                     : distance * (360 / wheelSize) * -1
+            if (Math.abs(rotate) < selectRadius) {
+                selectId = i
+                selectRadius = Math.abs(rotate)
+            }
             const style = {
                 transform: `rotateX(${rotate}deg) translateZ(${radius}px)`,
                 WebkitTransform: `rotateX(${rotate}deg) translateZ(${radius}px)`,
@@ -88,6 +99,11 @@ export function Wheel(props: {
                 ? props.setValue(i, sliderState.abs + Math.round(distance))
                 : i
             values.push({ style, value })
+        }
+
+        if (selectId !== lastValue.current) {
+            props.onChange?.(selectId)
+            lastValue.current = selectId
         }
         return values
     }
@@ -102,12 +118,18 @@ export function Wheel(props: {
                 style={{
                     transform: `translateZ(${radius}px)`,
                     WebkitTransform: `translateZ(${radius}px)`,
+                    background: `linear-gradient(
+                        to top,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0)} 0%,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0.5)} 20%,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0.9)} 100%
+                    )`
                 }}
             />
             <div className="wheel__inner">
                 <div className="wheel__slides" style={{ width: props.width + "px" }}>
                     {slideValues().map(({ style, value }, idx) => (
-                        <div className="wheel__slide" style={style} key={idx}>
+                        <div className="wheel__slide" style={{...style, ...props.slideStyle}} key={idx}>
                             <span>{value}</span>
                         </div>
                     ))}
@@ -129,8 +151,13 @@ export function Wheel(props: {
                 style={{
                     transform: `translateZ(${radius}px)`,
                     WebkitTransform: `translateZ(${radius}px)`,
+                    background: `linear-gradient(to bottom,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0)} 0%,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0.5)} 20%,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0.9)} 100%
+                    )`
                 }}
             />
         </div>
     )
-}
+})

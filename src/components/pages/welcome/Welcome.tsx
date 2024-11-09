@@ -7,14 +7,12 @@ import {Body1} from "../../styled/Body1";
 import {StyledButton} from "../../styled/StyledButton";
 import {useNavigate} from "react-router-dom";
 import {tg} from "../../../globalTheme";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks";
+import {useAppDispatch} from "../../../store/hooks";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {useState} from "react";
 import {setUserAC} from "../../../store/userReducer";
 import {PATHS} from "../../../app/appRouter";
 import {setUserAPI} from "../../../api/usersAPI";
-import {TimePicker} from "../../common/TimePicker/TimePicker";
-
 export const Welcome = () => {
 
     const [error, setError] = useState<Error | null>(null);
