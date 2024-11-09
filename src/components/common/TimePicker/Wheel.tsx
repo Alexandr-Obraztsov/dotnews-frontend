@@ -4,6 +4,8 @@ import {
     TrackDetails,
     useKeenSlider,
 } from "keen-slider/react"
+import {hexToRgba} from "../../../utils/hexToRgba";
+import {tg} from "../../../globalTheme";
 
 export function Wheel(props: {
     initIdx?: number
@@ -102,6 +104,12 @@ export function Wheel(props: {
                 style={{
                     transform: `translateZ(${radius}px)`,
                     WebkitTransform: `translateZ(${radius}px)`,
+                    background: `linear-gradient(
+                        to top,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0)} 0%,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0.5)} 20%,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0.9)} 100%
+                    )`
                 }}
             />
             <div className="wheel__inner">
@@ -129,6 +137,11 @@ export function Wheel(props: {
                 style={{
                     transform: `translateZ(${radius}px)`,
                     WebkitTransform: `translateZ(${radius}px)`,
+                    background: `linear-gradient(to bottom,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0)} 0%,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0.5)} 20%,
+                    ${hexToRgba(tg.themeParams.bg_color!, 0.9)} 100%
+                    )`
                 }}
             />
         </div>
