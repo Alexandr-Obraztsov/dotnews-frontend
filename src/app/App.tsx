@@ -7,7 +7,7 @@ import {globalTheme} from "../globalTheme";
 import {Provider} from "react-redux";
 import {store} from "../store/store";
 import {LocalizationProvider} from "@mui/x-date-pickers";
-import {appRouter, ROUTES} from "../appRouter";
+import {appRouter, PATHS} from "./appRouter";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 
 const queryClient = new QueryClient()

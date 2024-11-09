@@ -4,7 +4,7 @@ import {memo} from "react";
 import {tg} from "../../../globalTheme";
 import {Digest} from "../../common/digest/Digest";
 import {useNavigate} from "react-router-dom";
-import {ROUTES} from "../../../appRouter";
+import {PATHS} from "../../../app/appRouter";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {deleteUserDigestAPI} from "../../../api/digestsAPI";
 import {deleteUserDigestAC} from "../../../store/userReducer";
@@ -23,7 +23,7 @@ export const DigestList: React.FC = memo(() => {
             bgcolor={tg.themeParams.bg_color}
         >
             {digests.map((digest) => {
-                const onClickHandler = () => navigate(ROUTES.digestPage.replace(":digestId", digest.id))
+                const onClickHandler = () => navigate(PATHS.digestPage.replace(":digestId", digest.id))
 
                 const onDeleteHandler = () => {
                     deleteUserDigestAPI({userTelegramId: tg.initDataUnsafe.user!.id, digestId: digest.id})

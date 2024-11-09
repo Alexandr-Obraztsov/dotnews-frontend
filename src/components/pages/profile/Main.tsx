@@ -3,7 +3,7 @@ import {Box, Grid2, Typography} from "@mui/material";
 import {tg} from "../../../globalTheme";
 import {memo, useState} from "react";
 import AddIcon from '@mui/icons-material/Add';
-import {ROUTES} from "../../../appRouter";
+import {PATHS} from "../../../app/appRouter";
 import {useNavigate} from "react-router-dom";
 import {createDigestAPI} from "../../../api/digestsAPI";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
@@ -32,7 +32,7 @@ export const Main: React.FC = memo(() => {
             emoji: "hourglass"
         })
             .then(digest => {
-                navigate(ROUTES.digestPage.replace(":digestId", digest.id))
+                navigate(PATHS.digestPage.replace(":digestId", digest.id))
                 dispatch(addUserDigestAC(digest))
             })
             .catch(er => setError(er))

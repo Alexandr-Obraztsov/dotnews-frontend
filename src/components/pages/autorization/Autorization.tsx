@@ -9,7 +9,7 @@ import {
 import {tg} from "../../../globalTheme";
 import {useAppDispatch} from "../../../store/hooks";
 import {setUserAC, setUserDigestsAC} from "../../../store/userReducer";
-import {ROUTES} from "../../../appRouter";
+import {PATHS} from "../../../app/appRouter";
 import {setDigestChannelsAC} from "../../../store/channelsReducer";
 import {getUserAPI} from "../../../api/usersAPI";
 
@@ -39,14 +39,14 @@ export const Autorization = () => {
                                 }))
                             Promise.all(promises)
                                 .then(res => {
-                                    navigate(ROUTES.profile)
+                                    navigate(PATHS.profile)
                                 })
                         })
                 })
-                .catch(e => navigate(ROUTES.welcome))
+                .catch(e => navigate(PATHS.welcome))
         }
         catch (e: any) {
-            navigate(ROUTES.welcome)
+            navigate(PATHS.welcome)
         }
     }, [dispatch, navigate])
 

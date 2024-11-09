@@ -11,7 +11,7 @@ import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ErrorPage} from "../errorPage/ErrorPage";
 import {useState} from "react";
 import {setUserAC} from "../../../store/userReducer";
-import {ROUTES} from "../../../appRouter";
+import {PATHS} from "../../../app/appRouter";
 import {setUserAPI} from "../../../api/usersAPI";
 import {TimePicker} from "../../common/TimePicker/TimePicker";
 
@@ -30,7 +30,7 @@ export const Welcome = () => {
         setUserAPI({telegramId: user.id, telegramName: `${user.first_name} ${user.last_name}`, imageUrl: user.photo_url!})
             .then(data => {
                 dispatch(setUserAC(data));
-                navigate(ROUTES.profile)
+                navigate(PATHS.profile)
             })
             .catch(e => setError(e))
     }

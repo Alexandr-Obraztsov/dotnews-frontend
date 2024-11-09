@@ -50,6 +50,7 @@ export function Wheel(props: {
         },
         updated: (s) => {
             size.current = s.size
+
         },
         detailsChanged: (s) => {
             setSliderState(s.track.details)

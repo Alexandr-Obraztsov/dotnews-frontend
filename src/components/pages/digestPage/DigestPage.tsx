@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Grid2} from "@mui/material";
 import {tg} from "../../../globalTheme";
 import {useNavigate} from "react-router-dom";
-import {ROUTES} from "../../../appRouter";
+import {PATHS} from "../../../app/appRouter";
 import {Main} from "./Main";
 import {ChannelList} from "./ChannelList";
 import {useEffect} from "react";
@@ -12,7 +12,7 @@ export const DigestPage: React.FC = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        tg.BackButton.onClick(() => navigate(ROUTES.profile))
+        tg.BackButton.onClick(() => navigate(PATHS.profile))
         tg.BackButton.show()
 
         tg.MainButton.hide()

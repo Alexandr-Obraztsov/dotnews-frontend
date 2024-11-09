@@ -9,7 +9,7 @@ import {ScrollableItem} from "../../common/scrollableItem/ScrollableItem";
 import {LoadingItem} from "../../common/scrollableItem/LoadingItem";
 import {useAppSelector} from "../../../store/hooks";
 import {useDispatch} from "react-redux";
-import {ROUTES} from "../../../appRouter";
+import {PATHS} from "../../../app/appRouter";
 import {addDigestChannelAC} from "../../../store/channelsReducer";
 import {addChannelAPI, getChannelAPI} from "../../../api/channelsAPI";
 import {Channel, ChannelType} from "../../common/channel/Channel";
@@ -58,11 +58,11 @@ export const AddChannel: React.FC = () => {
             addDigestChannelsAPI({telegramId: user.telegramId, digestId, name: data.telegramName})
             dispatch(addDigestChannelAC({digestId, channel: data}))
         }
-        navigate(ROUTES.digestPage.replace(":digestId", digestId))
+        navigate(PATHS.digestPage.replace(":digestId", digestId))
     }
 
 
-    tg.BackButton.onClick(() => navigate(ROUTES.digestPage.replace(":digestId", digestId)))
+    tg.BackButton.onClick(() => navigate(PATHS.digestPage.replace(":digestId", digestId)))
     tg.BackButton.show()
 
     tg.MainButton.hide()
