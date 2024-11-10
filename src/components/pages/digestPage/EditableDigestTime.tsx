@@ -5,13 +5,14 @@ import dayjs from "dayjs";
 import {tg} from "../../../globalTheme";
 import {Grid2, Typography} from "@mui/material";
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import {PATHS} from "../../../app/appRouter";
 import {daysOptions} from "../digestTimeEditPage/DigestTimeEditPage";
 
-export const EditableDigestTime : React.FC = () => {
-    const {digestId = ""} = useParams()
+type EditableDigestTimePropsType = {
+    onClick?: ()=>void
+}
 
-    const navigate = useNavigate()
+export const EditableDigestTime : React.FC<EditableDigestTimePropsType> = ({onClick}) => {
+    const {digestId = ""} = useParams()
 
     const digest = useAppSelector(state => state.user.digests.find(digest => digest.id === digestId)!)
 
@@ -19,14 +20,10 @@ export const EditableDigestTime : React.FC = () => {
 
     const timeInterval = daysOptions[+dayjs(digest.timeInterval, "D.HH:mm:ss").format("D") as keyof typeof daysOptions]
 
-    const handleClick = () => {
-        navigate(PATHS.digestTimeEditPage.replace(":digestId", digestId))
-    }
-
     return (
         <Grid2
             container
-            onClick={handleClick}
+            onClick={onClick}
             marginTop={"5px"}
             marginBottom={"10px"}
             position={"relative"}

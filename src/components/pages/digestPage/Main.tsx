@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import {PATHS} from "../../../app/appRouter";
 import {EditableDigestName} from "./EditableDigestName";
 import {EditableDigestTime} from "./EditableDigestTime";
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export const Main: React.FC = () => {
 
@@ -15,6 +16,10 @@ export const Main: React.FC = () => {
 
     const onChannelAddClick = () => {
         navigate(PATHS.addChannel.replace(":digestId", digestId))
+    }
+
+    const handleClickDigestSettings = () => {
+        navigate(PATHS.digestTimeEditPage.replace(":digestId", digestId))
     }
 
     return (
@@ -39,20 +44,44 @@ export const Main: React.FC = () => {
 
                 <EditableDigestName/>
 
-                <EditableDigestTime/>
+                <EditableDigestTime onClick={handleClickDigestSettings}/>
 
                 <Grid2
                     container
                     width={"100%"}
-                    justifyContent={"end"}
+                    justifyContent={"space-between"}
                     padding={"17.5px 20px 12.5px"}
                 >
                     <Grid2
                         container
                         alignItems={"center"}
                         wrap={"nowrap"}
+                        onClick={handleClickDigestSettings}
+                        color={tg.themeParams.subtitle_text_color}
+                        fontSize={"15px"}
+                        gap={"2px"}
+                        sx={{
+                            cursor: "pointer",
+                        }}
+                    >
+                        <Typography
+                            fontSize={"13px"}
+                            fontWeight={400}
+                            lineHeight={"normal"}
+                        >
+                            Настройки
+                        </Typography>
+                        <SettingsIcon fontSize={"inherit"} color={"inherit"}/>
+                    </Grid2>
+
+                    <Grid2
+                        container
+                        alignItems={"center"}
+                        wrap={"nowrap"}
                         onClick={onChannelAddClick}
                         color={tg.themeParams.link_color}
+                        gap={"2px"}
+                        fontSize={"15px"}
                         sx={{
                             cursor: "pointer",
                         }}
@@ -64,7 +93,7 @@ export const Main: React.FC = () => {
                         >
                             Добавить канал
                         </Typography>
-                        <AddIcon fontSize={"small"} color={"inherit"}/>
+                        <AddIcon fontSize={"inherit"} color={"inherit"}/>
                     </Grid2>
                 </Grid2>
             </Grid2>
