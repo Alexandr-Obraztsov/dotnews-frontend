@@ -5,6 +5,8 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {ChannelType} from "../channel/Channel";
 import {ScrollableItem} from "../scrollableItem/ScrollableItem";
+import {daysOptions} from "../../pages/digestTimeEditPage/DigestTimeEditPage";
+import dayjs from "dayjs";
 
 export type DigestType = {
     id: string
@@ -19,15 +21,13 @@ export type DigestType = {
 };
 
 type DigestPropsType = {
-    image?: string
-    name: string
-    receptionTime: string
+    digest: DigestType
     onClick?: () => void
     onDelete?: () => void
     channels: ChannelType[]
 };
 
-export const Digest: React.FC<DigestPropsType> = ({name, receptionTime, onClick, image, channels, onDelete}) => {
+export const Digest: React.FC<DigestPropsType> = ({digest, onClick, channels, onDelete}) => {
 
     const renderedChannels = channels.map((channel, index) => (
         <img
@@ -61,10 +61,10 @@ export const Digest: React.FC<DigestPropsType> = ({name, receptionTime, onClick,
                     wrap={"nowrap"}
                 >
                     <Box>
-                        {image
+                        {digest.emoji
                             ? <img
-                                src={image}
-                                alt={name}
+                                src={digest.emoji}
+                                alt={digest.name}
                                 width={38}
                                 height={38}
                             />
@@ -94,7 +94,7 @@ export const Digest: React.FC<DigestPropsType> = ({name, receptionTime, onClick,
                                 overflow={"hidden"}
                                 maxWidth={"100%"}
                             >
-                                {name}
+                                {digest.name}
                             </Typography>
 
 
@@ -120,7 +120,7 @@ export const Digest: React.FC<DigestPropsType> = ({name, receptionTime, onClick,
                                 overflow={"hidden"}
                                 textOverflow={"ellipsis"}
                             >
-                                {receptionTime ? receptionTime : "Ежедневно / 09:00"}
+                                {daysOptions[+dayjs(digest.timeInterval, "D.HH:mm:ss").format("D") as keyof typeof daysOptions]} в {dayjs(digest.receptionTime, "HH:mm:ss").format("HH:mm")}
                             </Typography>
                         </Grid2>
                     </Grid2>

@@ -33,7 +33,8 @@ export const DigestList: React.FC = memo(() => {
                 const digestChannels = channels[digest.id]
 
                 return (
-                    <Digest key={digest.id} {...digest}
+                    <Digest key={digest.id}
+                            digest={digest}
                             channels={digestChannels.slice(0, 3)}
                             onClick={onClickHandler}
                             onDelete={onDeleteHandler}
