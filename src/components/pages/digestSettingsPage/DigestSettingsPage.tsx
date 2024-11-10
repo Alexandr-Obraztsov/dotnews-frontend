@@ -7,8 +7,12 @@ import {useCallback, useEffect, useState} from "react";
 import {tg} from "../../../globalTheme";
 import {PATHS} from "../../../app/appRouter";
 import dayjs from "dayjs";
-import {updateUserDigestReceptionTimeAC, updateUserDigestTimeIntervalAC} from "../../../store/userReducer";
-import {updateDigestAPI} from "../../../api/digestsAPI";
+import {
+    deleteUserDigestAC,
+    updateUserDigestReceptionTimeAC,
+    updateUserDigestTimeIntervalAC
+} from "../../../store/userReducer";
+import {deleteUserDigestAPI, updateDigestAPI} from "../../../api/digestsAPI";
 
 export const daysOptions = {
     1: "Ежедневно",
@@ -20,7 +24,7 @@ export const daysOptions = {
     7: "Eженедельно"
 }
 
-export const DigestTimeEditPage: React.FC = () => {
+export const DigestSettingsPage: React.FC = () => {
     const {digestId = ""} = useParams()
     const digest = useAppSelector(state => state.user.digests).find(dg => dg.id === digestId)!;
 
@@ -63,6 +67,12 @@ export const DigestTimeEditPage: React.FC = () => {
         updateDigestAPI(tg.initDataUnsafe.user!.id, {...digest, receptionTime: time, timeInterval: interval})
         dispatch(updateUserDigestReceptionTimeAC({digestId, receptionTime: time}))
         dispatch(updateUserDigestTimeIntervalAC({digestId, timeInterval: interval}))
+    }
+
+    const handleDelete = () => {
+        deleteUserDigestAPI({userTelegramId: tg.initDataUnsafe.user!.id, digestId: digest.id})
+        dispatch(deleteUserDigestAC(digest.id))
+        navigate(PATHS.profile)
     }
 
     useEffect(() => {
@@ -181,6 +191,26 @@ export const DigestTimeEditPage: React.FC = () => {
                     color={"primary"}
                 >
                     Сохранить
+                </Typography>
+            </Grid2>
+
+            <Grid2
+                container
+                alignItems={"center"}
+                justifyContent={"center"}
+                marginTop={"20px"}
+                width={"100%"}
+                height={"50px"}
+                borderRadius={"5px"}
+                bgcolor={"background.default"}
+                onClick={handleDelete}
+            >
+                <Typography
+                    fontSize={"16px"}
+                    fontWeight={400}
+                    color={"warning"}
+                >
+                    Удалить дайджест
                 </Typography>
             </Grid2>
         </Grid2>

@@ -7,7 +7,7 @@ import {FinishSetup} from "../components/pages/finishSetup/FinishSetup";
 import {Profile} from "../components/pages/profile/Profile";
 import {AddChannel} from "../components/pages/addChannel/AddChannel";
 import {DigestPage} from "../components/pages/digestPage/DigestPage";
-import {DigestTimeEditPage} from "../components/pages/digestTimeEditPage/DigestTimeEditPage";
+import {DigestSettingsPage} from "../components/pages/digestSettingsPage/DigestSettingsPage";
 
 export const PATHS = {
     autorization: "/",
@@ -18,7 +18,7 @@ export const PATHS = {
     settings: "/settings",
     addDigestTime: "/addDigestTime",
     digestPage: "/digestPage/:digestId",
-    digestTimeEditPage: "/digestTimeEditPage/:digestId",
+    digestTimeEditPage: "/digestSettingsPage/:digestId",
     error: "/*"
 }
 
@@ -49,7 +49,7 @@ export const appRouter = createBrowserRouter([
     },
     {
         path: PATHS.digestTimeEditPage,
-        element: <DigestTimeEditPage/>
+        element: <DigestSettingsPage/>
     },
     {
         path: PATHS.error,

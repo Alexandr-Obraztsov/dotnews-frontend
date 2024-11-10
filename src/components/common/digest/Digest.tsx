@@ -5,7 +5,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {ChannelType} from "../channel/Channel";
 import {ScrollableItem} from "../scrollableItem/ScrollableItem";
-import {daysOptions} from "../../pages/digestTimeEditPage/DigestTimeEditPage";
+import {daysOptions} from "../../pages/digestSettingsPage/DigestSettingsPage";
 import dayjs from "dayjs";
 
 export type DigestType = {

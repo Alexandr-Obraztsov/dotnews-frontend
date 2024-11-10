@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useAppSelector} from "../../../store/hooks";
 import dayjs from "dayjs";
 import {tg} from "../../../globalTheme";
 import {Grid2, Typography} from "@mui/material";
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import {daysOptions} from "../digestTimeEditPage/DigestTimeEditPage";
+import {daysOptions} from "../digestSettingsPage/DigestSettingsPage";
 
 type EditableDigestTimePropsType = {
     onClick?: ()=>void
