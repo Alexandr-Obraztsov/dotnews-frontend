@@ -1,4 +1,4 @@
-щimport { server_url } from "../config";
+import { server_url } from "../config";
 import axios from "axios";
 import { UserType } from "../store/userReducer";
 
