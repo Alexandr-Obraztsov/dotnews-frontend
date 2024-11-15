@@ -51,7 +51,7 @@ export const Autorization = () => {
 
 	return (
 		<>
-			{urlId.get('urlId')}
+			{urlId}
 			<Loading description={loadingDescription} />
 		</>
 	)
