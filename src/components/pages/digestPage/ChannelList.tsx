@@ -1,35 +1,38 @@
-import * as React from 'react';
-import {Divider, Stack} from "@mui/material";
-import {tg} from "../../../globalTheme";
-import {ScrollableItem} from "../../common/scrollableItem/ScrollableItem";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks";
-import {useParams} from "react-router-dom";
-import {deleteDigestChannelAC} from "../../../store/channelsReducer";
-import {deleteDigestChannelsAPI} from "../../../api/digestsAPI";
-import {Channel} from "../../common/channel/Channel";
+import { Divider, Stack } from '@mui/material'
+import * as React from 'react'
+import { useParams } from 'react-router-dom'
+import { api } from '../../../api/api'
+import { tg } from '../../../globalTheme'
+import { deleteDigestChannelAC } from '../../../store/channelsReducer'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { Channel } from '../../common/channel/Channel'
 
+export const ChannelList: React.FC = () => {
+	const { digestId = '' } = useParams()
 
-export const ChannelList : React.FC = () => {
-    const {digestId = ""} = useParams()
+	const channels = useAppSelector(state => state.channels[digestId])
 
-    const channels = useAppSelector(state => state.channels[digestId])
+	const dispatch = useAppDispatch()
 
-    const dispatch = useAppDispatch()
+	return (
+		<Stack
+			divider={<Divider color={tg.themeParams.section_separator_color} />}
+			bgcolor={tg.themeParams.bg_color}
+		>
+			{channels.map(channel => {
+				const onDeleteHandler = () => {
+					dispatch(deleteDigestChannelAC({ digestId, channel: channel }))
+					api.deleteDigestChannel({
+						telegramId: tg.initDataUnsafe.user!.id,
+						digestId,
+						channelId: channel.id,
+					})
+				}
 
-    return (
-        <Stack
-            divider={<Divider color={tg.themeParams.section_separator_color}/>}
-            bgcolor={tg.themeParams.bg_color}
-        >
-            {channels.map(channel => {
-
-                const onDeleteHandler = () => {
-                    dispatch(deleteDigestChannelAC({digestId, channel: channel}))
-                    deleteDigestChannelsAPI({telegramId: tg.initDataUnsafe.user!.id, digestId, channelId: channel.id})
-                }
-
-                return <Channel key={channel.id} {...channel} onDelete={onDeleteHandler}/>
-            })}
-        </Stack>
-    );
-};
+				return (
+					<Channel key={channel.id} {...channel} onDelete={onDeleteHandler} />
+				)
+			})}
+		</Stack>
+	)
+}

@@ -1,58 +1,58 @@
-import * as React from 'react';
-import {Loading} from "../loading/Loading";
-import {useCallback, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {
-    getDigestChannelsAPI,
-    getDigestsAPI,
-} from "../../../api/digestsAPI";
-import {tg} from "../../../globalTheme";
-import {useAppDispatch} from "../../../store/hooks";
-import {setUserAC, setUserDigestsAC} from "../../../store/userReducer";
-import {PATHS} from "../../../app/appRouter";
-import {setDigestChannelsAC} from "../../../store/channelsReducer";
-import {getUserAPI} from "../../../api/usersAPI";
-
+import { useCallback, useEffect, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { api } from '../../../api/api'
+import { PATHS } from '../../../app/appRouter'
+import { tg } from '../../../globalTheme'
+import { setDigestChannelsAC } from '../../../store/channelsReducer'
+import { useAppDispatch } from '../../../store/hooks'
+import { setUserAC, setUserDigestsAC } from '../../../store/userReducer'
+import { Loading } from '../loading/Loading'
 
 export const Autorization = () => {
-    const navigate = useNavigate()
+	const navigate = useNavigate()
 
-    const [loadingDescription, setLoadingDescription] = useState<string>("")
+	const [loadingDescription, setLoadingDescription] = useState<string>('')
 
-    const dispatch = useAppDispatch()
+	const [urlId, setUrlId] = useSearchParams('')
 
-    const loadUser = useCallback(() => {
-        try {
-            const tgId = tg.initDataUnsafe.user!.id
-            setLoadingDescription("Распознаем Вас...")
-            getUserAPI(tgId)
-                .then(data => {
-                    dispatch(setUserAC(data))
-                    console.log(data)
-                    setLoadingDescription("Получаем Ваши дайджесты...")
-                    getDigestsAPI(tgId)
-                        .then(digests => {
-                            dispatch(setUserDigestsAC(digests))
-                            const promises = digests.map(digest => getDigestChannelsAPI(tgId, digest.id)
-                                .then(channels => {
-                                    dispatch(setDigestChannelsAC({digestId:digest.id, channels}))
-                                }))
-                            Promise.all(promises)
-                                .then(res => {
-                                    navigate(PATHS.profile)
-                                })
-                        })
-                })
-                .catch(e => navigate(PATHS.welcome))
-        }
-        catch (e: any) {
-            navigate(PATHS.welcome)
-        }
-    }, [dispatch, navigate])
+	const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        loadUser()
-    }, [loadUser]);
+	const loadUser = useCallback(() => {
+		try {
+			const tgId = tg.initDataUnsafe.user!.id
+			setLoadingDescription('Распознаем Вас...')
+			api
+				.getUser(tgId)
+				.then(data => {
+					dispatch(setUserAC(data))
+					console.log(data)
+					setLoadingDescription('Получаем Ваши дайджесты...')
+					api.getDigests(tgId).then(digests => {
+						dispatch(setUserDigestsAC(digests))
+						const promises = digests.map(digest =>
+							api.getDigestChannels(tgId, digest.id).then(channels => {
+								dispatch(setDigestChannelsAC({ digestId: digest.id, channels }))
+							})
+						)
+						Promise.all(promises).then(res => {
+							navigate(PATHS.profile)
+						})
+					})
+				})
+				.catch(e => navigate(PATHS.welcome))
+		} catch (e: any) {
+			navigate(PATHS.welcome)
+		}
+	}, [dispatch, navigate])
 
-    return <Loading description={loadingDescription}/>
-};
+	useEffect(() => {
+		loadUser()
+	}, [loadUser])
+
+	return (
+		<>
+			{urlId.get('urlId')}
+			<Loading description={loadingDescription} />
+		</>
+	)
+}
