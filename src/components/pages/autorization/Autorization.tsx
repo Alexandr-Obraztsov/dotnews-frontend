@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { api } from '../../../api/api'
 import { PATHS } from '../../../app/appRouter'
 import { tg } from '../../../globalTheme'
@@ -13,7 +13,7 @@ export const Autorization = () => {
 
 	const [loadingDescription, setLoadingDescription] = useState<string>('')
 
-	const [urlId, setUrlId] = useSearchParams('')
+	const location = useLocation()
 
 	const dispatch = useAppDispatch()
 
@@ -51,7 +51,7 @@ export const Autorization = () => {
 
 	return (
 		<>
-			{urlId}
+			{location}
 			<Loading description={loadingDescription} />
 		</>
 	)
