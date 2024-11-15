@@ -51,7 +51,7 @@ export const Autorization = () => {
 
 	return (
 		<>
-			{location}
+			{location.search}
 			<Loading description={loadingDescription} />
 		</>
 	)
