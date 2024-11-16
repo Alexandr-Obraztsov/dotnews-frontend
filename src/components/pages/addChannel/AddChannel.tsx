@@ -112,13 +112,6 @@ export const AddChannel: React.FC = () => {
 			navigate(PATHS.digestPage.replace(':digestId', digestId))
 		)
 		tg.BackButton.show()
-
-		tg.MainButton.setParams({ text: 'Готово' })
-		tg.MainButton.onClick(() => {
-			handleChannelClick()
-			navigate(PATHS.digestPage.replace(':digestId', digestId))
-		})
-		tg.MainButton.show()
 	}, [])
 
 	return (
