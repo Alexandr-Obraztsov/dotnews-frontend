@@ -69,7 +69,10 @@ export const AddChannel: React.FC = () => {
 
 	const handleChannelClick = () => {
 		clearTimeout(alert.timeoutId!)
-		const timeoutId = setTimeout(() => setAlert({} as AlertStateType), 2000)
+		const timeoutId = setTimeout(
+			() => setAlert(prev => ({ ...prev, text: '' })),
+			2000
+		)
 
 		if (!channels.some(c => c.id === data!.id)) {
 			api.addDigestChannel({
