@@ -4,9 +4,9 @@ import { ChangeEvent, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../../../api/api'
-import { PATHS } from '../../../app/appRouter'
+import { PATHS } from '../../../app/PATHS'
 import { tg } from '../../../globalTheme'
-import { addDigestChannelAC } from '../../../store/channelsReducer'
+import { addChannelAC } from '../../../store/channelsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { Channel } from '../../common/channel/Channel'
 import { LoadingItem } from '../../common/scrollableItem/LoadingItem'
@@ -29,7 +29,7 @@ export const AddChannel: React.FC = () => {
 
 	const dispatch = useAppDispatch()
 
-	const user = useAppSelector(state => state.user.user)
+	const user = useAppSelector(state => state.user)
 
 	const { digestId = '' } = useParams()
 
@@ -52,7 +52,7 @@ export const AddChannel: React.FC = () => {
 			digestId,
 			name: data.telegramName,
 		})
-		dispatch(addDigestChannelAC({ digestId, channel: data }))
+		dispatch(addChannelAC({ digestId, channel: data }))
 	}
 
 	const handleLinkChange = (event: ChangeEvent<HTMLInputElement>) => {

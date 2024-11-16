@@ -4,25 +4,23 @@ import * as React from 'react'
 import { useParams } from 'react-router-dom'
 import { api } from '../../../api/api'
 import { tg } from '../../../globalTheme'
+import { updateDigestAC } from '../../../store/digestsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
-import { updateUserDigestNameAC } from '../../../store/userReducer'
 
 const MAX_NAME_LENGTH = 25
 
 export const EditableDigestName: React.FC = () => {
 	const { digestId = '' } = useParams()
 
-	const digest = useAppSelector(state => state.user.digests).find(
-		dg => dg.id === digestId
-	)!
+	const digests = useAppSelector(state => state.digests)
+
+	const digest = digests.find(dg => dg.id === digestId)!
 
 	const [isEdit, setIsEdit] = React.useState(false)
 	const [name, setName] = React.useState(digest.name)
 	const [error, setError] = React.useState('')
 
 	const dispatch = useAppDispatch()
-
-	const digests = useAppSelector(state => state.user.digests)
 
 	const checkName = (name: string) => {
 		if (digests.find(digest => digest.name === name.trim())) {
@@ -40,8 +38,9 @@ export const EditableDigestName: React.FC = () => {
 		if (error) return
 		const newName = name.trim()
 		setIsEdit(false)
-		dispatch(updateUserDigestNameAC({ digest, name: newName }))
-		api.updateDigest(tg.initDataUnsafe.user!.id, { ...digest, name: newName })
+		const newDigest = { ...digest, name: newName }
+		dispatch(updateDigestAC(newDigest))
+		api.updateDigest(tg.initDataUnsafe.user!.id, newDigest)
 	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

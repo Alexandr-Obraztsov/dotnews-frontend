@@ -4,14 +4,10 @@ import * as React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../../../api/api'
-import { PATHS } from '../../../app/appRouter'
+import { PATHS } from '../../../app/PATHS'
 import { tg } from '../../../globalTheme'
+import { deleteDigestAC, updateDigestAC } from '../../../store/digestsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
-import {
-	deleteUserDigestAC,
-	updateUserDigestReceptionTimeAC,
-	updateUserDigestTimeIntervalAC,
-} from '../../../store/userReducer'
 import { Wheel } from '../../common/TimePicker/Wheel'
 
 export const daysOptions = {
@@ -26,7 +22,8 @@ export const daysOptions = {
 
 export const DigestSettingsPage: React.FC = () => {
 	const { digestId = '' } = useParams()
-	const digest = useAppSelector(state => state.user.digests).find(
+
+	const digest = useAppSelector(state => state.digests).find(
 		dg => dg.id === digestId
 	)!
 
@@ -70,15 +67,10 @@ export const DigestSettingsPage: React.FC = () => {
 			receptionTime.hours
 		)}:${convertNumberToTime(receptionTime.minutes)}:00`
 		navigate(PATHS.digestPage.replace(':digestId', digestId))
-		api.updateDigest(tg.initDataUnsafe.user!.id, {
-			...digest,
-			receptionTime: time,
-			timeInterval: interval,
-		})
-		dispatch(updateUserDigestReceptionTimeAC({ digestId, receptionTime: time }))
-		dispatch(
-			updateUserDigestTimeIntervalAC({ digestId, timeInterval: interval })
-		)
+
+		const newDigest = { ...digest, receptionTime: time, timeInterval: interval }
+		api.updateDigest(tg.initDataUnsafe.user!.id, newDigest)
+		dispatch(updateDigestAC(newDigest))
 	}
 
 	const handleDelete = () => {
@@ -86,7 +78,7 @@ export const DigestSettingsPage: React.FC = () => {
 			userTelegramId: tg.initDataUnsafe.user!.id,
 			digestId: digest.id,
 		})
-		dispatch(deleteUserDigestAC(digest.id))
+		dispatch(deleteDigestAC(digest.id))
 		navigate(PATHS.profile)
 	}
 

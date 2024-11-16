@@ -4,22 +4,22 @@ import * as React from 'react'
 import { memo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../api/api'
-import { PATHS } from '../../../app/appRouter'
+import { PATHS } from '../../../app/PATHS'
 import { tg } from '../../../globalTheme'
+import { addDigestAC } from '../../../store/digestsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
-import { addUserDigestAC } from '../../../store/userReducer'
 import { ErrorPage } from '../errorPage/ErrorPage'
 
 export const Main: React.FC = memo(() => {
 	const [error, setError] = useState(null)
 
-	const user = useAppSelector(state => state.user.user)
+	const user = useAppSelector(state => state.user)
 
 	const userTg = tg.initDataUnsafe.user!
 
 	const navigate = useNavigate()
 
-	const digests = useAppSelector(state => state.user).digests
+	const digests = useAppSelector(state => state.digests)
 
 	const dispatch = useAppDispatch()
 
@@ -36,7 +36,7 @@ export const Main: React.FC = memo(() => {
 			})
 			.then(digest => {
 				navigate(PATHS.digestPage.replace(':digestId', digest.id))
-				dispatch(addUserDigestAC(digest))
+				dispatch(addDigestAC(digest))
 			})
 			.catch(er => setError(er))
 	}
@@ -46,7 +46,7 @@ export const Main: React.FC = memo(() => {
 	return (
 		<Box bgcolor={'background.paper'}>
 			<Grid2 container direction={'column'} alignItems={'center'}>
-				{user.imageUrl ? (
+				{userTg.photo_url ? (
 					<Box
 						width={'100px'}
 						height={'100px'}
@@ -64,9 +64,6 @@ export const Main: React.FC = memo(() => {
 							width: 100,
 							height: 100,
 							borderRadius: 50,
-							position: 'absolute',
-							top: 15,
-							left: 15,
 						}}
 					/>
 				)}

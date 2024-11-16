@@ -3,16 +3,16 @@ import * as React from 'react'
 import { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../api/api'
-import { PATHS } from '../../../app/appRouter'
+import { PATHS } from '../../../app/PATHS'
 import { tg } from '../../../globalTheme'
+import { deleteDigestAC } from '../../../store/digestsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
-import { deleteUserDigestAC } from '../../../store/userReducer'
 import { Digest } from '../../common/digest/Digest'
 
 export const DigestList: React.FC = memo(() => {
 	const navigate = useNavigate()
 
-	const digests = useAppSelector(state => state.user.digests)
+	const digests = useAppSelector(state => state.digests)
 	const channels = useAppSelector(state => state.channels)
 
 	const dispatch = useAppDispatch()
@@ -31,7 +31,7 @@ export const DigestList: React.FC = memo(() => {
 						userTelegramId: tg.initDataUnsafe.user!.id,
 						digestId: digest.id,
 					})
-					dispatch(deleteUserDigestAC(digest.id))
+					dispatch(deleteDigestAC(digest.id))
 				}
 
 				const digestChannels = channels[digest.id]

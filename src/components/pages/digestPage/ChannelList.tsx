@@ -3,7 +3,7 @@ import * as React from 'react'
 import { useParams } from 'react-router-dom'
 import { api } from '../../../api/api'
 import { tg } from '../../../globalTheme'
-import { deleteDigestChannelAC } from '../../../store/channelsReducer'
+import { deleteChannelAC } from '../../../store/channelsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { Channel } from '../../common/channel/Channel'
 
@@ -21,7 +21,7 @@ export const ChannelList: React.FC = () => {
 		>
 			{channels.map(channel => {
 				const onDeleteHandler = () => {
-					dispatch(deleteDigestChannelAC({ digestId, channel: channel }))
+					dispatch(deleteChannelAC({ digestId, channel }))
 					api.deleteDigestChannel({
 						telegramId: tg.initDataUnsafe.user!.id,
 						digestId,

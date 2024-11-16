@@ -1,15 +1,16 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import {userReducer} from "./userReducer";
-import {channelsReducer} from "./channelsReducer";
-
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { channelsReducer } from './channelsReducer'
+import { digestsReducer } from './digestsReducer'
+import { userReducer } from './userReducer'
 
 const RootReducer = combineReducers({
-    user: userReducer,
-    channels: channelsReducer
+	user: userReducer,
+	digests: digestsReducer,
+	channels: channelsReducer,
 })
 
 export const store = configureStore({
-    reducer: RootReducer
+	reducer: RootReducer,
 })
 
 export type AppDispatch = typeof store.dispatch

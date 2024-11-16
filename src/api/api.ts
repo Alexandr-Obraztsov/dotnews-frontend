@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { ChannelType } from '../components/common/channel/Channel'
-import { DigestType } from '../components/common/digest/Digest'
+import { ChannelType } from '../store/channelsReducer'
+import { DigestType } from '../store/digestsReducer'
 import { UserType } from '../store/userReducer'
 
 const server_url = 'https://dotnewsbot.ru/back_api/api'
