@@ -1,5 +1,5 @@
 export const PATHS = {
-	autorization: '/',
+	authorization: '/',
 	welcome: '/welcome',
 	finishSetup: '/finishSetup',
 	profile: '/profile',

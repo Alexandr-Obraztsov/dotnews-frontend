@@ -11,7 +11,7 @@ import { PATHS } from './PATHS'
 
 export const router = createBrowserRouter([
 	{
-		path: PATHS.autorization,
+		path: PATHS.authorization,
 		element: <Authorization />,
 	},
 	{

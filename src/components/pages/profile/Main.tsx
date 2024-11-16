@@ -9,9 +9,12 @@ import { tg } from '../../../globalTheme'
 import { addDigestAC } from '../../../store/digestsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { ErrorPage } from '../errorPage/ErrorPage'
+import { Loading } from '../loading/Loading'
 
 export const Main: React.FC = memo(() => {
 	const [error, setError] = useState(null)
+
+	const [isLoading, setIsLoading] = useState(false)
 
 	const user = useAppSelector(state => state.user)
 
@@ -24,6 +27,7 @@ export const Main: React.FC = memo(() => {
 	const dispatch = useAppDispatch()
 
 	const onDigestAddClick = () => {
+		setIsLoading(true)
 		let digest_num = 1
 		while (digests.map(dg => dg.name).includes(`Новый Дайджест ${digest_num}`))
 			digest_num++
@@ -37,11 +41,14 @@ export const Main: React.FC = memo(() => {
 			.then(digest => {
 				navigate(PATHS.digestPage.replace(':digestId', digest.id))
 				dispatch(addDigestAC(digest))
+				setIsLoading(false)
 			})
 			.catch(er => setError(er))
 	}
 
 	if (error) return <ErrorPage error={error} />
+
+	if (isLoading) return <Loading />
 
 	return (
 		<Box bgcolor={'background.paper'}>
