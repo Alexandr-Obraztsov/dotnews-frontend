@@ -35,6 +35,7 @@ type AlertStateType = {
 	text: string
 	type: 'success' | 'warning'
 	timeoutId: NodeJS.Timeout | null
+	isActive: boolean
 }
 
 export const AddChannel: React.FC = () => {
@@ -70,7 +71,7 @@ export const AddChannel: React.FC = () => {
 	const handleChannelClick = () => {
 		clearTimeout(alert.timeoutId!)
 		const timeoutId = setTimeout(
-			() => setAlert(prev => ({ ...prev, text: '' })),
+			() => setAlert(prev => ({ ...prev, isActive: false })),
 			2000
 		)
 
@@ -82,14 +83,16 @@ export const AddChannel: React.FC = () => {
 			})
 			dispatch(addChannelAC({ digestId, channel: data! }))
 			setAlert({
-				type: 'success',
 				text: data?.title + ' добавлен в список каналов',
+				type: 'success',
+				isActive: true,
 				timeoutId,
 			})
 		} else {
 			setAlert({
 				text: 'Канал уже добавлен',
 				type: 'warning',
+				isActive: true,
 				timeoutId,
 			})
 		}
