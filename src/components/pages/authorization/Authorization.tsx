@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../api/api'
 import { PATHS } from '../../../app/PATHS'
-import { tg } from '../../../globalTheme'
 import { setChannelsAC } from '../../../store/channelsReducer'
 import { setDigestsAC } from '../../../store/digestsReducer'
 import { useAppDispatch } from '../../../store/hooks'
 import { setUserAC } from '../../../store/userReducer'
+import { tg } from '../../../utils/tg'
 import { Loading } from '../loading/Loading'
 
 export const Authorization = () => {

@@ -5,8 +5,8 @@ import * as React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
-import { globalTheme } from '../globalTheme'
 import { store } from '../store/store'
+import { globalTheme } from '../utils/theme'
 import { router } from './router'
 
 const queryClient = new QueryClient()

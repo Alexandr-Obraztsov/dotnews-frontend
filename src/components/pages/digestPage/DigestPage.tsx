@@ -3,7 +3,7 @@ import * as React from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PATHS } from '../../../app/PATHS'
-import { tg } from '../../../globalTheme'
+import { tg } from '../../../utils/tg'
 import { ChannelList } from './ChannelList'
 import { Main } from './Main'
 

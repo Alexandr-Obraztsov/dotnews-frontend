@@ -3,9 +3,9 @@ import { TextField, Typography } from '@mui/material'
 import * as React from 'react'
 import { useParams } from 'react-router-dom'
 import { api } from '../../../api/api'
-import { tg } from '../../../globalTheme'
 import { updateDigestAC } from '../../../store/digestsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { tg } from '../../../utils/tg'
 
 const MAX_NAME_LENGTH = 25
 

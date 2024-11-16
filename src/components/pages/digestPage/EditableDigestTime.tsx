@@ -3,8 +3,8 @@ import { Grid2, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import * as React from 'react'
 import { useParams } from 'react-router-dom'
-import { tg } from '../../../globalTheme'
 import { useAppSelector } from '../../../store/hooks'
+import { tg } from '../../../utils/tg'
 import { daysOptions } from '../digestSettingsPage/DigestSettingsPage'
 
 type EditableDigestTimePropsType = {

@@ -4,7 +4,7 @@ import { Box, Grid2, Typography } from '@mui/material'
 import * as React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PATHS } from '../../../app/PATHS'
-import { tg } from '../../../globalTheme'
+import { tg } from '../../../utils/tg'
 import { EditableDigestName } from './EditableDigestName'
 import { EditableDigestTime } from './EditableDigestTime'
 

@@ -4,9 +4,9 @@ import { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../api/api'
 import { PATHS } from '../../../app/PATHS'
-import { tg } from '../../../globalTheme'
 import { deleteDigestAC } from '../../../store/digestsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { tg } from '../../../utils/tg'
 import { Digest } from '../../common/digest/Digest'
 
 export const DigestList: React.FC = memo(() => {

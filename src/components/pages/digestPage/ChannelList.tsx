@@ -2,9 +2,9 @@ import { Divider, Stack } from '@mui/material'
 import * as React from 'react'
 import { useParams } from 'react-router-dom'
 import { api } from '../../../api/api'
-import { tg } from '../../../globalTheme'
 import { deleteChannelAC } from '../../../store/channelsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { tg } from '../../../utils/tg'
 import { Channel } from '../../common/channel/Channel'
 
 export const ChannelList: React.FC = () => {

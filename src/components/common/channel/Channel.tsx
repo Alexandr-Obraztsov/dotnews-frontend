@@ -6,6 +6,7 @@ import { ScrollableItem } from '../scrollableItem/ScrollableItem'
 
 type ChannelPropsType = ChannelType & {
 	onDelete?: () => void
+	onClick?: () => void
 }
 
 export const Channel: React.FC<ChannelPropsType> = ({
@@ -13,9 +14,10 @@ export const Channel: React.FC<ChannelPropsType> = ({
 	title,
 	telegramName,
 	onDelete,
+	onClick,
 }) => {
 	return (
-		<ScrollableItem onDelete={onDelete}>
+		<ScrollableItem onDelete={onDelete} onClick={onClick}>
 			<Avatar src={imageUrl} sx={{ width: 45, height: 45 }} />
 			<Grid2 container direction={'column'} spacing={0.5} marginLeft={'13px'}>
 				<Typography

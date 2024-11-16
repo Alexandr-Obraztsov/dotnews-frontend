@@ -5,9 +5,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../../../api/api'
 import { PATHS } from '../../../app/PATHS'
-import { tg } from '../../../globalTheme'
 import { deleteDigestAC, updateDigestAC } from '../../../store/digestsReducer'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { tg } from '../../../utils/tg'
 import { Wheel } from '../../common/TimePicker/Wheel'
 
 export const daysOptions = {
