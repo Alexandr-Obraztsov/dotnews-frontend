@@ -182,7 +182,7 @@ export const AddChannel: React.FC = () => {
 			<Alert
 				severity={alert.type || 'success'}
 				sx={{
-					opacity: alert.text ? 1 : 0,
+					opacity: alert.isActive ? 1 : 0,
 					position: 'absolute',
 					bottom: '10px',
 					width: 'calc(100% - 40px)',
