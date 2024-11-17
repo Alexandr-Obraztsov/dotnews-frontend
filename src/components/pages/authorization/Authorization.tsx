@@ -47,6 +47,7 @@ export const Authorization = () => {
 	useEffect(() => {
 		const urlId = window.Telegram.WebApp.initDataUnsafe.start_param
 		if (urlId) {
+			window.Telegram.WebApp.close()
 		} else loadUser()
 	}, [loadUser])
 
