@@ -113,4 +113,10 @@ export const api = {
 			emoji: digest.emoji,
 		})
 	},
+
+	getUrl: (urlId: string, usertelegramId: number) => {
+		return axios
+			.get(`${server_url}/urls/${urlId}?usertelegramId=${usertelegramId}`)
+			.then(res => res.data)
+	},
 }

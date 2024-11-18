@@ -34,6 +34,8 @@ export const tg = window.Telegram.WebApp.initDataUnsafe.user
 				onClick: (param: any) => {},
 				setParams: (param: any) => {},
 			},
+
+			close: () => {},
 	  }
 
 export const theme = tg.themeParams
