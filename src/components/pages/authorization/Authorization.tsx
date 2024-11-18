@@ -48,7 +48,7 @@ export const Authorization = () => {
 		const urlId = window.Telegram.WebApp.initDataUnsafe.start_param
 		if (urlId) {
 			api.getUrl(urlId, tg.initDataUnsafe.user!.id).then(data => {
-				window.Telegram.WebApp.openLink(data.url)
+				window.Telegram.WebApp.openTelegramLink(data.url)
 			})
 		} else loadUser()
 	}, [loadUser])
