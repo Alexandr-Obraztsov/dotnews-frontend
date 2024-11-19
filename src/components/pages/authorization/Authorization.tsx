@@ -43,12 +43,12 @@ export const Authorization = () => {
 			navigate(PATHS.welcome)
 		}
 	}, [dispatch, navigate])
-
 	useEffect(() => {
 		const urlId = window.Telegram.WebApp.initDataUnsafe.start_param
 		if (urlId) {
 			api.getUrl(urlId, tg.initDataUnsafe.user!.id).then(data => {
 				window.Telegram.WebApp.openTelegramLink(data.url)
+				window.Telegram.WebApp.close()
 				loadUser()
 			})
 		} else loadUser()
