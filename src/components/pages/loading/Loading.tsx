@@ -10,7 +10,7 @@ export const Loading: React.FC<LoadingPropsType> = ({ description }) => {
 		<Grid2
 			container
 			direction={'column'}
-			height={'100vh'}
+			height={'30vh'}
 			justifyContent={'center'}
 			alignItems={'center'}
 			gap={'20px'}
