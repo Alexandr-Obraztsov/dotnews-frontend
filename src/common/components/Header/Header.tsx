@@ -33,7 +33,7 @@ export const Header = memo(
 				alignItems={'center'}
 				direction={'row'}
 				wrap='nowrap'
-				bgcolor={theme.bg_color}
+				bgcolor={theme.secondary_bg_color}
 				color={theme.subtitle_text_color}
 				sx={sx}
 			>

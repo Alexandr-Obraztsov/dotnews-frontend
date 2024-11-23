@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from 'app/store/hooks'
 import { Digest } from 'common/components/Digest/Digest'
 import { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { tg } from 'utils/tg'
+import { tg, theme } from 'utils/tg'
 
 type Props = {
 	digests: DigestType[]
@@ -21,8 +21,8 @@ export const DigestList = memo(({ digests }: Props) => {
 
 	return (
 		<Stack
-			divider={<Divider color={tg.themeParams.section_separator_color} />}
-			bgcolor={tg.themeParams.bg_color}
+			divider={<Divider color={theme.section_separator_color} />}
+			bgcolor={theme.secondary_bg_color}
 		>
 			{digests.map(digest => {
 				const onClickHandler = () =>

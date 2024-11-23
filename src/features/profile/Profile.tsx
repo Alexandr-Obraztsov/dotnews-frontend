@@ -42,7 +42,7 @@ export const Profile: React.FC = () => {
 				wrap={'nowrap'}
 				paddingBottom={'10px'}
 				minHeight={'100vh'}
-				bgcolor={theme.bg_color}
+				bgcolor={theme.secondary_bg_color}
 			>
 				<Header
 					title={

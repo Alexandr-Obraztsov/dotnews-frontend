@@ -21,7 +21,7 @@ export const BasicItem: FC<BasicItemPropsType> = ({
 			padding={'15px 20px'}
 			alignItems={'center'}
 			overflow={'hidden'}
-			bgcolor={theme.bg_color}
+			bgcolor={theme.secondary_bg_color}
 			sx={{
 				transform: transform,
 				transition: isDragging ? 'none' : 'transform 0.3s ease',
@@ -35,8 +35,8 @@ export const BasicItem: FC<BasicItemPropsType> = ({
 					right: 0,
 					bottom: 0,
 					left: 0,
-					bgcolor: theme.bg_color,
-					filter: 'brightness(1.3)',
+					bgcolor: theme.secondary_bg_color,
+					filter: 'brightness(1.1)',
 				},
 			}}
 		>
