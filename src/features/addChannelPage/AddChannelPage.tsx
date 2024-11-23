@@ -178,7 +178,10 @@ export const AddChannelPage: React.FC = () => {
 			<Box
 				marginTop={'20px'}
 				width={'100%'}
-				border={`2px solid ${theme.section_separator_color}`}
+				border={
+					(isLoading || data?.title) &&
+					`2px solid ${theme.section_separator_color}`
+				}
 			>
 				{isLoading ? (
 					<LoadingItem />
