@@ -20,10 +20,7 @@ export const DigestList = memo(({ digests }: Props) => {
 	const dispatch = useAppDispatch()
 
 	return (
-		<Stack
-			divider={<Divider color={theme.section_separator_color} />}
-			bgcolor={theme.secondary_bg_color}
-		>
+		<Stack divider={<Divider color={theme.section_separator_color} />}>
 			{digests.map(digest => {
 				const onClickHandler = () =>
 					navigate(PATHS.digestPage.replace(':digestId', digest.id))

@@ -6,7 +6,7 @@ import { getDigestTime } from 'utils/getDigestTime'
 import { ChannelType } from '../../../app/store/channelsReducer'
 import { DigestType } from '../../../app/store/digestsReducer'
 import ReactTelegramEmoji from '../../../react-telegram-emoji-main'
-import { tg } from '../../../utils/tg'
+import { theme } from '../../../utils/tg'
 
 type DigestPropsType = {
 	digest: DigestType
@@ -66,7 +66,7 @@ export const Digest = ({
 							fontSize={'18px'}
 							fontWeight={400}
 							lineHeight={'normal'}
-							color={tg.themeParams.text_color}
+							color={theme.text_color}
 							whiteSpace={'nowrap'}
 							textOverflow={'ellipsis'}
 							overflow={'hidden'}
@@ -80,7 +80,7 @@ export const Digest = ({
 							direction={'row'}
 							alignItems={'center'}
 							gap={'2px'}
-							color={tg.themeParams.subtitle_text_color}
+							color={theme.subtitle_text_color}
 							fontSize={'13px'}
 							wrap={'nowrap'}
 							width={'100%'}
@@ -114,7 +114,7 @@ export const Digest = ({
 					<IconButton
 						sx={{
 							fontSize: '12px',
-							color: tg.themeParams.subtitle_text_color,
+							color: theme.subtitle_text_color,
 							right: 0,
 						}}
 					>

@@ -35,7 +35,11 @@ export const Header = memo(
 				wrap='nowrap'
 				bgcolor={theme.secondary_bg_color}
 				color={theme.subtitle_text_color}
-				sx={sx}
+				zIndex={3}
+				sx={{
+					boxShadow: `0 2px 5px ${theme.section_separator_color}`,
+					...sx,
+				}}
 			>
 				<Grid2
 					container
