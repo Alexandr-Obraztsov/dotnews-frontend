@@ -1,7 +1,6 @@
 import AddReactionIcon from '@mui/icons-material/AddReaction'
 import { Box, Grid2, TextField, Typography } from '@mui/material'
-import { api } from 'app/api'
-import { updateDigestAC } from 'app/store/digestsReducer'
+import { updateDigestTC } from 'app/store/digestsReducer'
 import { useAppDispatch, useAppSelector } from 'app/store/hooks'
 import { Header } from 'common/components'
 import { Wheel } from 'common/components/TimePicker/Wheel'
@@ -9,7 +8,7 @@ import dayjs from 'dayjs'
 import { useCallback, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactTelegramEmoji from 'react-telegram-emoji-main'
-import { tg, theme } from 'utils/tg'
+import { theme } from 'utils/tg'
 
 export const daysOptions = {
 	1: 'Ежедневно',
@@ -21,18 +20,22 @@ export const daysOptions = {
 	7: 'Eженедельно',
 }
 
+const MAX_NAME_LENGTH = 25
+
 export const DigestSettingsPage = () => {
 	const { digestId = '' } = useParams()
 
-	const digest = useAppSelector(state => state.digests).find(
-		dg => dg.id === digestId
-	)!
+	const digests = useAppSelector(state => state.digests)
+
+	const digest = digests.find(digest => digest.id === digestId)!
 
 	const navigate = useNavigate()
 
 	const dispatch = useAppDispatch()
 
 	const [digestName, setDigestName] = useState(digest.name)
+
+	const [error, setError] = useState('')
 
 	const [receptionTime, setReceptionTime] = useState({
 		hours: +dayjs(digest.receptionTime, 'HH:mm:ss').format('HH'),
@@ -73,9 +76,34 @@ export const DigestSettingsPage = () => {
 		)}:${convertNumberToTime(receptionTime.minutes)}:00`
 		navigate(-1)
 
-		const newDigest = { ...digest, receptionTime: time, timeInterval: interval }
-		api.updateDigest(tg.initDataUnsafe.user!.id, newDigest)
-		dispatch(updateDigestAC(newDigest))
+		const newDigest = {
+			...digest,
+			name: digestName,
+			receptionTime: time,
+			timeInterval: interval,
+		}
+		dispatch(updateDigestTC(newDigest))
+	}
+
+	const handleChangeDigestName = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		if (value.length > MAX_NAME_LENGTH + 1) return
+		checkName(value)
+		setDigestName(e.target.value)
+	}
+
+	const checkName = (name: string) => {
+		if (digests.find(digest => digest.name === name.trim())) {
+			setError('Такое имя уже существует')
+		} else if (name.length > MAX_NAME_LENGTH) {
+			setError('Название слишком длинное')
+		} else if (name.trim().length < 3) {
+			setError('Название слишком короткое')
+		} else if (/[,.!?:;.}{[\]\/\\@]/.test(name)) {
+			setError('Название содержит запрещенные символы')
+		} else {
+			setError('')
+		}
 	}
 
 	return (
@@ -143,9 +171,14 @@ export const DigestSettingsPage = () => {
 				<TextField
 					variant='standard'
 					value={digestName}
-					onChange={e => setDigestName(e.target.value)}
+					error={!!error}
+					helperText={error}
+					onChange={handleChangeDigestName}
 					sx={{
 						flexGrow: 1,
+						'.MuiFormHelperText-root': {
+							textAlign: 'center',
+						},
 						input: {
 							textAlign: 'center',
 							fontSize: '18px',

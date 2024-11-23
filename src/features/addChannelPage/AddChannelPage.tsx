@@ -13,11 +13,11 @@ import { Header } from 'common/components'
 import { Channel } from 'common/components/Channel/Channel'
 import { LoadingItem } from 'common/components/ScrollableItem/LoadingItem'
 import * as React from 'react'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { hexToRgba } from 'utils/hexToRgba'
-import { tg, theme } from 'utils/tg'
+import { theme } from 'utils/tg'
 
 const fetchChannel = (link: string) => {
 	return api
@@ -113,11 +113,6 @@ export const AddChannelPage: React.FC = () => {
 	const onKeyUpHandler = (event: React.KeyboardEvent<HTMLInputElement>) =>
 		event.key === 'Enter' && refetch()
 
-	useEffect(() => {
-		tg.BackButton.onClick(() => navigate(-1))
-		tg.BackButton.show()
-	}, [digestId, navigate])
-
 	return (
 		<Grid2
 			container
@@ -175,18 +170,17 @@ export const AddChannelPage: React.FC = () => {
 					<span style={{ fontWeight: 'bold' }}> имя_канала</span>
 				</Typography>
 			</Box>
-			<Box
-				marginTop={'20px'}
-				width={'100%'}
-				border={
-					(isLoading || data?.title) &&
-					`2px solid ${theme.section_separator_color}`
-				}
-			>
+			<Box marginTop={'20px'} width={'100%'}>
 				{isLoading ? (
 					<LoadingItem />
 				) : (
-					data?.title && <Channel {...data} onClick={handleChannelClick} />
+					data?.title && (
+						<Channel
+							{...data}
+							onClick={handleChannelClick}
+							sx={{ backgroundColor: theme.secondary_bg_color }}
+						/>
+					)
 				)}
 			</Box>
 			<Alert

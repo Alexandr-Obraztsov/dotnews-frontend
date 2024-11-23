@@ -1,11 +1,12 @@
 // @flow
-import { Avatar, Grid2, Typography } from '@mui/material'
+import { Avatar, Grid2, SxProps, Typography } from '@mui/material'
 import { ChannelType } from 'app/store/channelsReducer'
 import { ScrollableItem } from 'common/components/ScrollableItem/ScrollableItem'
 
 type ChannelPropsType = ChannelType & {
 	onDelete?: () => void
 	onClick?: () => void
+	sx?: SxProps
 }
 
 export const Channel = ({
@@ -14,9 +15,10 @@ export const Channel = ({
 	telegramName,
 	onDelete,
 	onClick,
+	sx,
 }: ChannelPropsType) => {
 	return (
-		<ScrollableItem onDelete={onDelete} onClick={onClick}>
+		<ScrollableItem onDelete={onDelete} onClick={onClick} sx={sx}>
 			<Avatar src={imageUrl} sx={{ width: 45, height: 45 }} />
 			<Grid2
 				container

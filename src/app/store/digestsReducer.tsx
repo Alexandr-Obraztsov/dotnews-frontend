@@ -102,3 +102,9 @@ export const deleteDigestTC =
 		api.deleteUserDigest({ userTelegramId: userTG!.id, digestId: digestId })
 		dispatch(deleteDigestAC(digestId))
 	}
+
+export const updateDigestTC =
+	(digest: DigestType) => (dispatch: Dispatch<any>) => {
+		api.updateDigest(userTG!.id, digest)
+		dispatch(updateDigestAC(digest))
+	}

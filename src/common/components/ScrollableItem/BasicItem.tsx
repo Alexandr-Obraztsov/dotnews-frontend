@@ -15,7 +15,6 @@ export const BasicItem: FC<BasicItemPropsType> = ({
 }) => {
 	return (
 		<Box
-			{...props}
 			position={'relative'}
 			display={'flex'}
 			padding={'15px 20px'}
@@ -39,6 +38,7 @@ export const BasicItem: FC<BasicItemPropsType> = ({
 					filter: 'brightness(1.2)',
 				},
 			}}
+			{...props}
 		>
 			{children}
 		</Box>
