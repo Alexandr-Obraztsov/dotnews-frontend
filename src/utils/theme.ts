@@ -59,6 +59,17 @@ export const globalTheme = createTheme({
 			},
 		},
 
+		MuiPopover: {
+			defaultProps: {
+				elevation: 1,
+			},
+			styleOverrides: {
+				paper: {
+					backgroundColor: theme.bg_color,
+				},
+			},
+		},
+
 		MuiDialogContent: {
 			styleOverrides: {
 				root: {

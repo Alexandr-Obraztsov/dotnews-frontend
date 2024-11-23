@@ -1,0 +1,50 @@
+.wheel.keen-slider {
+	display: block;
+	height: 100%;
+	overflow: visible;
+	user-select: none;
+}
+
+.wheel__inner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 16%;
+	width: 100%;
+}
+
+.wheel__slides {
+	height: 100%;
+	position: relative;
+	width: 100%;
+}
+
+.wheel__shadow-top,
+.wheel__shadow-bottom {
+	left: 0;
+	height: calc(42% + 4px);
+	width: 100%;
+	position: relative;
+	margin-top: -4px;
+	z-index: 5;
+}
+
+.wheel__shadow-bottom {
+	margin-top: 4px;
+	border-bottom: none;
+}
+
+.wheel__slide {
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	display: flex;
+	line-height: 16px;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 1px;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	justify-content: center;
+	z-index: 1;
+}

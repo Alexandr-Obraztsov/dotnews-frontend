@@ -1,45 +1,40 @@
+import { AddChannelPage } from 'features/addChannelPage/AddChannelPage'
+import { Authorization } from 'features/authorization/Authorization'
+import { DigestPage } from 'features/digestPage/DigestPage'
+import { DigestSettingsPage } from 'features/digestSettingsPage/DigestSettingsPage'
+import { ErrorPage } from 'features/errorPage/ErrorPage'
+import { Profile } from 'features/profile/Profile'
+import { Welcome } from 'features/welcome/Welcome'
 import { createBrowserRouter } from 'react-router-dom'
-import { AddChannel } from '../components/pages/addChannel/AddChannel'
-import { Authorization } from '../components/pages/authorization/Authorization'
-import { DigestPage } from '../components/pages/digestPage/DigestPage'
-import { DigestSettingsPage } from '../components/pages/digestSettingsPage/DigestSettingsPage'
-import { ErrorPage } from '../components/pages/errorPage/ErrorPage'
-import { FinishSetup } from '../components/pages/finishSetup/FinishSetup'
-import { Profile } from '../components/pages/profile/Profile'
-import { Welcome } from '../components/pages/welcome/Welcome'
 import { PATHS } from './PATHS'
 
 export const router = createBrowserRouter([
 	{
-		path: PATHS.authorization,
+		path: PATHS.authorizationPage,
 		element: <Authorization />,
 	},
 	{
-		path: PATHS.welcome,
+		path: PATHS.welcomePage,
 		element: <Welcome />,
 	},
 	{
-		path: PATHS.finishSetup,
-		element: <FinishSetup />,
-	},
-	{
-		path: PATHS.profile,
+		path: PATHS.profilePage,
 		element: <Profile />,
 	},
 	{
 		path: PATHS.addChannel,
-		element: <AddChannel />,
+		element: <AddChannelPage />,
 	},
 	{
 		path: PATHS.digestPage,
 		element: <DigestPage />,
 	},
 	{
-		path: PATHS.digestTimeEditPage,
+		path: PATHS.digestSettingsPage,
 		element: <DigestSettingsPage />,
 	},
 	{
-		path: PATHS.error,
+		path: PATHS.errorPage,
 		element: <ErrorPage error={Error('Страница не найдена')} />,
 	},
 ])

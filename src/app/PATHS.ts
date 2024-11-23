@@ -1,12 +1,10 @@
 export const PATHS = {
-	authorization: '/',
-	welcome: '/welcome',
-	finishSetup: '/finishSetup',
-	profile: '/profile',
+	authorizationPage: '/',
+	welcomePage: '/welcome',
+	profilePage: '/profile',
 	addChannel: '/addChannel/:digestId',
-	settings: '/settings',
 	addDigestTime: '/addDigestTime',
 	digestPage: '/digestPage/:digestId',
-	digestTimeEditPage: '/digestSettingsPage/:digestId',
-	error: '/*',
+	digestSettingsPage: '/digestSettingsPage/:digestId',
+	errorPage: '/*',
 }
