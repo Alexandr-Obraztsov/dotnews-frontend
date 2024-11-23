@@ -139,7 +139,7 @@ export const AddChannelPage: React.FC = () => {
 				}
 			/>
 
-			<Box paddingX={'20px'}>
+			<Box paddingX={'20px'} marginTop={'20px'}>
 				<TextField
 					autoComplete='off'
 					value={link}
@@ -175,7 +175,11 @@ export const AddChannelPage: React.FC = () => {
 					<span style={{ fontWeight: 'bold' }}> имя_канала</span>
 				</Typography>
 			</Box>
-			<Box marginTop={'20px'} width={'100%'}>
+			<Box
+				marginTop={'20px'}
+				width={'100%'}
+				border={`2px solid ${theme.section_separator_color}`}
+			>
 				{isLoading ? (
 					<LoadingItem />
 				) : (
