@@ -3,6 +3,7 @@ import { Box, Grid2, TextField, Typography } from '@mui/material'
 import { updateDigestTC } from 'app/store/digestsReducer'
 import { useAppDispatch, useAppSelector } from 'app/store/hooks'
 import { Header } from 'common/components'
+import { EmojiList } from 'common/components/EmojiList/EmojiList'
 import { Wheel } from 'common/components/TimePicker/Wheel'
 import dayjs from 'dayjs'
 import { useCallback, useState } from 'react'
@@ -23,11 +24,15 @@ export const daysOptions = {
 const MAX_NAME_LENGTH = 25
 
 export const DigestSettingsPage = () => {
+	const [emojiDialogOpen, setEmojiDialogOpen] = useState<boolean>(false)
+
 	const { digestId = '' } = useParams()
 
 	const digests = useAppSelector(state => state.digests)
 
 	const digest = digests.find(digest => digest.id === digestId)!
+
+	const [emoji, setEmoji] = useState(digest.emoji)
 
 	const navigate = useNavigate()
 
@@ -67,7 +72,14 @@ export const DigestSettingsPage = () => {
 		setTimeInterval(+interval)
 	}, [])
 
-	const handleClickChangeEmoji = () => {}
+	const handleClickChangeEmoji = () => {
+		setEmojiDialogOpen(true)
+	}
+
+	const handleClickEmoji = (emoji: string) => {
+		setEmoji(emoji)
+		setEmojiDialogOpen(false)
+	}
 
 	const handleSave = () => {
 		const interval = `${timeInterval}.00:00:00`
@@ -80,6 +92,7 @@ export const DigestSettingsPage = () => {
 			...digest,
 			name: digestName,
 			receptionTime: time,
+			emoji,
 			timeInterval: interval,
 		}
 		dispatch(updateDigestTC(newDigest))
@@ -157,7 +170,7 @@ export const DigestSettingsPage = () => {
 					onClick={handleClickChangeEmoji}
 					sx={{ cursor: 'pointer' }}
 				>
-					<ReactTelegramEmoji width={60} />
+					<ReactTelegramEmoji src={emoji} width={60} />
 					<AddReactionIcon
 						sx={{
 							fontSize: '20px',
@@ -258,6 +271,11 @@ export const DigestSettingsPage = () => {
 					onChange={handleUpdateMinutes}
 				/>
 			</Grid2>
+			<EmojiList
+				open={emojiDialogOpen}
+				onClick={handleClickEmoji}
+				onClose={() => setEmojiDialogOpen(false)}
+			/>
 		</Grid2>
 	)
 }

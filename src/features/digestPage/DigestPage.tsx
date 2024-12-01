@@ -3,7 +3,7 @@ import { Grid2, IconButton, Typography } from '@mui/material'
 import { useAppSelector } from 'app/store/hooks'
 import { Header } from 'common/components'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import ReactTelegramEmoji from 'react-telegram-emoji-main'
 import { getDigestTime } from 'utils/getDigestTime'
 import { theme } from 'utils/tg'
@@ -11,17 +11,13 @@ import { ChannelList } from './ChannelList'
 import { PopoverMenu } from './PopoverMenu'
 
 export const DigestPage = () => {
-	const { digestId = '' } = useParams()
-
-	const navigate = useNavigate()
+	const digestId = useParams().digestId
 
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
 	const digest = useAppSelector(state => state.digests).find(
 		digest => digest.id === digestId
 	)!
-
-	const handleClickBack = () => navigate(-1)
 
 	const handleClickMore = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event?.currentTarget)
@@ -40,7 +36,7 @@ export const DigestPage = () => {
 				backButton
 				title={
 					<Grid2 container gap={'10px'} direction={'row'} alignItems={'center'}>
-						<ReactTelegramEmoji width={40} />
+						<ReactTelegramEmoji src={digest.emoji} width={40} />
 						<Grid2 container direction={'column'}>
 							<Typography
 								fontWeight={500}

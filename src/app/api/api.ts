@@ -3,7 +3,7 @@ import { ChannelType } from '../store/channelsReducer'
 import { DigestType } from '../store/digestsReducer'
 import { UserType } from '../store/userReducer'
 
-const server_url = 'https://dotnewsbot.ru/back_api/api'
+const server_url = 'https://secbot.publicvm.com/dotnews'
 
 export const api = {
 	getAllUsers: () => {
@@ -56,7 +56,7 @@ export const api = {
 			name: string
 			timeInterval: string
 			receptionTime: string
-			emojiId: string
+			emoji: string
 		}
 	) => {
 		return axios

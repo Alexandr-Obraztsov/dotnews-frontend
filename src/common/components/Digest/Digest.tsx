@@ -52,7 +52,11 @@ export const Digest = ({
 					alignItems={'center'}
 					wrap={'nowrap'}
 				>
-					<ReactTelegramEmoji alt={digest.name} width={38} />
+					<ReactTelegramEmoji
+						src={digest.emoji}
+						alt={digest.emoji}
+						width={38}
+					/>
 
 					<Grid2
 						container

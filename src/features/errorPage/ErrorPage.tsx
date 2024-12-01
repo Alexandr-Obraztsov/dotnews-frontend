@@ -3,6 +3,7 @@ import Comp1 from 'assets/emoji/Comp 1.json'
 import { Body1 } from 'common/components/styled/Body1'
 import Lottie from 'lottie-react'
 import * as React from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { tg } from 'utils/tg'
 
@@ -13,10 +14,12 @@ type ErrorPagePropsType = {
 export const ErrorPage: React.FC<ErrorPagePropsType> = ({ error }) => {
 	const navigate = useNavigate()
 
-	tg.BackButton.show()
-	tg.BackButton.onClick(() => {
-		navigate(-1)
-	})
+	useEffect(() => {
+		tg.BackButton.show()
+		tg.BackButton.onClick(() => {
+			navigate(-1)
+		})
+	}, [navigate])
 
 	return (
 		<Grid2
@@ -42,8 +45,10 @@ export const ErrorPage: React.FC<ErrorPagePropsType> = ({ error }) => {
 
 				<Typography
 					marginBlockStart={'10px'}
-					marginInline={'20px'}
 					textAlign={'center'}
+					marginX={'20px'}
+					fontSize={'30px'}
+					fontWeight={500}
 				>
 					Что-то пошло не так!
 				</Typography>

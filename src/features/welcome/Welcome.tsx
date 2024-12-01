@@ -49,7 +49,13 @@ export const Welcome = () => {
 						style={{ width: 100, height: 100, backgroundColor: 'transparent' }}
 					/>
 
-					<Typography marginBlockStart={'10px'}>Привет!</Typography>
+					<Typography
+						marginBlockStart={'10px'}
+						fontSize={'30px'}
+						fontWeight={500}
+					>
+						Привет!
+					</Typography>
 
 					<Body1
 						marginBlockStart={'10px'}

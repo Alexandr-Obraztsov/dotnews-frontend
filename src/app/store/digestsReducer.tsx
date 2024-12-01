@@ -89,7 +89,7 @@ export const addDigestTC =
 				name: `Новый Дайджест ${digest_num}`,
 				timeInterval: '1.00:00:00',
 				receptionTime: '09:00:00',
-				emojiId: '573b3894-179c-4d5a-a517-43a8eda5c0e4',
+				emoji: 'f09f928c',
 			})
 			.then(digest => {
 				navigate(PATHS.digestPage.replace(':digestId', digest.id))
