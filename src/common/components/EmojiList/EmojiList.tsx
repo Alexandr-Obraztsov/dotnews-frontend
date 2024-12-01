@@ -34,6 +34,7 @@ export const EmojiList = ({ open, onClick, onClose }: Props) => {
 
 	return (
 		<Dialog open={open} onClose={onClose} fullWidth>
+			<Box padding={'10px'} bgcolor={theme.bg_color}>
 				<Grid2 container justifyContent={'space-between'} alignItems={'center'}>
 					<Typography fontSize={'20px'} fontWeight={500}>
 						Выберите эмоджи
