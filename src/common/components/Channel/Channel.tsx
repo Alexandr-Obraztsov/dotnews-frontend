@@ -3,10 +3,10 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Avatar, Grid2, IconButton, SxProps, Typography } from '@mui/material'
 import { ChannelType } from 'app/store/channelsReducer'
 import { ScrollableItem } from 'common/components/ScrollableItem/ScrollableItem'
-import { title } from 'process'
 import { theme } from 'utils/tg'
 type ChannelPropsType = {
 	channel: ChannelType
+	bgcolor?: string
 	onDelete?: () => void
 	onClick?: () => void
 	sx?: SxProps
@@ -16,10 +16,11 @@ export const Channel = ({
 	channel,
 	onDelete,
 	onClick,
+	bgcolor,
 	sx,
 }: ChannelPropsType) => {
 	return (
-		<ScrollableItem onDelete={onDelete} onClick={onClick}>
+		<ScrollableItem onDelete={onDelete} bgcolor={bgcolor} onClick={onClick}>
 			<Grid2
 				container
 				direction={'row'}
@@ -58,7 +59,7 @@ export const Channel = ({
 								userSelect: 'none',
 							}}
 						>
-							{title}
+							{channel.title}
 						</Typography>
 
 						<Typography

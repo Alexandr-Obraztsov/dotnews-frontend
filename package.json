@@ -19,6 +19,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/react-window": "^1.8.8",
     "@types/telegram-web-app": "^7.10.1",
     "@types/uuid": "^10.0.0",
     "axios": "^1.7.7",

@@ -114,6 +114,12 @@ export const api = {
 		})
 	},
 
+	updateChannelUrl: (channelId: string) => {
+		return axios
+			.post(`${server_url}/channels/${channelId}/refresh-image`)
+			.then(res => res.data)
+	},
+
 	getUrl: (urlId: string, usertelegramId: number) => {
 		return axios
 			.get(`${server_url}/urls/${urlId}?usertelegramId=${usertelegramId}`)

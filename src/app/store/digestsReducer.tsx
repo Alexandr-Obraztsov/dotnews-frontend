@@ -3,7 +3,7 @@ import { NavigateFunction } from 'react-router-dom'
 import { Dispatch } from 'redux'
 import { userTG } from 'utils/tg'
 import { api } from '../api/api'
-import { getChannels } from './channelsReducer'
+import { getChannelsTC } from './channelsReducer'
 import { AppStateType } from './store'
 
 export type DigestType = {
@@ -73,7 +73,7 @@ type DigestsAT = AddDigestAT | SetDigestsAT | UpdateDigestAT | DeleteDigestAT
 export const getDigestsTC = () => (dispatch: Dispatch<any>) => {
 	api.getDigests(userTG!.id).then(digests => {
 		dispatch(setDigestsAC(digests))
-		digests.forEach(digest => dispatch(getChannels(digest.id)))
+		digests.forEach(digest => dispatch(getChannelsTC(digest.id)))
 	})
 }
 

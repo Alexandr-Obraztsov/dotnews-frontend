@@ -1,19 +1,21 @@
 import DeleteIcon from '@mui/icons-material/Delete'
-import { Box, BoxProps } from '@mui/material'
+import { Box } from '@mui/material'
 import React, { useState } from 'react'
 import { theme } from 'utils/tg'
 import { BasicItem } from './BasicItem'
 
-type ItemPropsType = BoxProps & {
+type ItemPropsType = {
 	onClick?: () => void
 	onDelete?: () => void
 	children?: React.ReactNode
+	bgcolor?: string
 }
 
 export const ScrollableItem = ({
 	children,
 	onDelete,
-	...props
+	onClick,
+	bgcolor,
 }: ItemPropsType) => {
 	const [transformX, setTransformX] = useState<number>(0)
 	const [isDragging, setIsDragging] = useState<boolean>(false)
@@ -87,12 +89,12 @@ export const ScrollableItem = ({
 				<DeleteIcon />
 			</Box>
 			<BasicItem
+				bgcolor={bgcolor}
 				onTouchStart={onDelete && handleTouchStart}
 				onMouseDown={onDelete && handleMouseDown}
 				transform={`translateX(${transformX}px)`}
 				isPressed={isPressed}
-				{...props}
-				onClick={!isDragging ? props.onClick : undefined}
+				onClick={!isDragging ? onClick : undefined}
 			>
 				{children}
 			</BasicItem>

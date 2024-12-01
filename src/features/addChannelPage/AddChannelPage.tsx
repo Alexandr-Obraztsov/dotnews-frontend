@@ -15,14 +15,20 @@ import { LoadingItem } from 'common/components/ScrollableItem/LoadingItem'
 import * as React from 'react'
 import { ChangeEvent, useState } from 'react'
 import { useQuery } from 'react-query'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { hexToRgba } from 'utils/hexToRgba'
+import { isValidImageUrl } from 'utils/isValidImageUrl'
 import { theme } from 'utils/tg'
 
 const fetchChannel = (link: string) => {
 	return api
 		.getChannel(link)
-		.then(data => data)
+		.then(data =>
+			isValidImageUrl(data.imageUrl).then(isValid => {
+				if (isValid) return data
+				else return api.updateChannelUrl(data.id)
+			})
+		)
 		.catch(er =>
 			api
 				.addChannel(link)
@@ -46,8 +52,6 @@ export const AddChannelPage: React.FC = () => {
 	const [alert, setAlert] = useState<AlertStateType>({} as AlertStateType)
 
 	const muiTheme = useTheme()
-
-	const navigate = useNavigate()
 
 	const dispatch = useAppDispatch()
 
@@ -176,9 +180,9 @@ export const AddChannelPage: React.FC = () => {
 				) : (
 					data?.title && (
 						<Channel
+							bgcolor={theme.secondary_bg_color}
 							channel={data}
 							onClick={handleChannelClick}
-							sx={{ backgroundColor: theme.secondary_bg_color }}
 						/>
 					)
 				)}

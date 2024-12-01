@@ -2,9 +2,11 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import * as React from 'react'
+import { useEffect } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
+import { tg } from 'utils/tg'
 import { globalTheme } from '../utils/theme'
 import { router } from './router'
 import { store } from './store/store'
@@ -12,6 +14,10 @@ import { store } from './store/store'
 const queryClient = new QueryClient()
 
 export const App: React.FC = () => {
+	useEffect(() => {
+		tg.ready()
+	}, [])
+
 	return (
 		<ThemeProvider theme={globalTheme}>
 			<CssBaseline>

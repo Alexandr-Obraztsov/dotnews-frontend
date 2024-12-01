@@ -4,6 +4,7 @@ import { theme } from 'utils/tg'
 
 type BasicItemPropsType = BoxProps & {
 	transform?: string
+	bgcolor?: string
 	isPressed?: boolean
 }
 
@@ -11,6 +12,7 @@ export const BasicItem: FC<BasicItemPropsType> = ({
 	isPressed,
 	transform,
 	children,
+	bgcolor,
 	...props
 }) => {
 	return (
@@ -20,7 +22,7 @@ export const BasicItem: FC<BasicItemPropsType> = ({
 			padding={'15px 20px'}
 			alignItems={'center'}
 			overflow={'hidden'}
-			bgcolor={theme.bg_color}
+			bgcolor={bgcolor || theme.bg_color}
 			sx={{
 				transform: transform,
 				transition: isPressed ? 'none' : 'transform 0.3s ease',
@@ -34,7 +36,7 @@ export const BasicItem: FC<BasicItemPropsType> = ({
 					right: 0,
 					bottom: 0,
 					left: 0,
-					bgcolor: theme.bg_color,
+					bgcolor: bgcolor || theme.bg_color,
 					filter: 'brightness(1.2)',
 				},
 			}}
