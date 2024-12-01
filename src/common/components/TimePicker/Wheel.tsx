@@ -92,7 +92,7 @@ export const Wheel = memo(
 					selectId = i
 					selectRadius = Math.abs(rotate)
 				}
-				const style = {
+				const style: any = {
 					transform: `rotateX(${rotate}deg) translateZ(${radius}px)`,
 					WebkitTransform: `rotateX(${rotate}deg) translateZ(${radius}px)`,
 				}
@@ -102,6 +102,8 @@ export const Wheel = memo(
 				values.push({ style, value })
 			}
 
+			values[selectId].style['fontSize'] = '18px'
+			values[selectId].style['filter'] = 'drop-shadow(0 0 3px #757575)'
 			if (selectId !== lastValue.current) {
 				props.onChange?.(selectId)
 				lastValue.current = selectId

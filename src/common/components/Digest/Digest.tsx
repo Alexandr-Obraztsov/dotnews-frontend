@@ -41,10 +41,10 @@ export const Digest = ({
 				container
 				direction={'row'}
 				wrap={'nowrap'}
-				alignItems={'center'}
 				justifyContent={'space-between'}
-				position={'relative'}
+				alignItems={'center'}
 				width={'100%'}
+				zIndex={2}
 			>
 				<Grid2
 					container

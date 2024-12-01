@@ -205,7 +205,7 @@ export const DigestSettingsPage = () => {
 				container
 				marginX={'auto'}
 				boxSizing={'content-box'}
-				height={'60px'}
+				height={'100px'}
 				marginTop={'20px'}
 				wrap={'nowrap'}
 				position={'relative'}
@@ -233,8 +233,8 @@ export const DigestSettingsPage = () => {
 				<Wheel
 					loop
 					initIdx={timeInterval - 1}
-					wheelSize={7}
-					slidesPerView={4}
+					wheelSize={10}
+					slidesPerView={5}
 					length={Object.keys(daysOptions).length}
 					width={120}
 					setValue={convertNumberToInterval}
@@ -250,8 +250,8 @@ export const DigestSettingsPage = () => {
 				<Wheel
 					loop
 					initIdx={receptionTime.hours}
-					wheelSize={7}
-					slidesPerView={4}
+					wheelSize={10}
+					slidesPerView={5}
 					length={23}
 					width={20}
 					setValue={convertNumberToTime}
@@ -263,8 +263,8 @@ export const DigestSettingsPage = () => {
 				<Wheel
 					loop
 					initIdx={receptionTime.minutes}
-					wheelSize={7}
-					slidesPerView={4}
+					wheelSize={10}
+					slidesPerView={5}
 					length={60}
 					width={20}
 					setValue={convertNumberToTime}

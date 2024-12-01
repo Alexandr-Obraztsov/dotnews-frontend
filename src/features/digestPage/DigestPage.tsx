@@ -1,9 +1,10 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { Grid2, IconButton, Typography } from '@mui/material'
+import { PATHS } from 'app/PATHS'
 import { useAppSelector } from 'app/store/hooks'
 import { Header } from 'common/components'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import ReactTelegramEmoji from 'react-telegram-emoji-main'
 import { getDigestTime } from 'utils/getDigestTime'
 import { theme } from 'utils/tg'
@@ -13,6 +14,8 @@ import { PopoverMenu } from './PopoverMenu'
 export const DigestPage = () => {
 	const digestId = useParams().digestId
 
+	const navigate = useNavigate()
+
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
 	const digest = useAppSelector(state => state.digests).find(
@@ -20,7 +23,11 @@ export const DigestPage = () => {
 	)!
 
 	const handleClickMore = (event: React.MouseEvent<HTMLButtonElement>) => {
-		setAnchorEl(event?.currentTarget)
+		setAnchorEl(event?.currentTarget.parentElement as HTMLButtonElement)
+	}
+
+	const handleClickHeader = () => {
+		navigate(PATHS.digestSettingsPage.replace(':digestId', digest.id))
 	}
 
 	return (
@@ -35,7 +42,14 @@ export const DigestPage = () => {
 			<Header
 				backButton
 				title={
-					<Grid2 container gap={'10px'} direction={'row'} alignItems={'center'}>
+					<Grid2
+						container
+						gap={'10px'}
+						direction={'row'}
+						alignItems={'center'}
+						onClick={handleClickHeader}
+						sx={{ cursor: 'pointer' }}
+					>
 						<ReactTelegramEmoji src={digest.emoji} width={40} />
 						<Grid2 container direction={'column'}>
 							<Typography

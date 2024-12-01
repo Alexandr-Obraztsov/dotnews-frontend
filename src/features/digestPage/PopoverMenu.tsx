@@ -25,8 +25,8 @@ export const PopoverMenu = ({ anchorElement, setAnchorEl }: Props) => {
 			onClick: () => {
 				navigate(PATHS.addChannel.replace(':digestId', digestId))
 			},
-			color: theme.text_color,
-			icon: <AddSharpIcon fontSize='small' />,
+			color: theme.accent_text_color,
+			icon: <AddSharpIcon />,
 			text: 'Добавить канал',
 		},
 		{
@@ -34,7 +34,7 @@ export const PopoverMenu = ({ anchorElement, setAnchorEl }: Props) => {
 				navigate(PATHS.digestSettingsPage.replace(':digestId', digestId))
 			},
 			color: theme.text_color,
-			icon: <TuneSharpIcon fontSize='small' />,
+			icon: <TuneSharpIcon />,
 			text: 'Настройки',
 		},
 		{
@@ -43,7 +43,7 @@ export const PopoverMenu = ({ anchorElement, setAnchorEl }: Props) => {
 				navigate(PATHS.profilePage)
 			},
 			color: theme.destructive_text_color,
-			icon: <DeleteOutlineOutlinedIcon fontSize='small' />,
+			icon: <DeleteOutlineOutlinedIcon />,
 			text: 'Удалить дайджест',
 		},
 	]
@@ -54,7 +54,8 @@ export const PopoverMenu = ({ anchorElement, setAnchorEl }: Props) => {
 			container
 			alignItems={'center'}
 			gap={'10px'}
-			paddingY={'5px'}
+			paddingY={'10px'}
+			paddingX={'15px'}
 			color={button.color}
 			onClick={button.onClick}
 			sx={{
@@ -62,7 +63,7 @@ export const PopoverMenu = ({ anchorElement, setAnchorEl }: Props) => {
 			}}
 		>
 			{button.icon}
-			<Typography fontSize={'14px'} color='inherit'>
+			<Typography fontSize={'16px'} color='inherit' fontWeight={400}>
 				{button.text}
 			</Typography>
 		</Grid2>
@@ -85,12 +86,16 @@ export const PopoverMenu = ({ anchorElement, setAnchorEl }: Props) => {
 				vertical: 'top',
 				horizontal: 'right',
 			}}
+			transitionDuration={100}
+			sx={{
+				transform: 'translateY(2px)',
+			}}
 		>
 			<Grid2
 				container
+				bgcolor={theme.secondary_bg_color}
 				direction={'column'}
-				padding={'2px 10px'}
-				minWidth={'200px'}
+				minWidth={'250px'}
 			>
 				{renderedButtons}
 			</Grid2>

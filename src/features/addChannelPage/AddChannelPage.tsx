@@ -176,7 +176,7 @@ export const AddChannelPage: React.FC = () => {
 				) : (
 					data?.title && (
 						<Channel
-							{...data}
+							channel={data}
 							onClick={handleChannelClick}
 							sx={{ backgroundColor: theme.secondary_bg_color }}
 						/>

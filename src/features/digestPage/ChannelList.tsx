@@ -14,10 +14,7 @@ export const ChannelList = () => {
 	const dispatch = useAppDispatch()
 
 	return (
-		<Stack
-			divider={<Divider color={tg.themeParams.section_separator_color} />}
-			bgcolor={tg.themeParams.bg_color}
-		>
+		<Stack divider={<Divider color={tg.themeParams.section_separator_color} />}>
 			{channels.map(channel => {
 				const onDeleteHandler = () => {
 					dispatch(deleteChannelAC({ digestId, channel }))
@@ -29,7 +26,11 @@ export const ChannelList = () => {
 				}
 
 				return (
-					<Channel key={channel.id} {...channel} onDelete={onDeleteHandler} />
+					<Channel
+						key={channel.id}
+						channel={channel}
+						onDelete={onDeleteHandler}
+					/>
 				)
 			})}
 		</Stack>

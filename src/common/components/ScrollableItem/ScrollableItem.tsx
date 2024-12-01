@@ -1,9 +1,11 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Box, BoxProps } from '@mui/material'
 import React, { useState } from 'react'
+import { theme } from 'utils/tg'
 import { BasicItem } from './BasicItem'
 
 type ItemPropsType = BoxProps & {
+	onClick?: () => void
 	onDelete?: () => void
 	children?: React.ReactNode
 }
@@ -15,6 +17,7 @@ export const ScrollableItem = ({
 }: ItemPropsType) => {
 	const [transformX, setTransformX] = useState<number>(0)
 	const [isDragging, setIsDragging] = useState<boolean>(false)
+	const [isPressed, setIsPressed] = useState<boolean>(false) // Новый флаг
 	const stoppedX = 75
 	let startX = 0
 	let offset = 0
@@ -22,7 +25,8 @@ export const ScrollableItem = ({
 	const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
 		startX = event.changedTouches[0].clientX
 		offset = transformX
-		setIsDragging(true)
+		setIsPressed(true)
+		setIsDragging(false)
 		window.addEventListener('touchmove', handleTouchMove)
 		window.addEventListener('touchend', handleTouchEnd)
 	}
@@ -30,33 +34,36 @@ export const ScrollableItem = ({
 	const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
 		startX = event.clientX
 		offset = transformX
-		setIsDragging(true)
-		window.addEventListener('mouseup', handleMouseUp)
+		setIsPressed(true)
+		setIsDragging(false)
 		window.addEventListener('mousemove', handleMouseMove)
+		window.addEventListener('mouseup', handleMouseUp)
 	}
 
 	const handleTouchMove = (event: TouchEvent) => {
 		const deltaX = event.changedTouches[0].clientX - startX
 		offset = transformX + deltaX
+		if (Math.abs(deltaX) > 5) setIsDragging(true)
 		setTransformX(offset < 0 ? offset : 0)
 	}
 
 	const handleMouseMove = (event: MouseEvent) => {
 		const deltaX = event.clientX - startX
 		offset = transformX + deltaX
+		if (Math.abs(deltaX) > 5) setIsDragging(true)
 		setTransformX(offset < 0 ? offset : 0)
 	}
 
-	const handleTouchEnd = () => {
+	const handleTouchEnd = (ev: TouchEvent) => {
 		setTransformX(offset <= -stoppedX ? -stoppedX : 0)
-		setIsDragging(false)
+		setIsPressed(false)
 		window.removeEventListener('touchmove', handleTouchMove)
 		window.removeEventListener('touchend', handleTouchEnd)
 	}
 
-	const handleMouseUp = () => {
+	const handleMouseUp = (ev: MouseEvent) => {
 		setTransformX(offset <= -stoppedX ? -stoppedX : 0)
-		setIsDragging(false)
+		setIsPressed(false)
 		window.removeEventListener('mousemove', handleMouseMove)
 		window.removeEventListener('mouseup', handleMouseUp)
 	}
@@ -64,7 +71,7 @@ export const ScrollableItem = ({
 	return (
 		<Box overflow={'hidden'} position={'relative'} sx={{ userSelect: 'none' }}>
 			<Box
-				bgcolor={'error.main'}
+				bgcolor={theme.destructive_text_color}
 				position={'absolute'}
 				top={0}
 				right={0}
@@ -83,9 +90,9 @@ export const ScrollableItem = ({
 				onTouchStart={onDelete && handleTouchStart}
 				onMouseDown={onDelete && handleMouseDown}
 				transform={`translateX(${transformX}px)`}
-				isDragging={isDragging}
+				isPressed={isPressed}
 				{...props}
-				onClick={props.onClick}
+				onClick={!isDragging ? props.onClick : undefined}
 			>
 				{children}
 			</BasicItem>

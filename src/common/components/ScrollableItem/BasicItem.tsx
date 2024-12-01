@@ -4,11 +4,11 @@ import { theme } from 'utils/tg'
 
 type BasicItemPropsType = BoxProps & {
 	transform?: string
-	isDragging?: boolean
+	isPressed?: boolean
 }
 
 export const BasicItem: FC<BasicItemPropsType> = ({
-	isDragging,
+	isPressed,
 	transform,
 	children,
 	...props
@@ -23,8 +23,8 @@ export const BasicItem: FC<BasicItemPropsType> = ({
 			bgcolor={theme.bg_color}
 			sx={{
 				transform: transform,
-				transition: isDragging ? 'none' : 'transform 0.3s ease',
-				cursor: isDragging ? 'grab' : 'pointer',
+				transition: isPressed ? 'none' : 'transform 0.3s ease',
+				cursor: isPressed ? 'grab' : 'pointer',
 				pointerEvents: 'all',
 				'&:hover::before': {
 					cursor: 'pointer',
