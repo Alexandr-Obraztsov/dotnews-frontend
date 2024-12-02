@@ -17,7 +17,7 @@ export const Authorization = () => {
 		if (urlId) {
 			api.getUrl(urlId, tg.initDataUnsafe.user!.id).then(data => {
 				window.Telegram.WebApp.openTelegramLink(data.url)
-				setTimeout(() => window.Telegram.WebApp.close(), 500)
+				setTimeout(() => window.Telegram.WebApp.close(), 10000)
 			})
 		} else dispatch(getUserTC(navigate))
 	}, [dispatch, navigate])
