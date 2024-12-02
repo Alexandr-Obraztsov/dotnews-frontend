@@ -35,7 +35,6 @@
 }
 
 .wheel__slide {
-	transition: font-size 0.2s ease-in-out;
 	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
 	display: flex;
