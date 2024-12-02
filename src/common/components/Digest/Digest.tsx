@@ -29,7 +29,7 @@ export const Digest = ({
 			style={{
 				width: 25,
 				height: 25,
-				borderRadius: 10,
+				borderRadius: 25,
 				marginLeft: index ? '-8px' : '0',
 			}}
 		/>
