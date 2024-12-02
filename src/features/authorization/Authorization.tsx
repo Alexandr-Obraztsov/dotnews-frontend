@@ -13,6 +13,7 @@ export const Authorization = () => {
 
 	useEffect(() => {
 		const urlId = window.Telegram.WebApp.initDataUnsafe.start_param
+		window.Telegram.WebApp.setHeaderColor('secondary_bg_color')
 		if (urlId) {
 			api.getUrl(urlId, tg.initDataUnsafe.user!.id).then(data => {
 				window.Telegram.WebApp.openTelegramLink(data.url)
