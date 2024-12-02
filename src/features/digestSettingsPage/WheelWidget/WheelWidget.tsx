@@ -79,7 +79,7 @@ export const WheelWidget = ({ timeRef }: Props) => {
 				wheelSize={10}
 				slidesPerView={5}
 				length={Object.keys(daysOptions).length}
-				width={120}
+				width={135}
 				setValue={convertNumberToInterval}
 				onChange={handleUpdateTimeInterval}
 				slideStyle={{
@@ -96,7 +96,7 @@ export const WheelWidget = ({ timeRef }: Props) => {
 				wheelSize={10}
 				slidesPerView={5}
 				length={23}
-				width={20}
+				width={30}
 				setValue={convertNumberToTime}
 				onChange={handleUpdateHours}
 			/>
@@ -109,7 +109,7 @@ export const WheelWidget = ({ timeRef }: Props) => {
 				wheelSize={10}
 				slidesPerView={5}
 				length={60}
-				width={20}
+				width={30}
 				setValue={convertNumberToTime}
 				onChange={handleUpdateMinutes}
 			/>

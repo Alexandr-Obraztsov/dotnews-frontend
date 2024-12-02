@@ -30,6 +30,11 @@ export const ChannelList = () => {
 						key={channel.id}
 						channel={channel}
 						onDelete={onDeleteHandler}
+						onClick={() =>
+							window.Telegram.WebApp.openTelegramLink(
+								`https://t.me/${channel.telegramName}`
+							)
+						}
 					/>
 				)
 			})}

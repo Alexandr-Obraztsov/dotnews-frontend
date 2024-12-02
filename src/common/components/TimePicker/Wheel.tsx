@@ -104,7 +104,7 @@ export const Wheel = memo(
 				values.push({ style, value })
 			}
 
-			values[selectId].style['fontSize'] = '18px'
+			values[selectId].style['fontSize'] = '20px'
 			if (selectId !== lastValue.current) {
 				props.onChange?.(selectId)
 				lastValue.current = selectId

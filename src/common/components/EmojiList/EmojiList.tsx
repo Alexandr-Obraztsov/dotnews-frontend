@@ -50,7 +50,7 @@ export const EmojiList = memo(({ open, onClick, onClose }: Props) => {
 	)
 
 	return (
-		<Dialog open={open} onClose={onClose}>
+		<Dialog open={open} onClose={onClose} transitionDuration={0}>
 			<Box padding={'10px'} bgcolor={theme.bg_color}>
 				<Grid2 container justifyContent={'space-between'} alignItems={'center'}>
 					<Typography fontSize={'20px'} fontWeight={500}>
