@@ -4,12 +4,12 @@ import { updateDigestTC } from 'app/store/digestsReducer'
 import { useAppDispatch, useAppSelector } from 'app/store/hooks'
 import { Header } from 'common/components'
 import { EmojiList } from 'common/components/EmojiList/EmojiList'
-import { Wheel } from 'common/components/TimePicker/Wheel'
 import dayjs from 'dayjs'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ReactTelegramEmoji from 'react-telegram-emoji-main'
 import { theme } from 'utils/tg'
+import { WheelWidget } from './WheelWidget/WheelWidget'
 
 export const daysOptions = {
 	1: 'Ежедневно',
@@ -26,11 +26,17 @@ const MAX_NAME_LENGTH = 25
 export const DigestSettingsPage = () => {
 	const [emojiDialogOpen, setEmojiDialogOpen] = useState<boolean>(false)
 
-	const { digestId = '' } = useParams()
+	const digestId = useParams().digestId
 
 	const digests = useAppSelector(state => state.digests)
 
 	const digest = digests.find(digest => digest.id === digestId)!
+
+	const timeRef = useRef({
+		hours: +dayjs(digest.receptionTime, 'HH:mm:ss').format('HH'),
+		minutes: +dayjs(digest.receptionTime, 'HH:mm:ss').format('mm'),
+		timeInterval: +dayjs(digest.timeInterval, 'D.HH:mm:ss').format('D'),
+	})
 
 	const [emoji, setEmoji] = useState(digest.emoji)
 
@@ -42,36 +48,6 @@ export const DigestSettingsPage = () => {
 
 	const [error, setError] = useState('')
 
-	const [receptionTime, setReceptionTime] = useState({
-		hours: +dayjs(digest.receptionTime, 'HH:mm:ss').format('HH'),
-		minutes: +dayjs(digest.receptionTime, 'HH:mm:ss').format('mm'),
-	})
-
-	const [timeInterval, setTimeInterval] = useState(
-		+dayjs(digest.timeInterval, 'D.HH:mm:ss').format('D')
-	)
-
-	const convertNumberToTime = useCallback((relative: number) => {
-		return relative < 10 ? `0${relative}` : `${relative}`
-	}, [])
-
-	const convertNumberToInterval = useCallback((relative: number) => {
-		return Object.values(daysOptions)[relative]
-	}, [])
-
-	const handleUpdateHours = useCallback((hours: number) => {
-		setReceptionTime(prev => ({ ...prev, hours }))
-	}, [])
-
-	const handleUpdateMinutes = useCallback((minutes: number) => {
-		setReceptionTime(prev => ({ ...prev, minutes }))
-	}, [])
-
-	const handleUpdateTimeInterval = useCallback((value: number) => {
-		const interval = Object.keys(daysOptions)[value]
-		setTimeInterval(+interval)
-	}, [])
-
 	const handleClickChangeEmoji = () => {
 		setEmojiDialogOpen(true)
 	}
@@ -81,11 +57,15 @@ export const DigestSettingsPage = () => {
 		setEmojiDialogOpen(false)
 	}
 
+	const convertNumberToTime = useCallback((relative: number) => {
+		return relative < 10 ? `0${relative}` : `${relative}`
+	}, [])
+
 	const handleSave = () => {
-		const interval = `${timeInterval}.00:00:00`
+		const interval = `${timeRef.current.timeInterval}.00:00:00`
 		const time = `${convertNumberToTime(
-			receptionTime.hours
-		)}:${convertNumberToTime(receptionTime.minutes)}:00`
+			timeRef.current.hours
+		)}:${convertNumberToTime(timeRef.current.minutes)}:00`
 		navigate(-1)
 
 		const newDigest = {
@@ -201,76 +181,8 @@ export const DigestSettingsPage = () => {
 				/>
 			</Grid2>
 
-			<Grid2
-				container
-				marginX={'auto'}
-				boxSizing={'content-box'}
-				height={'100px'}
-				marginTop={'20px'}
-				wrap={'nowrap'}
-				position={'relative'}
-				alignItems={'center'}
-				width={'min-content'}
-				padding={'10px 20px'}
-				gap={'10px'}
-				justifyContent={'center'}
-				direction={'row'}
-				sx={{
-					'&::before': {
-						content: "''",
-						position: 'absolute',
-						top: 0,
-						left: 0,
-						bottom: 0,
-						right: 0,
-						border: `2px solid ${theme.accent_text_color}`,
-						zIndex: 999,
-						pointerEvents: 'none',
-						borderRadius: '5px',
-					},
-				}}
-			>
-				<Wheel
-					loop
-					initIdx={timeInterval - 1}
-					wheelSize={10}
-					slidesPerView={5}
-					length={Object.keys(daysOptions).length}
-					width={120}
-					setValue={convertNumberToInterval}
-					onChange={handleUpdateTimeInterval}
-					slideStyle={{
-						letterSpacing: '-0.5px',
-						whiteSpace: 'nowrap',
-					}}
-				/>
-				<Typography zIndex={2} fontSize={'16px'} fontWeight={400}>
-					в
-				</Typography>
-				<Wheel
-					loop
-					initIdx={receptionTime.hours}
-					wheelSize={10}
-					slidesPerView={5}
-					length={23}
-					width={20}
-					setValue={convertNumberToTime}
-					onChange={handleUpdateHours}
-				/>
-				<Typography zIndex={2} fontSize={'16px'} fontWeight={400}>
-					:
-				</Typography>
-				<Wheel
-					loop
-					initIdx={receptionTime.minutes}
-					wheelSize={10}
-					slidesPerView={5}
-					length={60}
-					width={20}
-					setValue={convertNumberToTime}
-					onChange={handleUpdateMinutes}
-				/>
-			</Grid2>
+			<WheelWidget timeRef={timeRef} />
+
 			<EmojiList
 				open={emojiDialogOpen}
 				onClick={handleClickEmoji}

@@ -7,33 +7,50 @@ import {
 	IconButton,
 	Typography,
 } from '@mui/material'
-import { useMemo } from 'react'
+import { forwardRef } from 'react'
 import ReactTelegramEmoji from 'react-telegram-emoji-main'
 import { emoji_data } from 'react-telegram-emoji-main/emoji_data'
+import { FixedSizeGrid } from 'react-window'
 import { theme } from 'utils/tg'
+
 type Props = {
 	open: boolean
 	onClick: (emoji: string) => void
 	onClose: () => void
 }
 
+const GUTTER_SIZE = 5
+
 export const EmojiList = ({ open, onClick, onClose }: Props) => {
-	const emojies = useMemo(
-		() =>
-			Object.keys(emoji_data).map(emoji => (
-				<Box
-					key={emoji}
-					onClick={() => onClick(emoji)}
-					sx={{ cursor: 'pointer' }}
-				>
-					<ReactTelegramEmoji src={emoji} width={30} />
-				</Box>
-			)),
-		[]
+	const getEmoji = (rowIndex: number, columnIndex: number) => {
+		return Object.keys(emoji_data)[rowIndex * 8 + columnIndex]
+	}
+
+	const handleClick = (emoji: string) => {
+		onClick(emoji)
+	}
+
+	const Emoji = ({ columnIndex, rowIndex, style }: any) => (
+		<div
+			style={{
+				...style,
+				left: style.left + GUTTER_SIZE,
+				top: style.top + GUTTER_SIZE,
+				width: style.width - GUTTER_SIZE,
+				height: style.height - GUTTER_SIZE,
+				cursor: 'pointer',
+			}}
+			onClick={() => handleClick(getEmoji(rowIndex, columnIndex))}
+		>
+			<ReactTelegramEmoji
+				width={style.width - GUTTER_SIZE}
+				src={getEmoji(rowIndex, columnIndex)}
+			/>
+		</div>
 	)
 
 	return (
-		<Dialog open={open} onClose={onClose} fullWidth>
+		<Dialog open={open} onClose={onClose}>
 			<Box padding={'10px'} bgcolor={theme.bg_color}>
 				<Grid2 container justifyContent={'space-between'} alignItems={'center'}>
 					<Typography fontSize={'20px'} fontWeight={500}>
@@ -47,7 +64,6 @@ export const EmojiList = ({ open, onClick, onClose }: Props) => {
 				<Grid2
 					container
 					display={'grid'}
-					width={'100%'}
 					gridTemplateColumns={'repeat(auto-fill, minmax(30px, 1fr))'}
 					justifyContent={'center'}
 					bgcolor={theme.secondary_bg_color}
@@ -58,7 +74,18 @@ export const EmojiList = ({ open, onClick, onClose }: Props) => {
 					overflow={'auto'}
 					mt={1}
 				>
-					{emojies}
+					<FixedSizeGrid
+						className='Grid'
+						innerElementType={innerElementType}
+						columnCount={7}
+						columnWidth={35}
+						height={260}
+						rowCount={Math.ceil(Object.keys(emoji_data).length / 7)}
+						rowHeight={35}
+						width={260}
+					>
+						{Emoji}
+					</FixedSizeGrid>
 				</Grid2>
 				<Button variant='text' sx={{ mt: 2 }} fullWidth onClick={onClose}>
 					Отмена
@@ -67,3 +94,18 @@ export const EmojiList = ({ open, onClick, onClose }: Props) => {
 		</Dialog>
 	)
 }
+
+const innerElementType = forwardRef<
+	HTMLDivElement,
+	{ style: React.CSSProperties }
+>(({ style, ...rest }, ref) => (
+	<div
+		ref={ref}
+		style={{
+			...style,
+			paddingLeft: GUTTER_SIZE,
+			paddingTop: GUTTER_SIZE,
+		}}
+		{...rest}
+	/>
+))

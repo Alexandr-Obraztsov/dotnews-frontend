@@ -65,6 +65,8 @@ export const Wheel = memo(
 			mode: 'free-snap',
 		})
 
+		console.log('render Wheel')
+
 		const [sliderRef, slider] = useKeenSlider<HTMLDivElement>(options.current)
 
 		const [radius, setRadius] = React.useState(0)
