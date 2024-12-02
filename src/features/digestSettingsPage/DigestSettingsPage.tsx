@@ -61,6 +61,7 @@ export const DigestSettingsPage = () => {
 	}, [])
 
 	const handleSave = () => {
+		if (error) return
 		const interval = `${timeRef.current.timeInterval}.00:00:00`
 		const time = `${convertNumberToTime(
 			timeRef.current.hours
@@ -160,6 +161,7 @@ export const DigestSettingsPage = () => {
 					/>
 				</Box>
 				<TextField
+					defaultValue={digest.name}
 					inputRef={inputRef}
 					variant='standard'
 					error={!!error}
