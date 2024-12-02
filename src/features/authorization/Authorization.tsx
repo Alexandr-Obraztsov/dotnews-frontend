@@ -18,8 +18,11 @@ export const Authorization = () => {
 		window.Telegram.WebApp.setHeaderColor('secondary_bg_color')
 		if (urlId) {
 			api.getUrl(urlId, tg.initDataUnsafe.user!.id).then(data => {
-				window.Telegram.WebApp.openTelegramLink(data.url)
 				setDescription(data.url)
+				setTimeout(
+					() => window.Telegram.WebApp.openTelegramLink(data.url),
+					1000
+				)
 			})
 		} else dispatch(getUserTC(navigate))
 	}, [dispatch, navigate])
