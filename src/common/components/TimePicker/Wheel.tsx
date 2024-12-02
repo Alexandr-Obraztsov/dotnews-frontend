@@ -105,7 +105,6 @@ export const Wheel = memo(
 			}
 
 			values[selectId].style['fontSize'] = '18px'
-			values[selectId].style['filter'] = 'drop-shadow(0 0 3px #757575)'
 			if (selectId !== lastValue.current) {
 				props.onChange?.(selectId)
 				lastValue.current = selectId

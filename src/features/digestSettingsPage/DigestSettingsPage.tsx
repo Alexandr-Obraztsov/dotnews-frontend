@@ -24,6 +24,10 @@ export const daysOptions = {
 const MAX_NAME_LENGTH = 25
 
 export const DigestSettingsPage = () => {
+	const navigate = useNavigate()
+
+	const dispatch = useAppDispatch()
+
 	const [emojiDialogOpen, setEmojiDialogOpen] = useState<boolean>(false)
 
 	const digestId = useParams().digestId
@@ -38,15 +42,10 @@ export const DigestSettingsPage = () => {
 		timeInterval: +dayjs(digest.timeInterval, 'D.HH:mm:ss').format('D'),
 	})
 
-	const [emoji, setEmoji] = useState(digest.emoji)
-
-	const navigate = useNavigate()
-
-	const dispatch = useAppDispatch()
-
-	const [digestName, setDigestName] = useState(digest.name)
-
+	const inputRef = useRef<HTMLInputElement | null>(null)
 	const [error, setError] = useState('')
+
+	const [emoji, setEmoji] = useState(digest.emoji)
 
 	const handleClickChangeEmoji = () => {
 		setEmojiDialogOpen(true)
@@ -70,7 +69,7 @@ export const DigestSettingsPage = () => {
 
 		const newDigest = {
 			...digest,
-			name: digestName,
+			name: inputRef.current!.value.trim(),
 			receptionTime: time,
 			emoji,
 			timeInterval: interval,
@@ -82,7 +81,6 @@ export const DigestSettingsPage = () => {
 		const value = e.target.value
 		if (value.length > MAX_NAME_LENGTH + 1) return
 		checkName(value)
-		setDigestName(e.target.value)
 	}
 
 	const checkName = (name: string) => {
@@ -162,8 +160,8 @@ export const DigestSettingsPage = () => {
 					/>
 				</Box>
 				<TextField
+					inputRef={inputRef}
 					variant='standard'
-					value={digestName}
 					error={!!error}
 					helperText={error}
 					onChange={handleChangeDigestName}

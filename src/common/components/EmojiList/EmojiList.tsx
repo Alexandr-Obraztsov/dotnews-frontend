@@ -7,7 +7,7 @@ import {
 	IconButton,
 	Typography,
 } from '@mui/material'
-import { forwardRef } from 'react'
+import { forwardRef, memo } from 'react'
 import ReactTelegramEmoji from 'react-telegram-emoji-main'
 import { emoji_data } from 'react-telegram-emoji-main/emoji_data'
 import { FixedSizeGrid } from 'react-window'
@@ -21,7 +21,7 @@ type Props = {
 
 const GUTTER_SIZE = 5
 
-export const EmojiList = ({ open, onClick, onClose }: Props) => {
+export const EmojiList = memo(({ open, onClick, onClose }: Props) => {
 	const getEmoji = (rowIndex: number, columnIndex: number) => {
 		return Object.keys(emoji_data)[rowIndex * 8 + columnIndex]
 	}
@@ -93,7 +93,7 @@ export const EmojiList = ({ open, onClick, onClose }: Props) => {
 			</Box>
 		</Dialog>
 	)
-}
+})
 
 const innerElementType = forwardRef<
 	HTMLDivElement,
